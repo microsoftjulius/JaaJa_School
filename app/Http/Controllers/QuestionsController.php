@@ -24,6 +24,6 @@ class QuestionsController extends Controller
      * This function gets the loggedin teachers id from the teachers table
      */
     private function getLoggedinUsersId(){
-        return Teachers::where('id',$this->loggedin_user_instance->)
+        return Teachers::where('id',$this->loggedin_user_instance->getLoggedInUserID())->value('teachers_login_id');
     }
 }

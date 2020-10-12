@@ -8,6 +8,7 @@ use Tests\TestCase;
 
 class QuestionsTest extends TestCase
 {
+<<<<<<< HEAD
     use RefreshDatabase;
 
     /**
@@ -23,5 +24,17 @@ class QuestionsTest extends TestCase
             'questions_pdf' => 'pdf_link'
         ]);
         $this->assertDatabaseHas('1',['class_id'=>1]);
+=======
+    /**
+     * A basic feature test example.
+     *
+     * @return void
+     */
+    public function testExample()
+    {
+        $response = $this->get('/');
+
+        $response->assertStatus(200);
+>>>>>>> f3806f1080320ce79473786aefece635efcf8d60
     }
 }
