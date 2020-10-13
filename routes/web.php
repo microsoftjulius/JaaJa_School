@@ -16,7 +16,14 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/create-role','RoleController@getRoles');
+Route::get('/get-role','RoleController@getRoles')->name('Roles');
+Route::get('/update-role/{id}','RoleController@deleteRole');
 
+Route::get('/get-user','UserController@getUser')->name('All Users');
+Route::post('/create-user','UserController@getUser');
+Route::patch('/edit-user/{id}','UserController@editUser');
+Route::delete('/delete-user/{id}','UserController@deleteUser');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
