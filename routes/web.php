@@ -18,4 +18,6 @@ use Illuminate\Support\Facades\Route;
 // Auth::routes();
 
 // Route::get('/home', 'HomeController@index')->name('home');
-Route::post('/create-questions','QuestionsController@createQuestions');
+Route::post('/create-questions','QuestionsController@validateQuestions');
+Route::patch('/edit-questions/{question_id}','QuestionsController@editQuestions');
+Route::get('/get-all-questions','QuestionsController@getAllQuestions');

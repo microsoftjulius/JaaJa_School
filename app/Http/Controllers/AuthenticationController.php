@@ -12,4 +12,11 @@ class AuthenticationController extends Controller
     public function getLoggedInUserID(){
         return 1;
     }
+
+    /**
+     * This function gets the loggedin teachers id from the teachers table
+     */
+    public function getLoggedinTeachersId(){
+        return 2;//Teachers::where('teachers_login_id',$this->getLoggedInUserID())->value('id');
+    }
 }
