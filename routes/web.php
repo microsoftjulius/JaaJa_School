@@ -44,6 +44,11 @@ Route::post('/create-subject','SubjectController@validateCreateSubject');
 Route::get('/display-subject','SubjectController@getSubject')->name('Subjects');
 Route::patch('/edit-subject/{id}','SubjectController@editSUbject');
 Route::delete('/delete-subject/{id}','SubjectController@deleteSubject');
+
+Route::post('/create-teacher','TeachersController@validateSubmitTeacher');
+Route::get('/display-teacher','TeachersController@getTeacher')->name('Teachers');
+Route::patch('/edit-teacher/{id}','TeachersController@editTeacher');
+Route::delete('/delete-teacher/{id}','TeachersController@deleteTeacher');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

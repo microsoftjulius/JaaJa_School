@@ -18,6 +18,8 @@ class CreateTeachersTable extends Migration
             $table->unsignedBigInteger('school_id');
             $table->unsignedBigInteger('subject_id');
             $table->unsignedBigInteger('level_id');
+            $table->unsignedBigInteger('teachers_login_id');
+            $table->string('photo');
             $table->enum('status',['active','suspended','transfered','deleted']);
             $table->timestamps();
         });
