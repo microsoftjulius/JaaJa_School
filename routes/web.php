@@ -21,7 +21,7 @@ Route::get('/get-role','RoleController@getRoles')->name('Roles');
 Route::get('/update-role/{id}','RoleController@deleteRole');
 
 Route::get('/get-user','UserController@getUser')->name('All Users');
-Route::post('/create-user','UserController@getUser');
+Route::post('/create-user','UserController@validateUser');
 Route::patch('/edit-user/{id}','UserController@editUser');
 Route::delete('/delete-user/{id}','UserController@deleteUser');
 
@@ -54,6 +54,12 @@ Route::post('/create-home-work','HomeWorkController@validateCreateHomeWork');
 Route::get('/display-home-work','HomeWorkController@getHomeWork')->name('Home Work');
 Route::patch('/edit-home-work/{id}','HomeWorkController@editHomeWork');
 Route::delete('/delete-home-work/{id}','HomeWorkController@deleteHomeWork');
+
+
+Route::post('/create-notes','NotesController@validateCreateNotes');
+Route::get('/display-notes','NotesController@getNotes')->name('Notes');
+Route::patch('/edit-notes/{id}','NotesController@editNotes');
+Route::delete('/delete-notes/{id}','NotesController@deletenotes');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
