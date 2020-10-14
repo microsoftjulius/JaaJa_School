@@ -18,7 +18,7 @@ class CreateStudentsTable extends Migration
             $table->unsignedBigInteger('school_id');
             $table->unsignedBigInteger('level_id');
             $table->unsignedBigInteger('parent_id');
-            $table->string('name');
+            $table->string('student_name');
             $table->string('age');
             $table->enum('status',['active','suspended','deleted'])->default('active');
             $table->timestamps();

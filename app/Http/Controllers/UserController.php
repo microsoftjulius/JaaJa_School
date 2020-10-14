@@ -29,6 +29,6 @@ class UserController extends Controller
     */
     protected function deleteUser($id){
         User::where('id',$id)->update(array( 'status' => 'deleted'));
-        return Redirect()->back()->withErrors("Expenses has been deleted successfully");
+        return Redirect()->back()->withErrors("User has been deleted successfully");
     }
 }
