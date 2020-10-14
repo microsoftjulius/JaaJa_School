@@ -49,6 +49,11 @@ Route::post('/create-teacher','TeachersController@validateSubmitTeacher');
 Route::get('/display-teacher','TeachersController@getTeacher')->name('Teachers');
 Route::patch('/edit-teacher/{id}','TeachersController@editTeacher');
 Route::delete('/delete-teacher/{id}','TeachersController@deleteTeacher');
+
+Route::post('/create-home-work','HomeWorkController@validateCreateHomeWork');
+Route::get('/display-home-work','HomeWorkController@getHomeWork')->name('Home Work');
+Route::patch('/edit-home-work/{id}','HomeWorkController@editHomeWork');
+Route::delete('/delete-home-work/{id}','HomeWorkController@deleteHomeWork');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
