@@ -34,6 +34,11 @@ Route::post('/create-parent','ParentController@validateCreateParent');
 Route::get('/parent-information','ParentController@getParent')->name('Parent');
 Route::patch('/edit-parent/{id}','ParentController@editParentInformation');
 Route::delete('/delete-parent/{id}','ParentController@deleteParent');
+
+Route::post('/create-class','LevelController@validateCraeteClass');
+Route::get('/display-class','LevelController@getClass')->name('Classes');
+Route::patch('/edit-class/{id}','LevelController@editClass');
+Route::delete('/delete-class/{id}','LevelController@deleteClass');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
