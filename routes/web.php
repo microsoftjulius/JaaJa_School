@@ -39,6 +39,11 @@ Route::post('/create-class','LevelController@validateCraeteClass');
 Route::get('/display-class','LevelController@getClass')->name('Classes');
 Route::patch('/edit-class/{id}','LevelController@editClass');
 Route::delete('/delete-class/{id}','LevelController@deleteClass');
+
+Route::post('/create-subject','SubjectController@validateCreateSubject');
+Route::get('/display-subject','SubjectController@getSubject')->name('Subjects');
+Route::patch('/edit-subject/{id}','SubjectController@editSUbject');
+Route::delete('/delete-subject/{id}','SubjectController@deleteSubject');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
