@@ -15,7 +15,7 @@ class CreateParentInformationTable extends Migration
     {
         Schema::create('parent_information', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('parent_name');
             $table->string('contact');
             $table->string('location');
             $table->enum('status',['active','deleted','inactive'])->default('active');

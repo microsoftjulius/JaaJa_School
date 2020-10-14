@@ -55,6 +55,7 @@ class StudentController extends Controller
         $save_student_to_user_table->email     =request()->email;
         $save_student_to_user_table->password  =Hash::make($save_student_to_user_table['password']);
         $save_student_to_user_table->save();
+        return Redirect()->back()->withErrors("Student Information has been created successfully");
     }
     /** 
      * This function validates students information to be submitted

@@ -29,6 +29,11 @@ Route::post('/create-student','StudentController@validatesubmitStudent');
 Route::get('/student','StudentController@getStudent')->name('Student');
 Route::patch('/edit-student/{id}','StudentController@editStudent');
 Route::delete('/delete-student/{id}','StudentController@deleteStudent');
+
+Route::post('/create-parent','ParentController@validateCreateParent');
+Route::get('/parent-information','ParentController@getParent')->name('Parent');
+Route::patch('/edit-parent/{id}','ParentController@editParentInformation');
+Route::delete('/delete-parent/{id}','ParentController@deleteParent');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

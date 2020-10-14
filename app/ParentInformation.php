@@ -7,5 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 class ParentInformation extends Model
 {
     //
-    protected $fillable =['name','contact','location'];
+    protected $fillable =['parent_name','contact','location'];
 }
