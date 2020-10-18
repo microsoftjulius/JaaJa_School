@@ -82,7 +82,7 @@ class TeachersController extends Controller
      * This function deletes teachers softly
     */
     protected function deleteTeacher($id){
-        teacher::where('id',$id)->update(array( 'status' => 'deleted'));
+        teacher::where('id',$id)->delete();
         return Redirect()->back()->withErrors("Teacher has been deleted successfully");
     }
 }

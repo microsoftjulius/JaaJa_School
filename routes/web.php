@@ -15,9 +15,9 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', function () {  return view('welcome');});
-Route::get('/create-role','RoleController@getRoles');
+Route::post('/create-role','RoleController@validateRole');
 Route::get('/get-role','RoleController@getRoles')->name('Roles');
-Route::get('/update-role/{id}','RoleController@deleteRole');
+Route::delete('/delete-role/{id}','RoleController@deleteRole');
 
 Route::get('/get-user','UserController@getUser')->name('All Users');
 Route::post('/create-user','UserController@validateUser');
@@ -54,12 +54,10 @@ Route::get('/display-home-work','HomeWorkController@getHomeWork')->name('Home Wo
 Route::patch('/edit-home-work/{id}','HomeWorkController@editHomeWork');
 Route::delete('/delete-home-work/{id}','HomeWorkController@deleteHomeWork');
 
-
 Route::post('/create-notes','NotesController@validateCreateNotes');
 Route::get('/display-notes','NotesController@getNotes')->name('Notes');
 Route::patch('/edit-notes/{id}','NotesController@editNotes');
 Route::delete('/delete-notes/{id}','NotesController@deletenotes');
-
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::post('/create-questions','QuestionsController@validateQuestions');

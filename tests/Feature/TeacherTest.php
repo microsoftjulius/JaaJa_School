@@ -18,7 +18,7 @@ class TeacherTest extends TestCase
      */
     /** @test */
     public function testCreateTeacher(){
-        $response=$this->post('create-teacher',[
+        $response=$this->post('/create-teacher',[
             'school_id'        =>'1',
             'level_id'         =>'1',
             'subject_id'       =>'1',
@@ -29,8 +29,7 @@ class TeacherTest extends TestCase
             'email' =>'opiojohn@gmail.com',
             'password' =>'0785401795o'
         ]);
-           $this->assertCount(1,teacher::all());
-           // $this->assertCount(1,User::all());
+        $this->assertCount(1,teacher::all());
     }
      /** @test */
     public function getTeacher(){
@@ -47,11 +46,11 @@ class TeacherTest extends TestCase
         $this->assertEquals('Ociba Flaviuos', User::first()->name);
     }
      /** @test */
-     public function testDeleteTeacher(){
+    public function testDeleteTeacher(){
         $this->withoutExceptionHandling();
         $this->testCreateTeacher();
         $delete_teacher = teacher::first();
         $response = $this->delete('delete-teacher/'.$delete_teacher->id);
-        $this->assertCount(1, teacher::all());
+        $this->assertCount(0, teacher::all());
     }
 }
