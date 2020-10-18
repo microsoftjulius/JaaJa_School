@@ -13,9 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+Route::get('/', function () {  return view('welcome');});
 Route::get('/create-role','RoleController@getRoles');
 Route::get('/get-role','RoleController@getRoles')->name('Roles');
 Route::get('/update-role/{id}','RoleController@deleteRole');
@@ -60,6 +59,13 @@ Route::post('/create-notes','NotesController@validateCreateNotes');
 Route::get('/display-notes','NotesController@getNotes')->name('Notes');
 Route::patch('/edit-notes/{id}','NotesController@editNotes');
 Route::delete('/delete-notes/{id}','NotesController@deletenotes');
-Auth::routes();
+
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::post('/create-questions','QuestionsController@validateQuestions');
+Route::patch('/edit-questions/{question_id}','QuestionsController@editQuestions');
+Route::get('/get-all-questions','QuestionsController@getAllQuestions');
+Route::delete('/delete-question/{question_id}','QuestionsController@deleteQuestion');
+Route::get('/get-school-questions','QuestionsController@getSchoolQuestions');
+
+Auth::routes();
