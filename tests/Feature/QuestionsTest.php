@@ -48,4 +48,25 @@ class QuestionsTest extends TestCase
         $response = $this->get('/get-all-questions');
         $response->assertOk();
     }
+
+    /**
+     * This function deletes the questions and saves who has deleted the question
+     * @test
+     */
+    public function deleteQuestions(){
+        $this->createQuestions();
+        $question_id = Questions::first();
+        $response = $this->delete('/delete-question/'.$question_id->id);
+        $this->assertCount(0,Questions::all());
+    }
+
+    /**
+     * This functions gets the questions of a particular school
+     * @test
+     */
+    public function getSchoolQuestions(){
+        $this->createQuestions();
+        $response = $this->get('/get-school-questions');
+        $response->assertOk();
+    }
 }

@@ -46,4 +46,42 @@ class QuestionsController extends Controller
             'class_id'      => request()->class_id
         ));
     }
+
+    /**
+     * This function returns the questions blade
+     */
+    protected function getAllQuestions(){
+        return $this->getQuestions();
+    }
+
+    /**
+     * This function gets all the questions, questions are returned to every student independent
+     * of the school
+     */
+    private function getQuestions(){
+        $all_questions = Questions::get();
+        return $all_questions;
+    }
+
+    /**
+     * This function deletes the question
+     */
+    protected function deleteQuestion($questions_id){
+        Questions::find($questions_id)->delete();
+    }
+
+    /**
+     * This function returns the view for viewing questions of a particular school
+     */
+    protected function getSchoolQuestions(){
+        $school_questions = $this->getSchoolQuestionsCollection();
+        return $school_questions;
+    }
+
+    /**
+     * This function returns the collection of a particular school
+     */
+    private function getSchoolQuestionsCollection(){
+        return Questions::where('school_id',$this->loggedin_user_instance->getLoggedInUserID())->get();
+    }
 }

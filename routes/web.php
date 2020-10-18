@@ -21,3 +21,5 @@ use Illuminate\Support\Facades\Route;
 Route::post('/create-questions','QuestionsController@validateQuestions');
 Route::patch('/edit-questions/{question_id}','QuestionsController@editQuestions');
 Route::get('/get-all-questions','QuestionsController@getAllQuestions');
+Route::delete('/delete-question/{question_id}','QuestionsController@deleteQuestion');
+Route::get('/get-school-questions','QuestionsController@getSchoolQuestions');
