@@ -70,4 +70,7 @@ Route::post('/create-answers/{question_id}','AnswersController@validateAnswers')
 Route::get('/get-answers-to-question/{question_id}','AnswersController@getAnswersToQuestion');
 Route::patch('/update-answers-to-question/{question_id}','AnswersController@updateAnswersToAQuestion');
 Route::delete('/delete-answers-to-question/{question_id}','AnswersController@deleteAnswer');
+
+Route::patch('/create-new-tutorial-for-answer/{answer_id}','TutorialsController@validateTutorial');
+Route::patch('/update-video-tutorial/{answer_id}','TutorialsController@updateVideoTutorial');
 Auth::routes();
