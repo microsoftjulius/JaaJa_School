@@ -9,6 +9,7 @@ use App\Role;
 
 class rolesTest extends TestCase
 {
+    use RefreshDatabase;
     /**
      * A basic feature test example.
      *
@@ -39,22 +40,15 @@ class rolesTest extends TestCase
         $this->testCreateRole();
         $role = Role::first();
         $response = $this->patch('edit-role/'.$role->id);
-        $this->assertEquals('school', Role::first()->role);
+        $this->assertEquals('admin', Role::first()->role);
     }
-     /** @test */
-     public function testUpdateRole(){
-        $this->withoutExceptionHandling();
-        $this->testCreateRole();
-        $role = Role::first();
-        $response = $this->patch('update-role/'.$role->id);
-        $this->assertEquals('deleted', Role::first()->status);
-    }
+    
     /** @test */
     public function testDeleteRole(){
         $this->withoutExceptionHandling();
         $this->testCreateRole();
         $delete_role = Role::first();
-        $response = $this->delete('/delete-role/'.$delete_role->id);
+        $response = $this->delete('delete-role/'.$delete_role->id);
         $this->assertCount(1, Role::all());
     }
 }

@@ -17,14 +17,13 @@ class ParentController extends Controller
         $parent_information->contact     =request()->contact;
         $parent_information->location    =request()->location;
         $parent_information->save();
-        return Redirect()->back()->withErrors("Parent Information has been Captured successfully");
     }
     /** 
      * This function fetches all the parents details
     */
     protected function getParent(){
         $parent_information =ParentInformation::get();
-        return view('admin.parent', compact('parent_information'));
+        return response()->json([$parent_information,200]);
     }
      /** 
      * This function edits the student information
@@ -35,14 +34,12 @@ class ParentController extends Controller
             'contact'     =>'0775401793',
             'location'    =>'Nsambya'
         ));
-        return Redirect()->back()->withErrors("Parent Information has been updated successfully");
     }
      /** 
      * This function deletes parents information softly
     */
     protected function deleteParent($id){
         ParentInformation::where('id',$id)->update(array( 'status' => 'deleted'));
-        return Redirect()->back()->withErrors("Parent has been deleted successfully");
     }
     /** 
      * This function validates the parents information created

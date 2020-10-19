@@ -17,7 +17,7 @@ class ParentsTest extends TestCase
      */
     /** @test */
     public function testCreateParent(){
-        $response=$this->post('create-parent',[
+        $response=$this->post('/create-parent',[
             'parent_name'=>'Anabo Brenda',
             'contact'=>'0785401795',
             'location'=>'Ngora'
@@ -26,7 +26,7 @@ class ParentsTest extends TestCase
     }
     /** @test */
     public function testGetParent(){
-        $response = $this->get('/parent-information');
+        $response = $this->get('/get-parent');
 
         $response->assertStatus(200);
     }

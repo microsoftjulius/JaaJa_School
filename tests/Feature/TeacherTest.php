@@ -18,7 +18,7 @@ class TeacherTest extends TestCase
      */
     /** @test */
     public function testCreateTeacher(){
-        $response=$this->post('create-teacher',[
+        $response=$this->post('/create-teacher',[
             'school_id'        =>'1',
             'level_id'         =>'1',
             'subject_id'       =>'1',
@@ -34,7 +34,7 @@ class TeacherTest extends TestCase
     }
      /** @test */
     public function getTeacher(){
-        $response = $this->get('/display-teacher');
+        $response = $this->get('/get-teacher');
 
         $response->assertStatus(200);
     }

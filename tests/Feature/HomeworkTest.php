@@ -29,7 +29,7 @@ class HomeworkTest extends TestCase
     }
     /** @test */
     public function testGetHomeWork(){
-        $response = $this->get('/display-home-work');
+        $response = $this->get('get-home-work');
 
         $response->assertStatus(200);
     }
@@ -47,6 +47,6 @@ class HomeworkTest extends TestCase
         $this->testCreateHomeWork();
         $delete_work = Homework::first();
         $response = $this->delete('delete-home-work/'.$delete_work->id);
-        $this->assertCount(1, Homework::all());
+        $this->assertCount(0, Homework::all());
     }
 }

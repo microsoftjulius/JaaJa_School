@@ -24,7 +24,6 @@ class NotesController extends Controller
         $notes->teacher_id =request()->teacher_id;
         $notes->notes =request()->notes;
         $notes->save();
-        return Redirect()->back()->withErrors("You have successfully uploaded Botes");
      }
      /** 
       * This function fetches all the notes documents from the table
@@ -34,7 +33,7 @@ class NotesController extends Controller
          ->join('subjects','notes.subject_id','subjects.id')
          ->join('teachers','notes.teacher_id','teachers.id')
          ->get();
-         return view('admin.notes', compact('notes'));
+         return response()->json([$notes,200]);
      }
      /** 
       * This function edits the notes information
@@ -43,14 +42,12 @@ class NotesController extends Controller
         Note::where('id',$id)->update(array(
              'notes' =>'English.pdf'
          ));
-         return Redirect()->back()->withErrors("Notes has been updated successfully");
      }
      /** 
-      * This function deletes notes softly
+      * This function deletes notes permanently
      */
      protected function deletenotes($id){
         Note::where('id',$id)->delete();
-         return Redirect()->back()->withErrors("Notes has been deleted successfully");
      }
      /** 
       * This function validates creating notes

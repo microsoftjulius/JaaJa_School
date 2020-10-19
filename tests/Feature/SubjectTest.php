@@ -17,14 +17,14 @@ class SubjectTest extends TestCase
      */
     /** @test */
     public function testCreateSubject(){
-        $response=$this->post('create-subject',[
+        $response=$this->post('/create-subject',[
             'subject'=>'mathematics'
         ]);
            $this->assertCount(1,Subject::all());
     }
     /** @test */
     public function testGetSubject(){
-        $response = $this->get('/display-subject');
+        $response = $this->get('/get-subject');
 
         $response->assertStatus(200);
     }

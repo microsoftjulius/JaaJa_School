@@ -34,7 +34,7 @@ class StudentsTest extends TestCase
     }
      /** @test */
     public function getStudent(){
-        $response = $this->get('/student');
+        $response = $this->get('/get-student');
 
         $response->assertStatus(200);
     }

@@ -14,14 +14,13 @@ class LevelController extends Controller
        $class =new level;
        $class->class =request()->class;
        $class->save();
-       return Redirect()->back()->withErrors("You have successfully created a Class");
     }
     /** 
      * This function fetches all the class from the data
     */
     protected function getClass(){
         $class =level::get();
-        return view('admin.level', compact('class'));
+        return response()->json([$class,200]);
     }
     /** 
      * This function edits the class information
@@ -30,14 +29,12 @@ class LevelController extends Controller
         level::where('id',$id)->update(array(
             'class' =>'P.7'
         ));
-        return Redirect()->back()->withErrors("Class has been updated successfully");
     }
     /** 
      * This function deletes class softly
     */
     protected function deleteClass($id){
         level::where('id',$id)->update(array( 'status' => 'deleted'));
-        return Redirect()->back()->withErrors("Class has been deleted successfully");
     }
     /** 
      * This function validates class function for creating class

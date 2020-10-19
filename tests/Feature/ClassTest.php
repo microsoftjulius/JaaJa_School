@@ -17,14 +17,14 @@ class ClassTest extends TestCase
      */
     /** @test */
     public function testCreateClass(){
-        $response=$this->post('create-class',[
+        $response=$this->post('/create-class',[
             'class'=>'primary seven'
         ]);
            $this->assertCount(1,level::all());
     }
     /** @test */
     public function testGetClass(){
-        $response = $this->get('/display-class');
+        $response = $this->get('/get-class');
 
         $response->assertStatus(200);
     }

@@ -14,6 +14,7 @@ class StudentController extends Controller
       */
      public function __construct(){
         $this->authenticated_user = new AuthenticationController;
+        
     }
     /** 
      * This function fetches all the students from students table
@@ -24,7 +25,7 @@ class StudentController extends Controller
         ->join('parents','students.parent_id','parents.id')
         ->where('students.id',$this->authenticated_user->getLoggedInUserID())
         ->get();
-        return view('admin.student', compact('get_all_students'));
+        return response()->json([$get_all_students,200]);
     }
     /** 
      * This function edits the student information
@@ -55,7 +56,6 @@ class StudentController extends Controller
         $save_student_to_user_table->email     =request()->email;
         $save_student_to_user_table->password  =Hash::make($save_student_to_user_table['password']);
         $save_student_to_user_table->save();
-        return Redirect()->back()->withErrors("Student Information has been created successfully");
     }
     /** 
      * This function validates students information to be submitted

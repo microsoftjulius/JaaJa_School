@@ -24,7 +24,7 @@ class TeachersController extends Controller
         ->join('subjects','teachers.subject_id','subjects.id')
         ->where('users.id',$this->authenticated_user->getLoggedInUserID())
         ->get();
-        return view('admin.teacher', compact('get_all_teachers'));
+        return response()->json([$get_all_teachers,200]);
     }
     /** 
      * This function creates teacher details 
@@ -49,7 +49,6 @@ class TeachersController extends Controller
         $save_teacher_to_user_table->email     =request()->email;
         $save_teacher_to_user_table->password  =Hash::make($save_teacher_to_user_table['password']);
         $save_teacher_to_user_table->save();
-        return Redirect()->back()->withErrors("Teachers Information has been created successfully");
     }
     /** 
      * This function edits the teacher information
@@ -58,8 +57,6 @@ class TeachersController extends Controller
         User::where('id',$id)->update(array(
             'name' =>'Ociba Flaviuos'
         ));
-       
-        return Redirect()->back()->withErrors("Teacher Information has been updated successfully");
     }
     /** 
      * This function validates teachers information to be submitted
@@ -83,6 +80,5 @@ class TeachersController extends Controller
     */
     protected function deleteTeacher($id){
         teacher::where('id',$id)->update(array( 'status' => 'deleted'));
-        return Redirect()->back()->withErrors("Teacher has been deleted successfully");
     }
 }
