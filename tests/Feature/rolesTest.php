@@ -21,11 +21,12 @@ class rolesTest extends TestCase
     */
 
     public function testCreateRole(){
+        $this->withoutExceptionHandling();
         $response=$this->post('/create-role',[
             'role' =>'school',
             'status'=> 'active'
         ]);
-            $this->assertCount(0,Role::all());
+        $this->assertCount(1,Role::all());
     
     }
     /** @test*/
@@ -45,7 +46,6 @@ class rolesTest extends TestCase
     
     /** @test */
     public function testDeleteRole(){
-        $this->withoutExceptionHandling();
         $this->testCreateRole();
         $delete_role = Role::first();
         $response = $this->delete('delete-role/'.$delete_role->id);

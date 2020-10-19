@@ -39,7 +39,7 @@ class TeachersController extends Controller
         $create_teacher_to_teacher_table ->school_id = $this->authenticated_user->getLoggedInUserID();
         $create_teacher_to_teacher_table->level_id      = request()->level_id;
         $create_teacher_to_teacher_table->subject_id     = request()->subject_id;
-        $create_teacher_to_teacher_table->teachers_login_id  = request()->teachers_login_id;
+        $create_teacher_to_teacher_table->teachers_login_id  = $this->authenticated_user->getLoggedinTeachersId;
         //$create_teacher_to_teacher_table->photo  = $original_name;
         $create_teacher_to_teacher_table->photo  = request()->photo;
         $create_teacher_to_teacher_table->save();

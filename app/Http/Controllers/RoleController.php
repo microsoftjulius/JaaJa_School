@@ -7,7 +7,6 @@ use App\Role;
 
 class RoleController extends Controller
 {
-    //
     /** 
      * This function Creates Roles
     */
@@ -26,7 +25,7 @@ class RoleController extends Controller
     /** 
      * This function validate role
     */
-    protected function ValidateRole(){
+    protected function validateRole(){
         if(empty(request()->role)){
             return redirect()->back()->withErrors("Please Fill role to continue");
         }else{

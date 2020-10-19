@@ -9,11 +9,11 @@ use Illuminate\Support\Facades\Hash;
 
 class StudentController extends Controller
 {
-     /** 
+    /** 
       * creating an instance of the authenticated user
       */
-     public function __construct(){
-        $this->authenticated_user = new AuthenticationController;
+    public function __construct(){
+        $this->authenticated_student = new AuthenticationController;
         
     }
     /** 
@@ -23,7 +23,7 @@ class StudentController extends Controller
         $get_all_students =Student::join('users','students.school_id','users.id')
         ->join('levels','students.level_id','levels.id')
         ->join('parents','students.parent_id','parents.id')
-        ->where('students.id',$this->authenticated_user->getLoggedInUserID())
+        ->where('students.id',$this->authenticated_student->authenticated_student())
         ->get();
         return response()->json([$get_all_students,200]);
     }

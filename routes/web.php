@@ -56,11 +56,20 @@ Route::get('/get-home-work','HomeWorkController@getHomeWork')->name('Home Work')
 Route::patch('/edit-home-work/{id}','HomeWorkController@editHomeWork');
 Route::delete('/delete-home-work/{id}','HomeWorkController@deleteHomeWork');
 
-
 Route::post('/create-notes','NotesController@validateCreateNotes');
 Route::get('/get-notes','NotesController@getNotes')->name('Notes');
 Route::patch('/edit-notes/{id}','NotesController@editNotes');
 Route::delete('/delete-notes/{id}','NotesController@deletenotes');
-Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::post('/create-questions','QuestionsController@validateQuestions');
+Route::patch('/edit-questions/{question_id}','QuestionsController@editQuestions');
+Route::get('/get-all-questions','QuestionsController@getAllQuestions');
+Route::delete('/delete-question/{question_id}','QuestionsController@deleteQuestion');
+Route::get('/get-school-questions','QuestionsController@getSchoolQuestions');
+
+Route::post('/create-answers/{question_id}','AnswersController@validateAnswers');
+Route::get('/get-answers-to-question/{question_id}','AnswersController@getAnswersToQuestion');
+Route::patch('/update-answers-to-question/{question_id}','AnswersController@updateAnswersToAQuestion');
+Route::delete('/delete-answers-to-question/{question_id}','AnswersController@deleteAnswer');
+Auth::routes();
