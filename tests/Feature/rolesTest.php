@@ -10,11 +10,6 @@ use App\Role;
 class rolesTest extends TestCase
 {
     use RefreshDatabase;
-    /**
-     * A basic feature test example.
-     *
-     * @return void
-     */
     
     /** 
      * @test

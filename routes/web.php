@@ -66,4 +66,8 @@ Route::get('/get-all-questions','QuestionsController@getAllQuestions');
 Route::delete('/delete-question/{question_id}','QuestionsController@deleteQuestion');
 Route::get('/get-school-questions','QuestionsController@getSchoolQuestions');
 
+Route::post('/create-answers/{question_id}','AnswersController@validateAnswers');
+Route::get('/get-answers-to-question/{question_id}','AnswersController@getAnswersToQuestion');
+Route::patch('/update-answers-to-question/{question_id}','AnswersController@updateAnswersToAQuestion');
+Route::delete('/delete-answers-to-question/{question_id}','AnswersController@deleteAnswer');
 Auth::routes();

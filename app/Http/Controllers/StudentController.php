@@ -9,10 +9,10 @@ use Illuminate\Support\Facades\Hash;
 
 class StudentController extends Controller
 {
-     /** 
+    /** 
       * creating an instance of the authenticated user
       */
-     public function __construct(){
+    public function __construct(){
         $this->authenticated_user = new AuthenticationController;
     }
     /** 

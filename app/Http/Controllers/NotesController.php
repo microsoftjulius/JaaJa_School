@@ -30,11 +30,11 @@ class NotesController extends Controller
       * This function fetches all the notes documents from the table
      */
      protected function getNotes(){
-         $notes =Note::join('levels','notes.level_id','levels.id')
-         ->join('subjects','notes.subject_id','subjects.id')
-         ->join('teachers','notes.teacher_id','teachers.id')
-         ->get();
-         return view('admin.notes', compact('notes'));
+        $notes =Note::join('levels','notes.level_id','levels.id')
+        ->join('subjects','notes.subject_id','subjects.id')
+        ->join('teachers','notes.teacher_id','teachers.id')
+        ->get();
+        return view('admin.notes', compact('notes'));
      }
      /** 
       * This function edits the notes information
