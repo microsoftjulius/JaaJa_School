@@ -51,7 +51,8 @@ class QuestionsController extends Controller
      * This function returns the questions blade
      */
     protected function getAllQuestions(){
-        return $this->getQuestions();
+        $all_questions = $this->getQuestions();
+        return view('admin.all_questions',compact('all_questions'));
     }
 
     /**

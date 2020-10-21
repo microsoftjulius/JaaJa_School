@@ -22,7 +22,7 @@ class ParentController extends Controller
     /** 
      * This function fetches all the parents details
     */
-    protected function getParent(){
+    protected function getParents(){
         $parent_information =ParentInformation::get();
         return view('admin.parent', compact('parent_information'));
     }

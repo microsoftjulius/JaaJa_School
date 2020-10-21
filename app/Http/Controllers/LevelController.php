@@ -11,15 +11,15 @@ class LevelController extends Controller
      * This function creates classes for school
     */
     private function createClass(){
-       $class =new level;
-       $class->class =request()->class;
-       $class->save();
-       return Redirect()->back()->withErrors("You have successfully created a Class");
+        $class =new level;
+        $class->class =request()->class;
+        $class->save();
+        return Redirect()->back()->withErrors("You have successfully created a Class");
     }
     /** 
      * This function fetches all the class from the data
     */
-    protected function getClass(){
+    protected function getClasses(){
         $class =level::get();
         return view('admin.level', compact('class'));
     }
