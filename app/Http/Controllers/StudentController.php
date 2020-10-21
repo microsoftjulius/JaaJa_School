@@ -9,19 +9,19 @@ use Illuminate\Support\Facades\Hash;
 
 class StudentController extends Controller
 {
-     /** 
+    /** 
       * creating an instance of the authenticated user
       */
-     public function __construct(){
+    public function __construct(){
         $this->authenticated_user = new AuthenticationController;
     }
     /** 
      * This function fetches all the students from students table
     */
-    protected function getStudent(){
+    protected function getStudents(){
         $get_all_students =Student::join('users','students.school_id','users.id')
         ->join('levels','students.level_id','levels.id')
-        ->join('parents','students.parent_id','parents.id')
+        ->join('parent_information','students.parent_id','parent_information.id')
         ->where('students.id',$this->authenticated_user->getLoggedInUserID())
         ->get();
         return view('admin.student', compact('get_all_students'));
