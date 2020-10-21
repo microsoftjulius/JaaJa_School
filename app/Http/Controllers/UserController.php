@@ -11,13 +11,12 @@ class UserController extends Controller
     /** 
      * This function creates users 
     */
-   public function createUser(){
+   private function createUser(){
     $user =new User();
     $user->name      =request()->name;
     $user->email     =request()->email;
     $user->password  =Hash::make($user['password']);
     $user->save();
-    return Redirect()->back()->withErrors("Users Information has been created successfully");
    }
    /** 
      * This function validates teachers information to be submitted
@@ -39,7 +38,7 @@ class UserController extends Controller
     */
     protected function getUser(){
         $get_all_users =User::get();
-        return view('admin.all-users',compact('get_all_users'));
+        return response()->json([$get_all_users,200]);
     }
     /** 
      * This function edit user  details
@@ -48,13 +47,11 @@ class UserController extends Controller
         User::where('id',$id)->update(array(
             'name' =>'Ntinda primary school'
         ));
-        return Redirect()->back()->withErrors("Users was has been updated successfully");
     }
     /** 
      * This function deletes users softly
     */
     protected function deleteUser($id){
         User::where('id',$id)->update(array( 'status' => 'deleted'));
-        return Redirect()->back()->withErrors("User has been deleted successfully");
     }
 }

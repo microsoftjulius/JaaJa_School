@@ -9,11 +9,12 @@ use Illuminate\Support\Facades\Hash;
 
 class StudentController extends Controller
 {
-     /** 
+    /** 
       * creating an instance of the authenticated user
       */
-     public function __construct(){
-        $this->authenticated_user = new AuthenticationController;
+    public function __construct(){
+        $this->authenticated_student = new AuthenticationController;
+        
     }
     /** 
      * This function fetches all the students from students table
@@ -21,10 +22,10 @@ class StudentController extends Controller
     protected function getStudent(){
         $get_all_students =Student::join('users','students.school_id','users.id')
         ->join('levels','students.level_id','levels.id')
-        ->join('parents','students.parent_id','parents.id')
-        ->where('students.id',$this->authenticated_user->getLoggedInUserID())
+        ->join('parent_information','students.parent_id','parent_information.id')
+        ->where('students.school_id',$this->authenticated_student->getLoggedInStudentsId())
         ->get();
-        return view('admin.student', compact('get_all_students'));
+        return response()->json([$get_all_students,200]);
     }
     /** 
      * This function edits the student information
@@ -34,8 +35,6 @@ class StudentController extends Controller
             'student_name' =>'Oliba Moses Ociba',
             'age'=>'24'
         ));
-       
-        return Redirect()->back()->withErrors("Student Information has been updated successfully");
     }
     /** 
      * This function creates student details 
@@ -43,7 +42,7 @@ class StudentController extends Controller
     */
     private function submitStudent(){
         $create_students_to_student_table =new Student;
-        $create_students_to_student_table ->school_id = $this->authenticated_user->getLoggedInUserID();
+        $create_students_to_student_table ->school_id = $this->authenticated_student->getLoggedInUserID();
         $create_students_to_student_table->level_id      = request()->level_id;
         $create_students_to_student_table->parent_id     = request()->parent_id;
         $create_students_to_student_table->student_name  = request()->student_name;
@@ -55,7 +54,6 @@ class StudentController extends Controller
         $save_student_to_user_table->email     =request()->email;
         $save_student_to_user_table->password  =Hash::make($save_student_to_user_table['password']);
         $save_student_to_user_table->save();
-        return Redirect()->back()->withErrors("Student Information has been created successfully");
     }
     /** 
      * This function validates students information to be submitted

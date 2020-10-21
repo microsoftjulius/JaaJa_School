@@ -14,14 +14,13 @@ class SubjectController extends Controller
         $subject =new Subject;
         $subject->subject =request()->subject;
         $subject->save();
-        return Redirect()->back()->withErrors("You have successfully created a Subjct");
      }
      /** 
       * This function fetches all the subject from the data
      */
      protected function getSubject(){
          $subject =Subject::get();
-         return view('admin.subject', compact('subject'));
+         return response()->json([$subject,200]);
      }
      /** 
       * This function edits the subject information
@@ -30,14 +29,12 @@ class SubjectController extends Controller
          Subject::where('id',$id)->update(array(
              'subject' =>'English'
          ));
-         return Redirect()->back()->withErrors("Subject has been updated successfully");
      }
      /** 
       * This function deletes subject softly
      */
      protected function deleteSubject($id){
          Subject::where('id',$id)->update(array( 'status' => 'deleted'));
-         return Redirect()->back()->withErrors("Subject has been deleted successfully");
      }
      /** 
       * This function validates creating subject

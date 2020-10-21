@@ -13,7 +13,7 @@ class TeachersController extends Controller
       * creating an instance of the authenticated user
       */
       public function __construct(){
-        $this->authenticated_user = new AuthenticationController;
+        $this->authenticated_teacher = new AuthenticationController;
     }
     /** 
      * This function fetches all the teachers from both users and teacher table
@@ -22,9 +22,9 @@ class TeachersController extends Controller
         $get_all_teachers =teacher::join('users','teachers.school_id','users.id')
         ->join('levels','teachers.level_id','levels.id')
         ->join('subjects','teachers.subject_id','subjects.id')
-        ->where('users.id',$this->authenticated_user->getLoggedInUserID())
+        ->where('users.id',$this->authenticated_teacher->getLoggedinTeachersId())
         ->get();
-        return view('admin.teacher', compact('get_all_teachers'));
+        return response()->json([$get_all_teachers,200]);
     }
     /** 
      * This function creates teacher details 
@@ -36,10 +36,10 @@ class TeachersController extends Controller
         // $save_teachers_image->move('teachers-photos/',$original_name);
 
         $create_teacher_to_teacher_table =new teacher;
-        $create_teacher_to_teacher_table ->school_id = $this->authenticated_user->getLoggedInUserID();
+        $create_teacher_to_teacher_table ->school_id = $this->authenticated_teacher->getLoggedInUserID();
         $create_teacher_to_teacher_table->level_id      = request()->level_id;
         $create_teacher_to_teacher_table->subject_id     = request()->subject_id;
-        $create_teacher_to_teacher_table->teachers_login_id  = request()->teachers_login_id;
+        $create_teacher_to_teacher_table->teachers_login_id  = $this->authenticated_teacher->getLoggedinTeachersId();
         //$create_teacher_to_teacher_table->photo  = $original_name;
         $create_teacher_to_teacher_table->photo  = request()->photo;
         $create_teacher_to_teacher_table->save();
@@ -49,7 +49,6 @@ class TeachersController extends Controller
         $save_teacher_to_user_table->email     =request()->email;
         $save_teacher_to_user_table->password  =Hash::make($save_teacher_to_user_table['password']);
         $save_teacher_to_user_table->save();
-        return Redirect()->back()->withErrors("Teachers Information has been created successfully");
     }
     /** 
      * This function edits the teacher information
@@ -58,8 +57,6 @@ class TeachersController extends Controller
         User::where('id',$id)->update(array(
             'name' =>'Ociba Flaviuos'
         ));
-       
-        return Redirect()->back()->withErrors("Teacher Information has been updated successfully");
     }
     /** 
      * This function validates teachers information to be submitted
@@ -83,6 +80,5 @@ class TeachersController extends Controller
     */
     protected function deleteTeacher($id){
         teacher::where('id',$id)->update(array( 'status' => 'deleted'));
-        return Redirect()->back()->withErrors("Teacher has been deleted successfully");
     }
 }

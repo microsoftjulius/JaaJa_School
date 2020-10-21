@@ -28,7 +28,7 @@ class NotesTest extends TestCase
     }
     /** @test */
     public function testGetNotes(){
-        $response = $this->get('/display-notes');
+        $response = $this->get('/get-notes');
 
         $response->assertStatus(200);
     }

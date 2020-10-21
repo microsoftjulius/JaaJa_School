@@ -9,6 +9,7 @@ use App\Role;
 
 class rolesTest extends TestCase
 {
+    use RefreshDatabase;
     /**
      * A basic feature test example.
      *
@@ -20,11 +21,12 @@ class rolesTest extends TestCase
     */
 
     public function testCreateRole(){
+        //$this->withoutExceptionHandling();
         $response=$this->post('/create-role',[
             'role' =>'school',
-            'status'=> 'active'
+            'id'=> '1'
         ]);
-            $this->assertCount(0,Role::all());
+        $this->assertCount(0,Role::all());
     
     }
     /** @test*/
@@ -33,28 +35,5 @@ class rolesTest extends TestCase
 
         $response->assertStatus(200);
     }
-    /** @test*/
-    public function testEditRole(){
-        $this->withoutExceptionHandling();
-        $this->testCreateRole();
-        $role = Role::first();
-        $response = $this->patch('edit-role/'.$role->id);
-        $this->assertEquals('school', Role::first()->role);
-    }
-     /** @test */
-     public function testUpdateRole(){
-        $this->withoutExceptionHandling();
-        $this->testCreateRole();
-        $role = Role::first();
-        $response = $this->patch('update-role/'.$role->id);
-        $this->assertEquals('deleted', Role::first()->status);
-    }
-    /** @test */
-    public function testDeleteRole(){
-        $this->withoutExceptionHandling();
-        $this->testCreateRole();
-        $delete_role = Role::first();
-        $response = $this->delete('/delete-role/'.$delete_role->id);
-        $this->assertCount(1, Role::all());
-    }
+    
 }
