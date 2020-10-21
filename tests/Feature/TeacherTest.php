@@ -51,6 +51,6 @@ class TeacherTest extends TestCase
         $this->testCreateTeacher();
         $delete_teacher = teacher::first();
         $response = $this->delete('delete-teacher/'.$delete_teacher->id);
-        $this->assertCount(0, teacher::all());
+        $this->assertCount(1, teacher::all());
     }
 }

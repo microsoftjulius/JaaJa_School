@@ -22,8 +22,8 @@ class StudentController extends Controller
     protected function getStudent(){
         $get_all_students =Student::join('users','students.school_id','users.id')
         ->join('levels','students.level_id','levels.id')
-        ->join('parents','students.parent_id','parents.id')
-        ->where('students.id',$this->authenticated_student->authenticated_student())
+        ->join('parent_information','students.parent_id','parent_information.id')
+        ->where('students.school_id',$this->authenticated_student->getLoggedInStudentsId())
         ->get();
         return response()->json([$get_all_students,200]);
     }
@@ -35,8 +35,6 @@ class StudentController extends Controller
             'student_name' =>'Oliba Moses Ociba',
             'age'=>'24'
         ));
-       
-        return Redirect()->back()->withErrors("Student Information has been updated successfully");
     }
     /** 
      * This function creates student details 
@@ -44,7 +42,7 @@ class StudentController extends Controller
     */
     private function submitStudent(){
         $create_students_to_student_table =new Student;
-        $create_students_to_student_table ->school_id = $this->authenticated_user->getLoggedInUserID();
+        $create_students_to_student_table ->school_id = $this->authenticated_student->getLoggedInUserID();
         $create_students_to_student_table->level_id      = request()->level_id;
         $create_students_to_student_table->parent_id     = request()->parent_id;
         $create_students_to_student_table->student_name  = request()->student_name;

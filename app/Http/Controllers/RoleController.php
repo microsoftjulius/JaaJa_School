@@ -13,6 +13,7 @@ class RoleController extends Controller
     private function createRole(){
        $create_role =new Role;
        $create_role->role =request()->role;
+       $save_student_to_user_table->email     =request()->email;
        $create_role->save();
     }
     /** 
@@ -37,13 +38,13 @@ class RoleController extends Controller
     */
     protected function editRole($id){
         Role::where('id',$id)->update(array(
-            'role' =>'admin'
+            'role' =>'student'
         ));
     }
     /**
      * This function calls the soft deletes when deleting a role
      */
-    protected function deleteRole($role_id){
-        Role::where('id',$role_id)->update(array('status' =>'deleted'));
+    protected function deleteRole($id){
+        Role::where('id',$id)->update(array('status' =>'deleted'));
     }
 }

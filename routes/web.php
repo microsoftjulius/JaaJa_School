@@ -27,7 +27,7 @@ Route::patch('/edit-user/{id}','UserController@editUser');
 Route::delete('/delete-user/{id}','UserController@deleteUser');
 
 Route::post('/create-student','StudentController@validatesubmitStudent');
-Route::get('/get-student','StudentController@getStudent')->name('Student');
+Route::get('/get-students','StudentController@getStudent')->name('Student');
 Route::patch('/edit-student/{id}','StudentController@editStudent');
 Route::delete('/delete-student/{id}','StudentController@deleteStudent');
 

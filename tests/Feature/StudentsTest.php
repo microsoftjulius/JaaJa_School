@@ -30,11 +30,11 @@ class StudentsTest extends TestCase
             'password' =>'077540179300'
         ]);
            $this->assertCount(1,Student::all());
-           // $this->assertCount(1,User::all());
+           //$this->assertCount(1,User::all());
     }
      /** @test */
     public function getStudent(){
-        $response = $this->get('/get-student');
+        $response = $this->get('/get-students');
 
         $response->assertStatus(200);
     }
