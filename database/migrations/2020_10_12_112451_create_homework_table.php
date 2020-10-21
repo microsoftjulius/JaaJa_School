@@ -20,6 +20,7 @@ class CreateHomeworkTable extends Migration
             $table->unsignedBigInteger('school_id');
             $table->unsignedBigInteger('teacher_id');
             $table->string('home_work');
+            $table->enum('status',['active','suspended','deleted'])->default('active');
             $table->timestamps();
         });
     }
