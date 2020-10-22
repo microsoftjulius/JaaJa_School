@@ -34,7 +34,6 @@ class StudentController extends Controller
             'student_name' =>'Oliba Moses Ociba',
             'age'=>'24'
         ));
-       
         return Redirect()->back()->withErrors("Student Information has been updated successfully");
     }
     /** 
@@ -71,12 +70,11 @@ class StudentController extends Controller
             return redirect()->back()->withErrors('Email is required, please fill it to continue');
         }elseif(empty(request()->password)){
             return redirect()->back()->withErrors('Password is required, please fill it to continue');
-       
         }else{
             return $this->submitStudent();
         }
     }
-     /** 
+    /** 
      * This function deletes users softly
     */
     protected function deleteStudent($id){

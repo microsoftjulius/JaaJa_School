@@ -30,12 +30,12 @@ class HomeWorkController extends Controller
       * This function fetches all the home work documents from the table
      */
     protected function getHomeWork(){
-        $home =Homework::join('users','homework.school_id','users.id')
+        $homework =Homework::join('users','homework.school_id','users.id')
         ->join('levels','homework.level_id','levels.id')
         ->join('subjects','homework.subject_id','subjects.id')
         ->join('teachers','homework.teacher_id','teachers.id')
         ->get();
-        return view('admin.home-work', compact('home'));
+        return view('admin.home-work', compact('homework'));
     }
     /** 
       * This function edits the homework information

@@ -34,29 +34,29 @@
                             <table class="table table-striped my-4 w-100" id="datatable2">
                                 <thead>
                                     <tr>
-                                        <th data-priority="1">Engine</th>
-                                        <th>Browser</th>
-                                        <th>Platform</th>
-                                        <th class="sort-numeric">Engine version</th>
-                                        <th class="sort-alpha" data-priority="2">CSS grade</th>
+                                        <th data-priority="1">No.</th>
+                                        <th>School</th>
+                                        <th>Class</th>
+                                        <th class="sort-numeric">Parent</th>
+                                        <th class="sort-alpha" data-priority="2">Student names</th>
+                                        <th>Age</th>
+                                        <th>Status</th>
+                                        <th>Option</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @foreach ($get_all_students as $id => $students)
                                     <tr class="gradeX">
-                                        <td>Trident</td>
-                                        <td>Internet Explorer 4.0</td>
-                                        <td>Win 95+</td>
-                                        <td>4</td>
-                                        <td>X</td>
+                                        <td>{{ $id }}</td>
+                                        <td>{{ $students->school }}</td>
+                                        <td>{{ $students->class }}</td>
+                                        <td>{{ $students->pfirst_name }} {{ $students->lparent_name }}</td>
+                                        <td>{{ $students->sfirst_name }} {{ $students->slast_name }}</td>
+                                        <td>{{ $students->age }}</td>
+                                        <td>{{ $students->status }}</td>
+                                        <td><button class="btn btn-sm btn-primary">delete</button></td>
                                     </tr>
-                                    
-                                    <tr class="gradeC">
-                                        <td>Tasman</td>
-                                        <td>Internet Explorer 5.1</td>
-                                        <td>Mac OS 7.6-9</td>
-                                        <td>1</td>
-                                        <td>C</td>
-                                    </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                             </div>

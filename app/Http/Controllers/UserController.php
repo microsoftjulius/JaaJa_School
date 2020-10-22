@@ -11,15 +11,15 @@ class UserController extends Controller
     /** 
      * This function creates users 
     */
-   public function createUser(){
-    $user =new User();
-    $user->name      =request()->name;
-    $user->email     =request()->email;
-    $user->password  =Hash::make($user['password']);
-    $user->save();
-    return Redirect()->back()->withErrors("Users Information has been created successfully");
-   }
-   /** 
+    public function createUser(){
+        $user =new User();
+        $user->name      =request()->name;
+        $user->email     =request()->email;
+        $user->password  =Hash::make($user['password']);
+        $user->save();
+        return Redirect()->back()->withErrors("Users Information has been created successfully");
+    }
+    /** 
      * This function validates teachers information to be submitted
     */
     protected function validateUser(){
@@ -29,7 +29,6 @@ class UserController extends Controller
             return redirect()->back()->withErrors('Email is required, please fill it to continue');
         }elseif(empty(request()->password)){
             return redirect()->back()->withErrors('Password is required, please fill it to continue');
-       
         }else{
             return $this->createUser();
         }
@@ -62,6 +61,14 @@ class UserController extends Controller
      * This function returns the schools to the Admin
      */
     protected function getSchools(){
-        return view('admin.schools');
+        $all_schools = $this->getSchoolsCollections();
+        return view('admin.schools',compact('all_schools'));
+    }
+
+    /**
+     * This function gets the schools, role_id 1 is for the school
+     */
+    private function getSchoolsCollections(){
+        return User::where('role_id',1)->get();
     }
 }

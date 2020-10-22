@@ -34,29 +34,25 @@
                             <table class="table table-striped my-4 w-100" id="datatable2">
                                 <thead>
                                     <tr>
-                                        <th data-priority="1">Engine</th>
-                                        <th>Browser</th>
-                                        <th>Platform</th>
-                                        <th class="sort-numeric">Engine version</th>
-                                        <th class="sort-alpha" data-priority="2">CSS grade</th>
+                                        <th data-priority="1">No.</th>
+                                        <th>Name</th>
+                                        <th>Category</th>
+                                        <th class="sort-numeric">Status</th>
+                                        <th>Created at</th>
+                                        <th class="sort-alpha" data-priority="2">Options</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @foreach ($get_all_users as $id => $user)
                                     <tr class="gradeX">
-                                        <td>Trident</td>
-                                        <td>Internet Explorer 4.0</td>
-                                        <td>Win 95+</td>
-                                        <td>4</td>
-                                        <td>X</td>
+                                        <td>{{ $id + 1 }}</td>
+                                        <td>{{ $user->name }}</td>
+                                        <td>{{ $user->role }}</td>
+                                        <td>{{ $user->status }}</td>
+                                        <td>{{ $user->created_at }}</td>
+                                        <td><button class="btn btn-sm btn-primary">suspend</button></td>
                                     </tr>
-                                    
-                                    <tr class="gradeC">
-                                        <td>Tasman</td>
-                                        <td>Internet Explorer 5.1</td>
-                                        <td>Mac OS 7.6-9</td>
-                                        <td>1</td>
-                                        <td>C</td>
-                                    </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                             </div>

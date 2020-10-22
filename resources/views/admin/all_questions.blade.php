@@ -28,35 +28,31 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-header">
-                            <div class="card-title">A table showing Questions per class</div>
+                            <div class="card-title">A table showing questions per class</div>
                             </div>
                             <div class="card-body">
                             <table class="table table-striped my-4 w-100" id="datatable2">
                                 <thead>
                                     <tr>
-                                        <th data-priority="1">Engine</th>
-                                        <th>Browser</th>
-                                        <th>Platform</th>
-                                        <th class="sort-numeric">Engine version</th>
-                                        <th class="sort-alpha" data-priority="2">CSS grade</th>
+                                        <th data-priority="1">No .</th>
+                                        <th>Class</th>
+                                        <th>Added By</th>
+                                        <th class="sort-numeric">Questions</th>
+                                        <th class="sort-alpha" data-priority="2">Options</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr class="gradeX">
-                                        <td>Trident</td>
-                                        <td>Internet Explorer 4.0</td>
-                                        <td>Win 95+</td>
-                                        <td>4</td>
-                                        <td>X</td>
-                                    </tr>
-                                    
-                                    <tr class="gradeC">
-                                        <td>Tasman</td>
-                                        <td>Internet Explorer 5.1</td>
-                                        <td>Mac OS 7.6-9</td>
-                                        <td>1</td>
-                                        <td>C</td>
-                                    </tr>
+                                    @foreach ($all_questions as $id => $questions)
+                                        <tr class="gradeX">
+                                            <td>{{ $id+1 }}</td>
+                                            <td>{{ $questions->class }}</td>
+                                            <td>{{ $questions->name }}</td>
+                                            <td>{{ $questions->questions_pdf }}</td>
+                                            <td>
+                                                <button class="btn btn-sm btn-primary">view</button>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                             </div>

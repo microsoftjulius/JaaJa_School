@@ -26,7 +26,7 @@ class ParentController extends Controller
         $parent_information =ParentInformation::get();
         return view('admin.parent', compact('parent_information'));
     }
-     /** 
+    /** 
      * This function edits the student information
     */
     protected function editParentInformation($id){
@@ -37,7 +37,7 @@ class ParentController extends Controller
         ));
         return Redirect()->back()->withErrors("Parent Information has been updated successfully");
     }
-     /** 
+    /** 
      * This function deletes parents information softly
     */
     protected function deleteParent($id){
