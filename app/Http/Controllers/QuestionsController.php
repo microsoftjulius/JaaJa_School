@@ -12,6 +12,8 @@ class QuestionsController extends Controller
      */
     public function __construct(){
         $this->loggedin_user_instance = new AuthenticationController; 
+        $this->classes_instance       = new LevelController;
+        $this->subjects_instance      = new SubjectController;
     }
 
     /**
@@ -21,7 +23,13 @@ class QuestionsController extends Controller
         if(empty(request()->questions_pdf)){
             return redirect()->back()->withErrors("Please upload the questions pdf to proceed");
         }else{
-            return $this->saveQuestion();
+            $class_id   = Classes::where('class',request()->class_name)->value('id');
+            $subject_id = Subject::where('subject',request()->subject_name)->value('id');
+
+            $questions_pdf = request()->questions_pdf;
+            $questions_path = $questions_pdf->getClientOriginalName();
+            $questions_pdf->move('questions/',$questions_path);
+            return $this->saveQuestion($class_id, $subject_id, $questions_path);
         }
     }
 
@@ -52,7 +60,9 @@ class QuestionsController extends Controller
      */
     protected function getAllQuestions(){
         $all_questions = $this->getQuestions();
-        return view('admin.all_questions',compact('all_questions'));
+        $subjects = $this->subjects_instance->getSubjectsCollection();
+        $classes  = $this->classes_instance->getClassesCollection();
+        return view('admin.all_questions',compact('all_questions','subjects','classes'));
     }
 
     /**
