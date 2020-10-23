@@ -16,8 +16,6 @@ class CreateTeachersTable extends Migration
         Schema::create('teachers', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('school_id');
-            $table->unsignedBigInteger('subject_id');
-            $table->unsignedBigInteger('level_id');
             $table->unsignedBigInteger('teachers_login_id');
             $table->string('photo');
             $table->enum('status',['active','suspended','transfered','deleted']);

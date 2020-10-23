@@ -36,15 +36,15 @@ Route::group(['middleware' => ['auth']], function () {
     Route::patch('/edit-parent/{id}','ParentController@editParentInformation');
     Route::delete('/delete-parent/{id}','ParentController@deleteParent');
 
-    Route::post('/create-class','LevelController@validateCraeteClass');
+    Route::get('/create-class','LevelController@validateCraeteClass');
     Route::get('/display-classes','LevelController@getClasses')->name('Classes');
     Route::patch('/edit-class/{id}','LevelController@editClass');
-    Route::delete('/delete-class/{id}','LevelController@deleteClass');
+    Route::get('/delete-class/{id}','LevelController@deleteClass');
 
-    Route::post('/create-subject','SubjectController@validateCreateSubject');
-    Route::get('/display-subject','SubjectController@getSubject')->name('Subjects');
+    Route::get('/create-subject','SubjectController@validateCreateSubject');
+    Route::get('/display-subjects','SubjectController@getSubjects')->name('Subjects');
     Route::patch('/edit-subject/{id}','SubjectController@editSUbject');
-    Route::delete('/delete-subject/{id}','SubjectController@deleteSubject');
+    Route::get('/delete-subject/{id}','SubjectController@deleteSubject');
 
     Route::post('/create-teacher','TeachersController@validateSubmitTeacher');
     Route::get('/display-teachers','TeachersController@getTeachers')->name('Teachers');
@@ -54,7 +54,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/create-home-work','HomeWorkController@validateCreateHomeWork');
     Route::get('/display-home-work','HomeWorkController@getHomeWork')->name('Home Work');
     Route::patch('/edit-home-work/{id}','HomeWorkController@editHomeWork');
-    Route::delete('/delete-home-work/{id}','HomeWorkController@deleteHomeWork');
+    Route::get('/delete-home-work/{id}','HomeWorkController@deleteHomeWork');
 
     Route::post('/create-notes','NotesController@validateCreateNotes');
     Route::get('/display-notes','NotesController@getNotes')->name('Notes');

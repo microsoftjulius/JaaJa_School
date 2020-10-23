@@ -57,6 +57,13 @@
                             </table>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-lg-4"></div>
+                            <div class="col-lg-4"></div>
+                            <div class="col-lg-4 text-right">
+                                <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModal" type="button"><i class="fa fa-plus"></i> Add Questions</button>
+                            </div>
+                        </div>
                 </div>
             </div>
         </div>

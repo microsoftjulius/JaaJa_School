@@ -20,8 +20,6 @@ class TeachersController extends Controller
     */
     protected function getTeachers(){
         $get_all_teachers =teacher::join('users','teachers.school_id','users.id')
-        ->join('levels','teachers.level_id','levels.id')
-        ->join('subjects','teachers.subject_id','subjects.id')
         ->where('users.id',$this->authenticated_user->getLoggedInUserID())
         ->get();
         return view('admin.teacher', compact('get_all_teachers'));
@@ -72,7 +70,6 @@ class TeachersController extends Controller
             return redirect()->back()->withErrors('Email is required, please fill it to continue');
         }elseif(empty(request()->password)){
             return redirect()->back()->withErrors('Password is required, please fill it to continue');
-       
         }else{
             return $this->submitTeacher();
         }

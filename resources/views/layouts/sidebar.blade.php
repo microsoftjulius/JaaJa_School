@@ -31,6 +31,16 @@
                 <li @if(request()->route()->getName() == "Answers Reports")class=" active"@else class=" " @endif><a href="/" title="Dashboard v3"><span>Answers Reports</span></a></li>
             </ul>
             </li>
+            <li @if(request()->route()->getName() == "Classes")class=" active" @else class=" " @endif>
+                <a href="/display-classes" title="Classes">
+                    <em class="fa fa-home"></em><span data-localize="sidebar.nav.WIDGETS">Classes</span>
+                </a>
+            </li>
+            <li @if(request()->route()->getName() == "Subjects")class=" active" @else class=" " @endif>
+                <a href="/display-subjects" title="Subjects" >
+                    <em class="fa fa-list"></em><span data-localize="sidebar.nav.WIDGETS">Subjects</span>
+                </a>
+            </li>
             <li @if(request()->route()->getName() == "Home Work")class=" active" @else class=" " @endif>
                 <a href="/display-home-work" title="Home Work" >
                     <em class="fa fa-tasks"></em><span data-localize="sidebar.nav.WIDGETS">Home work</span>
@@ -59,11 +69,6 @@
             <li @if(request()->route()->getName() == "Schools")class=" active" @else class=" " @endif>
                 <a href="/get-schools" title="Schools">
                     <em class="fa fa-university"></em><span data-localize="sidebar.nav.WIDGETS">Schools</span>
-                </a>
-            </li>
-            <li @if(request()->route()->getName() == "Classes")class=" active" @else class=" " @endif>
-                <a href="/display-classes" title="Classes">
-                    <em class="fa fa-home"></em><span data-localize="sidebar.nav.WIDGETS">Classes</span>
                 </a>
             </li>
             <li @if(request()->route()->getName() == "Teachers")class=" active" @else class=" " @endif>
