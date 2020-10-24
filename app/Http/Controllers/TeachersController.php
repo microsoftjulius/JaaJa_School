@@ -9,16 +9,24 @@ use App\User;
 
 class TeachersController extends Controller
 {
+<<<<<<< HEAD
      /** 
       * creating an instance of the authenticated user
       */
       public function __construct(){
         $this->authenticated_teacher = new AuthenticationController;
+=======
+    /** 
+     * creating an instance of the authenticated user
+    */
+    public function __construct(){
+        $this->authenticated_user = new AuthenticationController;
+>>>>>>> 81f91c198e1946e28732c94918b29466c5c916f2
     }
     /** 
      * This function fetches all the teachers from both users and teacher table
     */
-    protected function getTeacher(){
+    protected function getTeachers(){
         $get_all_teachers =teacher::join('users','teachers.school_id','users.id')
         ->join('levels','teachers.level_id','levels.id')
         ->join('subjects','teachers.subject_id','subjects.id')
@@ -57,6 +65,10 @@ class TeachersController extends Controller
         User::where('id',$id)->update(array(
             'name' =>'Ociba Flaviuos'
         ));
+<<<<<<< HEAD
+=======
+        return Redirect()->back()->withErrors("Teacher Information has been updated successfully");
+>>>>>>> 81f91c198e1946e28732c94918b29466c5c916f2
     }
     /** 
      * This function validates teachers information to be submitted

@@ -19,6 +19,7 @@ class CreateAnswersModelsTable extends Migration
             $table->string('answer_pdf');
             $table->integer('teacher_id');
             $table->integer('question_id');
+            $table->string('youtube_video_url')->nullable();
             $table->timestamps();
         });
     }

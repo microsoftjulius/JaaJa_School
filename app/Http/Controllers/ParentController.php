@@ -21,7 +21,7 @@ class ParentController extends Controller
     /** 
      * This function fetches all the parents details
     */
-    protected function getParent(){
+    protected function getParents(){
         $parent_information =ParentInformation::get();
         return response()->json([$parent_information,200]);
     }

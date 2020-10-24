@@ -36,7 +36,7 @@ class UserController extends Controller
     /** 
      * This function retrieves all the users from users table
     */
-    protected function getUser(){
+    protected function getUsers(){
         $get_all_users =User::get();
         return response()->json([$get_all_users,200]);
     }
@@ -53,5 +53,12 @@ class UserController extends Controller
     */
     protected function deleteUser($id){
         User::where('id',$id)->update(array( 'status' => 'deleted'));
+    }
+
+    /**
+     * This function returns the schools to the Admin
+     */
+    protected function getSchools(){
+        return view('admin.schools');
     }
 }
