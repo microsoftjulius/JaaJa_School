@@ -20,11 +20,7 @@
         <div class="content-wrapper">
             <div class="content-heading">
             <div>{{ request()->route()->getName() }}<small data-localize="dashboard.WELCOME"></small></div><!-- START Language list-->
-            <div class="ml-auto">
-                <div class="btn-group"><button class="btn btn-secondary dropdown-toggle dropdown-toggle-nocaret" type="button" data-toggle="dropdown">English</button>
-                    <div class="dropdown-menu dropdown-menu-right-forced animated fadeInUpShort" role="menu"><a class="dropdown-item" href="#" data-set-lang="en">English</a><a class="dropdown-item" href="#" data-set-lang="es">Spanish</a></div>
-                </div>
-            </div><!-- END Language list-->
+            
             </div><!-- START cards box-->
             <div class="row">
                 <div class="col-lg-12">
@@ -54,7 +50,7 @@
                                             <td style="text-transform: capitalize">{{ $work->subject }}</td>
                                             <td>{{ $work->class }}</td>
                                             <td>{{ $work->name }}</td>
-                                            <td><a href="{{ asset('home_work/'.$work->home_work) }}" target="_blank"><i class="fa fa-download"></i> {{ $work->home_work }}</a></td>
+                                            <td><a href="{{ asset('home_work/'.$work->home_work) }}" target="_blank"><i class="fa fa-download"></i> download</a></td>
                                             <td style="text-transform: capitalize">{{ $work->status }}</td>
                                             <td>{{ $work->created_at }}</td>
                                             <td>

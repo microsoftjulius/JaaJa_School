@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Questions;
+use App\Subject;
+use App\level as Classes;
 
 class QuestionsController extends Controller
 {
@@ -36,13 +38,15 @@ class QuestionsController extends Controller
     /**
      * This function saves the questions
      */
-    private function saveQuestion(){
+    private function saveQuestion($class_id, $subject_id, $questions_path){
         $new_question = new Questions;
-        $new_question->class_id       = request()->class_id;
+        $new_question->class_id       = $class_id;
         $new_question->school_id      = $this->loggedin_user_instance->getLoggedInUserID();
-        $new_question->questions_pdf  = request()->questions_pdf;
+        $new_question->questions_pdf  = $questions_path;
         $new_question->teacher_id     = $this->loggedin_user_instance->getLoggedinTeachersId();
+        $new_question->subject_id     = $subject_id;
         $new_question->save();
+        return redirect()->back()->with('msg','You have successfully added questions for '. request()->class_name);
     }
 
     /**
@@ -70,7 +74,11 @@ class QuestionsController extends Controller
      * of the school
      */
     private function getQuestions(){
-        $all_questions = Questions::get();
+        $all_questions = Questions::join('levels','levels.id','questions.class_id')
+        ->join('teachers','teachers.id','questions.teacher_id')
+        ->join('users','users.id','teachers.teachers_login_id')
+        ->select('questions.*','users.name','levels.class')
+        ->get();
         return $all_questions;
     }
 
@@ -79,6 +87,7 @@ class QuestionsController extends Controller
      */
     protected function deleteQuestion($questions_id){
         Questions::find($questions_id)->delete();
+        return redirect()->back()->with('msg',"A Question has been deleted successfully");
     }
 
     /**

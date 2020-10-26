@@ -11,13 +11,13 @@ class UserController extends Controller
     /** 
      * This function creates users 
     */
-    public function createUser(){
+    public function createUser($names, $email, $password, $category){
         $user =new User();
-        $user->name      =request()->name;
-        $user->email     =request()->email;
-        $user->password  =Hash::make($user['password']);
+        $user->name      = $names;
+        $user->email     = $email;
+        $user->password  = Hash::make($password);
+        $user->category  = $category;
         $user->save();
-        return Redirect()->back()->withErrors("Users Information has been created successfully");
     }
     /** 
      * This function validates teachers information to be submitted
@@ -52,11 +52,19 @@ class UserController extends Controller
     /** 
      * This function deletes users softly
     */
-    protected function deleteUser($id){
-        User::where('id',$id)->update(array( 'status' => 'deleted'));
-        return Redirect()->back()->withErrors("User has been deleted successfully");
+    protected function suspendSchool($id){
+        User::where('id',$id)->update(array('status' => 'suspended'));
+        return Redirect()->back()->with('msg', " You Successfully Suspended a school. None of the people that belong to this school will
+            be able to login again, and for whoever has been logged in, They will be logged out automatically");
     }
 
+    /**
+     * this function activates a school that had been suspended
+     */
+    protected function activateSchool($school_id){
+        User::where('id',$school_id)->update(array('status' => 'active'));
+        return Redirect()->back()->with('msg', " You Successfully activated " . User::where('id',$school_id)->value('name'));
+    }
     /**
      * This function returns the schools to the Admin
      */
@@ -69,6 +77,6 @@ class UserController extends Controller
      * This function gets the schools, role_id 1 is for the school
      */
     private function getSchoolsCollections(){
-        return User::where('role_id',1)->get();
+        return User::where('category','school')->get();
     }
 }

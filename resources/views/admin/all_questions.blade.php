@@ -20,14 +20,11 @@
         <div class="content-wrapper">
             <div class="content-heading">
             <div>{{ request()->route()->getName() }}<small data-localize="dashboard.WELCOME"></small></div><!-- START Language list-->
-            <div class="ml-auto">
-                <div class="btn-group"><button class="btn btn-secondary dropdown-toggle dropdown-toggle-nocaret" type="button" data-toggle="dropdown">English</button>
-                    <div class="dropdown-menu dropdown-menu-right-forced animated fadeInUpShort" role="menu"><a class="dropdown-item" href="#" data-set-lang="en">English</a><a class="dropdown-item" href="#" data-set-lang="es">Spanish</a></div>
-                </div>
-            </div><!-- END Language list-->
+            
             </div><!-- START cards box-->
             <div class="row">
                 <div class="col-lg-12">
+                    @include('layouts.messages')
                     <div class="card">
                         <div class="card-header">
                             <div class="card-title">A table showing questions per class</div>
@@ -49,9 +46,13 @@
                                             <td>{{ $id+1 }}</td>
                                             <td>{{ $questions->class }}</td>
                                             <td>{{ $questions->name }}</td>
-                                            <td>{{ $questions->questions_pdf }}</td>
                                             <td>
-                                                <button class="btn btn-sm btn-primary">view</button>
+                                                <a href="{{ asset('questions/'.$questions->questions_pdf) }}" target="_blank"><i class="fa fa-download"></i> download</a>                                                
+                                            </td>
+                                            <td>
+                                                <a href="/delete-question/{{ $questions->id }}">
+                                                    <button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button>
+                                                </a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -93,7 +94,8 @@
 </html>
 
 <!-- Modal -->
-<form action="/create-class" method="GET">
+<form action="/create-questions" method="POST" enctype="multipart/form-data">
+    @csrf
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -106,6 +108,7 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-lg-12">
+                            @include('layouts.messages')
                             <div class="row">
                                 <div class="col-lg-12">
                                     <label for="browser">Choose the Subject:</label>
@@ -127,7 +130,7 @@
                                 </div>
                                 <div class="col-lg-12"><br>
                                     <input type="file" class="form-control dropzone mb-3 card d-flex flex-row justify-content-center flex-wrap"
-                                    id="dropzone-area" accept=".pdf" name="home_work">
+                                    id="dropzone-area" accept=".pdf" name="questions_pdf">
                                 </div>
                                 <div class="col-lg-12">
         

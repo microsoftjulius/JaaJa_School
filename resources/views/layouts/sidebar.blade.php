@@ -56,14 +56,14 @@
                     <em class="fa fa-book"></em><span data-localize="sidebar.nav.WIDGETS">Notes</span>
                 </a>
             </li>
-            <li @if(request()->route()->getName() == "Students")class=" active" @else class=" " @endif>
-                <a href="/students" title="Students">
-                    <em class="fa fa-users"></em><span data-localize="sidebar.nav.WIDGETS">Students</span>
-                </a>
-            </li>
             <li @if(request()->route()->getName() == "Parents")class=" active" @else class=" " @endif>
                 <a href="/get-parents" title="Parents">
                     <em class="fa fa-users"></em><span data-localize="sidebar.nav.WIDGETS">Parents</span>
+                </a>
+            </li>
+            <li @if(request()->route()->getName() == "Students")class=" active" @else class=" " @endif>
+                <a href="/students" title="Students">
+                    <em class="fa fa-users"></em><span data-localize="sidebar.nav.WIDGETS">Students</span>
                 </a>
             </li>
             <li @if(request()->route()->getName() == "Schools")class=" active" @else class=" " @endif>
