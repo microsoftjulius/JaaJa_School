@@ -47,10 +47,14 @@ class NotesController extends Controller
      * This function edits the notes information
     */
     protected function editNotes($id){
+        $class_id = Classes::where('class',request()->class_name)->value('id');
+        if(empty($class_id)){
+            return redirect()->back()->withErrors(" Please select the class from the list");
+        }
         Note::where('id',$id)->update(array(
-            'notes' =>'English.pdf'
+            'level_id' => $class_id
         ));
-        return Redirect()->back()->withErrors("Notes has been updated successfully");
+        return redirect()->back()->with('msg'," You have changed the class for these notes to ". request()->class_name);
     }
     /** 
      * This function deletes notes softly
@@ -76,5 +80,15 @@ class NotesController extends Controller
 
             return $this->createNotes($class_id, $subject_id, $notes_work_path);
         }
+    }
+
+    /**
+     * This function gets the edit notes form
+     */
+    protected function editNotesForm($notes_id){
+        $class_id   = Note::where('id',$notes_id)->value('level_id');
+        $class_name = Classes::where('id',$class_id)->value('class');
+        $classes    = Classes::get();
+        return view('admin.edit_notes',compact('classes','class_name','notes_id'));
     }
 }

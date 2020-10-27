@@ -53,10 +53,14 @@ class QuestionsController extends Controller
      * This function edits the Questions
      */
     protected function editQuestions($questions_id){
+        $class_id = Classes::where('class',request()->class_name)->value('id');
+        if(empty($class_id)){
+            return redirect()->back()->withErrors('Please select the class list to proceed, or add this class');
+        }
         Questions::where('id',$questions_id)->update(array(
-            'questions_pdf' => request()->questions_pdf,
-            'class_id'      => request()->class_id
+            'class_id'      => $class_id
         ));
+        return redirect()->back()->with('msg',"You have edited the class which is supposed to take this home work to ". request()->class_name);
     }
 
     /**
@@ -103,5 +107,17 @@ class QuestionsController extends Controller
      */
     private function getSchoolQuestionsCollection(){
         return Questions::where('school_id',$this->loggedin_user_instance->getLoggedInUserID())->get();
+    }
+
+    /**
+     * This function returns the page for editing the questions
+     */
+    protected function editQuestionsForm($class_id){
+        $class_name = Questions::where('questions.id',$class_id)
+        ->join('levels','levels.id','questions.class_id')
+        ->join('subjects','subjects.id','questions.subject_id')
+        ->value('class');
+        $classes = Classes::get();
+        return view('admin.edit_questions',compact('class_name','class_id','classes'));
     }
 }

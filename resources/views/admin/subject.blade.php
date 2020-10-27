@@ -45,6 +45,9 @@
                                             <td>{{ $subjects->created_at }}</td>
                                             <td>
                                                 <a href="/delete-subject/{{ $subjects->id }}"><button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button></a>
+                                                <a href="/edit-subject-form/{{ $subjects->id }}">
+                                                    <button class="btn btn-sm btn-info"><i class="fa fa-edit"></i></button>
+                                                </a>
                                             </td>
                                         </tr>
                                     @endforeach

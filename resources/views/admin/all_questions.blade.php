@@ -53,6 +53,9 @@
                                                 <a href="/delete-question/{{ $questions->id }}">
                                                     <button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button>
                                                 </a>
+                                                <a href="/edit-question-form/{{ $questions->id }}">
+                                                    <button class="btn btn-sm btn-info"><i class="fa fa-edit"></i></button>
+                                                </a>
                                             </td>
                                         </tr>
                                     @endforeach

@@ -41,9 +41,9 @@ class LevelController extends Controller
     */
     protected function editClass($id){
         level::where('id',$id)->update(array(
-            'class' =>'P.7'
+            'class' =>request()->class_name
         ));
-        return Redirect()->back()->withErrors("Class has been updated successfully");
+        return Redirect()->back()->with('msg'," Your request of updating the class name to ". request()->class_name . " has been successful");
     }
     /** 
      * This function deletes class softly
@@ -63,5 +63,13 @@ class LevelController extends Controller
         }else{
             return $this->createClass();
         }
+    }
+
+    /**
+     * This function takes to edit form for classes
+     */
+    protected function editClassForm($class_id){
+        $class_name = level::where('id',$class_id)->value('class');
+        return view('admin.edit_class',compact('class_name','class_id'));
     }
 }

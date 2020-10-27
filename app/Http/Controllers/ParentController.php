@@ -67,7 +67,9 @@ class ParentController extends Controller
      * This function deletes parents information softly
     */
     protected function deleteParent($id){
-        ParentInformation::where('id',$id)->delete();
+        ParentInformation::where('id',$id)->update(array(
+            'status' => 'deleted'
+        ));
         return Redirect()->back()->with('msg',"Parent has been deleted successfully");
     }
     /** 
@@ -87,5 +89,11 @@ class ParentController extends Controller
 
             return $this->createParent($photo_path);
         }
+    }
+    /**
+     * This function edits the parents form
+     */
+    protected function editParentForm($parent_id){
+        return view('admin.edit_parent_form',compact('parent_id'));
     }
 }

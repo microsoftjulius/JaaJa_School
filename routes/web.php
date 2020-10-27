@@ -36,15 +36,18 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/get-parents','ParentController@getParents')->name('Parents');
     Route::patch('/edit-parent/{id}','ParentController@editParentInformation');
     Route::get('/delete-parent/{id}','ParentController@deleteParent');
+    Route::get('/edit-parents-form/{id}','ParentController@editParentForm')->name('Parents');
 
     Route::get('/create-class','LevelController@validateCraeteClass');
     Route::get('/display-classes','LevelController@getClasses')->name('Classes');
-    Route::patch('/edit-class/{id}','LevelController@editClass');
+    Route::get('/edit-class-form/{id}','LevelController@editClassForm')->name('Classes');
+    Route::get('/edit-class/{id}','LevelController@editClass');
     Route::get('/delete-class/{id}','LevelController@deleteClass');
 
     Route::get('/create-subject','SubjectController@validateCreateSubject');
     Route::get('/display-subjects','SubjectController@getSubjects')->name('Subjects');
-    Route::patch('/edit-subject/{id}','SubjectController@editSUbject');
+    Route::get('/edit-subject/{id}','SubjectController@editSUbject');
+    Route::get('/edit-subject-form/{id}','SubjectController@editSubjectForm')->name('Subjects');;
     Route::get('/delete-subject/{id}','SubjectController@deleteSubject');
 
     Route::post('/create-teacher','TeachersController@validateSubmitTeacher');
@@ -55,20 +58,23 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::post('/create-home-work','HomeWorkController@validateCreateHomeWork');
     Route::get('/display-home-work','HomeWorkController@getHomeWork')->name('Home Work');
-    Route::patch('/edit-home-work/{id}','HomeWorkController@editHomeWork');
+    Route::get('/edit-home-work/{id}','HomeWorkController@editHomeWork');
     Route::get('/delete-home-work/{id}','HomeWorkController@deleteHomeWork');
+    Route::get('/edit-home-work-form/{id}','HomeWorkController@editHomeWorkForm')->name('Home Work');
 
     Route::post('/create-notes','NotesController@validateCreateNotes');
     Route::get('/display-notes','NotesController@getNotes')->name('Notes');
-    Route::patch('/edit-notes/{id}','NotesController@editNotes');
+    Route::get('/edit-notes/{id}','NotesController@editNotes');
+    Route::get('/edit-notes-form/{notes_id}','NotesController@editNotesForm')->name('Notes');
     Route::get('/delete-notes/{id}','NotesController@deletenotes');
 
     Route::get('/home', 'HomeController@getDashboardBlade')->name('home');
     Route::post('/create-questions','QuestionsController@validateQuestions');
-    Route::patch('/edit-questions/{question_id}','QuestionsController@editQuestions');
+    Route::get('/edit-questions/{question_id}','QuestionsController@editQuestions');
     Route::get('/get-all-questions','QuestionsController@getAllQuestions')->name("Questions");
     Route::get('/delete-question/{question_id}','QuestionsController@deleteQuestion');
     Route::get('/get-school-questions','QuestionsController@getSchoolQuestions');
+    Route::get('/edit-question-form/{question_id}','QuestionsController@editQuestionsForm')->name("Questions");
 
     Route::post('/create-answers/{question_id}','AnswersController@validateAnswers');
     Route::get('/get-answers-to-question/{question_id}','AnswersController@getAnswersToQuestion');

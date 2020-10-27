@@ -52,6 +52,9 @@
                                         <td>{{ $parents->created_at }}</td>
                                         <td>
                                             <a href="/delete-parent/{{ $parents->id }}"><button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button></a>
+                                            <a href="/edit-parents-form/{{ $parents->id }}">
+                                                <button class="btn btn-sm btn-info"><i class="fa fa-edit"></i></button>
+                                            </a>
                                         </td>
                                     </tr>
                                     @endforeach

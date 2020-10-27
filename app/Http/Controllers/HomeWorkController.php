@@ -48,10 +48,15 @@ class HomeWorkController extends Controller
       * This function edits the homework information
      */
     protected function editHomeWork($id){
-        Homework::where('id',$id)->update(array(
-            'home_work' =>'English.pdf'
-        ));
-        return Redirect()->back()->withErrors("Homework has been updated successfully");
+        $home_work_id = Subject::where('subject',strtolower(request()->subject))->value('id');
+        if(empty($home_work_id)){
+            return redirect()->back()->withErrors(" The subject you entered isn't registered in the system, kindly select from the list");
+        }else{
+            Homework::where('id',$id)->update(array(
+                'subject_id' => $home_work_id
+            ));
+        }
+        return Redirect()->back()->with('msg'," Homework has been updated successfully");
     }
     /** 
       * This function deletes homework softly
@@ -80,5 +85,17 @@ class HomeWorkController extends Controller
     
             return $this->createHomeWork($class_id, $subject_id, $home_work_path);
         }
+    }
+
+    /**
+     * This function takes to the edit home work form
+     */
+    protected function editHomeWorkForm($home_work_id){
+        $home_work = Homework::where('homework.id',$home_work_id)
+        ->join('subjects','subjects.id','homework.subject_id')
+        ->join('levels','levels.id','homework.level_id')
+        ->get();
+        $subjects = Subject::get();
+        return view('admin.edit_home_work',compact('home_work_id','home_work','subjects'));
     }
 }

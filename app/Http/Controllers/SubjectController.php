@@ -42,7 +42,7 @@ class SubjectController extends Controller
      */
     protected function editSUbject($id){
         Subject::where('id',$id)->update(array(
-            'subject' =>request()->subject
+            'subject' => strtolower(request()->subject)
         ));
         return Redirect()->back()->with('msg',"Subject has been updated successfully");
     }
@@ -65,5 +65,13 @@ class SubjectController extends Controller
         else{
             return $this->createSubject();
         }
+    }
+
+    /**
+     * This function returns the form for edit subject
+     */
+    protected function editSubjectForm($subject_id){
+        $subject_name = Subject::where('id',$subject_id)->value('subject');
+        return view('admin.edit_subject',compact('subject_id','subject_name'));
     }
 }

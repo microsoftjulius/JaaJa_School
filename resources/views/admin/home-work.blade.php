@@ -55,6 +55,9 @@
                                             <td>{{ $work->created_at }}</td>
                                             <td>
                                                 <a href="/delete-home-work/{{ $work->id }}"><button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button></a>
+                                                <a href="/edit-home-work-form/{{ $work->id }}">
+                                                    <button class="btn btn-sm btn-info"><i class="fa fa-edit"></i></button>
+                                                </a>
                                             </td>
                                         </tr>
                                     @endforeach
