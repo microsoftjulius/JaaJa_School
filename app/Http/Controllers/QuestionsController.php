@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Questions;
 use App\Subject;
 use App\level as Classes;
+use DB;
 
 class QuestionsController extends Controller
 {
@@ -70,7 +71,8 @@ class QuestionsController extends Controller
         $all_questions = $this->getQuestions();
         $subjects = $this->subjects_instance->getSubjectsCollection();
         $classes  = $this->classes_instance->getClassesCollection();
-        return view('admin.all_questions',compact('all_questions','subjects','classes'));
+        $all_users = DB::table('users')->where('id','!=',auth()->user()->id)->get();
+        return view('admin.all_questions',compact('all_questions','subjects','classes','all_users'));
     }
 
     /**
@@ -113,11 +115,12 @@ class QuestionsController extends Controller
      * This function returns the page for editing the questions
      */
     protected function editQuestionsForm($class_id){
+        $all_users = DB::table('users')->where('id','!=',auth()->user()->id)->get();
         $class_name = Questions::where('questions.id',$class_id)
         ->join('levels','levels.id','questions.class_id')
         ->join('subjects','subjects.id','questions.subject_id')
         ->value('class');
         $classes = Classes::get();
-        return view('admin.edit_questions',compact('class_name','class_id','classes'));
+        return view('admin.edit_questions',compact('class_name','class_id','classes','all_users'));
     }
 }

@@ -20,10 +20,11 @@ class TeachersController extends Controller
      * This function fetches all the teachers from both users and teacher table
     */
     protected function getTeachers(){
+        $all_users = User::where('id','!=',auth()->user()->id)->get();
         $get_all_teachers = teacher::join('users','teachers.school_id','users.id')
         ->select('teachers.photo','teachers.teachers_login_id','teachers.teachers_name','teachers.contact','teachers.status','users.name')
         ->get();
-        return view('admin.teacher', compact('get_all_teachers'));
+        return view('admin.teacher', compact('get_all_teachers','all_users'));
     }
     /** 
      * This function creates teacher details 

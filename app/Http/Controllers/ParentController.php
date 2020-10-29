@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\ParentInformation;
 use App\User;
+use DB;
 
 class ParentController extends Controller
 {
@@ -43,7 +44,8 @@ class ParentController extends Controller
     */
     protected function getParents(){
         $parent_information = $this->getParentsCollection();
-        return view('admin.parent', compact('parent_information'));
+        $all_users = DB::table('users')->where('id','!=',auth()->user()->id)->get();
+        return view('admin.parent', compact('parent_information','all_users'));
     }
 
     /**
@@ -94,6 +96,7 @@ class ParentController extends Controller
      * This function edits the parents form
      */
     protected function editParentForm($parent_id){
-        return view('admin.edit_parent_form',compact('parent_id'));
+        $all_users = User::where('id','!=',auth()->user()->id)->get();
+        return view('admin.edit_parent_form',compact('parent_id','all_users'));
     }
 }

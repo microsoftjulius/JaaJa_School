@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Note;
 use App\level as Classes;
 use App\Subject;
+use DB;
 
 class NotesController extends Controller
 {
@@ -35,13 +36,14 @@ class NotesController extends Controller
     protected function getNotes(){
         $subjects = $this->subjects_instance->getSubjectsCollection();
         $classes  = $this->classes_instance->getClassesCollection();
+        $all_users = DB::table('users')->where('id','!=',auth()->user()->id)->get();
         $notes = Note::join('levels','notes.level_id','levels.id')
         ->join('subjects','notes.subject_id','subjects.id')
         ->join('teachers','notes.teacher_id','teachers.id')
         ->join('users','users.id','teachers.teachers_login_id')
         ->select('notes.*','subjects.subject','levels.class','users.name')
         ->get();
-        return view('admin.notes', compact('notes','subjects','classes'));
+        return view('admin.notes', compact('notes','subjects','classes','all_users'));
     }
     /** 
      * This function edits the notes information
@@ -89,6 +91,7 @@ class NotesController extends Controller
         $class_id   = Note::where('id',$notes_id)->value('level_id');
         $class_name = Classes::where('id',$class_id)->value('class');
         $classes    = Classes::get();
-        return view('admin.edit_notes',compact('classes','class_name','notes_id'));
+        $all_users = DB::table('users')->where('id','!=',auth()->user()->id)->get();
+        return view('admin.edit_notes',compact('classes','class_name','notes_id','all_users'));
     }
 }

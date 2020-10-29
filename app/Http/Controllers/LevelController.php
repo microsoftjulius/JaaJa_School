@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\level;
+use DB;
 
 class LevelController extends Controller
 {
@@ -28,7 +29,8 @@ class LevelController extends Controller
     */
     protected function getClasses(){
         $class = $this->getClassesCollection();
-        return view('admin.level', compact('class'));
+        $all_users = DB::table('users')->where('id','!=',auth()->user()->id)->get();
+        return view('admin.level', compact('class','all_users'));
     }
     /**
      * This function gets the classes collection
@@ -70,6 +72,7 @@ class LevelController extends Controller
      */
     protected function editClassForm($class_id){
         $class_name = level::where('id',$class_id)->value('class');
-        return view('admin.edit_class',compact('class_name','class_id'));
+        $all_users = DB::table('users')->where('id','!=',auth()->user()->id)->get();
+        return view('admin.edit_class',compact('class_name','class_id','all_users'));
     }
 }

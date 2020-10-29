@@ -25,6 +25,7 @@
             </a>
             <ul class="sidebar-nav sidebar-subnav collapse" id="dashboard">
                 <li class="sidebar-subnav-header">Dashboard</li>
+                <li @if(request()->route()->getName() == "home")class=" active" @else class=" " @endif><a href="/home" title="Home"><span>Home</span></a></li>
                 <li @if(request()->route()->getName() == "Notes Reports")class=" active" @else class=" " @endif><a href="/" title="Dashboard v1"><span>Notes Reports</span></a></li>
                 <li @if(request()->route()->getName() == "Home Work Reports")class=" active" @else class=" " @endif><a href="/" title="Dashboard v2"><span>Home work Reports</span></a></li>
                 <li @if(request()->route()->getName() == "Questions Reports")class=" active" @else class=" " @endif><a href="/" title="Dashboard v3"><span>Questions Reports</span></a></li>
@@ -66,11 +67,11 @@
                     <em class="fa fa-users"></em><span data-localize="sidebar.nav.WIDGETS">Students</span>
                 </a>
             </li>
-            <li @if(request()->route()->getName() == "Schools")class=" active" @else class=" " @endif>
+            {{-- <li @if(request()->route()->getName() == "Schools")class=" active" @else class=" " @endif>
                 <a href="/get-schools" title="Schools">
                     <em class="fa fa-university"></em><span data-localize="sidebar.nav.WIDGETS">Schools</span>
                 </a>
-            </li>
+            </li> --}}
             <li @if(request()->route()->getName() == "Teachers")class=" active" @else class=" " @endif>
                 <a href="/display-teachers" title="Teachers">
                     <em class="fa fa-users"></em><span data-localize="sidebar.nav.WIDGETS">Teachers</span>
@@ -81,11 +82,11 @@
                     <em class="fa fa-users"></em><span data-localize="sidebar.nav.WIDGETS">All Users</span>
                 </a>
             </li>
-            <li class=" ">
+            {{-- <li class=" ">
                 <a href="#" title="Settings">
                     <em class="fa fa-cog"></em><span data-localize="sidebar.nav.WIDGETS">Settings</span>
                 </a>
-            </li>
+            </li> --}}
             <li class=" ">
                 <a href="/logout" title="Lock">
                     <em class="fa fa-lock"></em><span data-localize="sidebar.nav.WIDGETS">Logout</span>

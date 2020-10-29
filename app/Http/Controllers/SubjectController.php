@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Subject;
+use DB;
 
 class SubjectController extends Controller
 {
@@ -28,7 +29,8 @@ class SubjectController extends Controller
      */
     protected function getSubjects(){
         $subject = $this->getSubjectsCollection();
-        return view('admin.subject', compact('subject'));
+        $all_users = DB::table('users')->where('id','!=',auth()->user()->id)->get();
+        return view('admin.subject', compact('subject','all_users'));
     }
 
     /**
@@ -72,6 +74,7 @@ class SubjectController extends Controller
      */
     protected function editSubjectForm($subject_id){
         $subject_name = Subject::where('id',$subject_id)->value('subject');
-        return view('admin.edit_subject',compact('subject_id','subject_name'));
+        $all_users = DB::table('users')->where('id','!=',auth()->user()->id)->get();
+        return view('admin.edit_subject',compact('subject_id','subject_name','all_users'));
     }
 }

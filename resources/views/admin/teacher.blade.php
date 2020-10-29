@@ -55,9 +55,9 @@
                                             @else
                                                 <a href='/activate-teacher/{{ $teachers->teachers_login_id }}'><button class="btn btn-sm btn-success" title="Activate teacher"><i class="fa fa-check"></i></button></a>
                                             @endif
-                                            <a href="/edit-teacher/{{ $teachers->id }}">
+                                            {{-- <a href="/edit-teacher/{{ $teachers->id }}">
                                                 <button class="btn btn-sm btn-info"><i class="fa fa-edit"></i></button>
-                                            </a>
+                                            </a> --}}
                                         </td>
                                     </tr>
                                     @endforeach

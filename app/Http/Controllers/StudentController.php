@@ -26,12 +26,13 @@ class StudentController extends Controller
     protected function getStudents(){
         $parents = $this->parents_instance->getParentsCollection();
         $classes = $this->classes_instance->getClassesCollection();
+        $all_users = User::where('id','!=',auth()->user()->id)->get();
         $get_all_students = Student::join('users','students.school_id','users.id')
         ->join('levels','students.level_id','levels.id')
         ->join('parent_information','students.parent_id','parent_information.id')
         ->select('parent_information.parent_name','users.name','students.*','levels.class')
         ->get();
-        return view('admin.student', compact('get_all_students','parents','classes'));
+        return view('admin.student', compact('get_all_students','parents','classes','all_users'));
     }
     /** 
      * This function edits the student information

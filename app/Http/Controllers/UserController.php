@@ -38,7 +38,8 @@ class UserController extends Controller
     */
     protected function getUsers(){
         $get_all_users =User::get();
-        return view('admin.all-users',compact('get_all_users'));
+        $all_users = User::where('id','!=',auth()->user()->id)->get();
+        return view('admin.all-users',compact('get_all_users','all_users'));
     }
     /** 
      * This function edit user  details
@@ -70,7 +71,8 @@ class UserController extends Controller
      */
     protected function getSchools(){
         $all_schools = $this->getSchoolsCollections();
-        return view('admin.schools',compact('all_schools'));
+        $all_users = User::where('id','!=',auth()->user()->id)->get();
+        return view('admin.schools',compact('all_schools','all_users'));
     }
 
     /**

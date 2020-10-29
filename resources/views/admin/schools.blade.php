@@ -49,9 +49,9 @@
                                             @else
                                                 <a href='/activate-school/{{ $school->id }}'><button class="btn btn-sm btn-success" title="Activate School"><i class="fa fa-check"></i></button></a>
                                             @endif
-                                            <a href="/edit-school/{{ $school->id }}">
+                                            {{-- <a href="/edit-school/{{ $school->id }}">
                                                 <button class="btn btn-sm btn-info"><i class="fa fa-edit"></i></button>
-                                            </a>
+                                            </a> --}}
                                         </td>
                                     </tr>
                                     @endforeach

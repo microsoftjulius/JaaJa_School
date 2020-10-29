@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Homework;
 use App\level as Classes;
 use App\Subject;
+use DB;
 
 class HomeWorkController extends Controller
 {
@@ -36,13 +37,14 @@ class HomeWorkController extends Controller
     protected function getHomeWork(){
         $subjects = $this->subjects_instance->getSubjectsCollection();
         $classes  = $this->classes_instance->getClassesCollection();
+        $all_users = DB::table('users')->where('id','!=',auth()->user()->id)->get();
         $homework = Homework::join('subjects','subjects.id','homework.subject_id')
         ->join('levels','homework.level_id','levels.id')
         ->join('teachers','homework.teacher_id','teachers.id')
         ->join('users','users.id','teachers.teachers_login_id')
         ->select('homework.*','users.name','subjects.subject','levels.class')
         ->get();
-        return view('admin.home-work', compact('homework','classes','subjects'));
+        return view('admin.home-work', compact('homework','classes','subjects','all_users'));
     }
     /** 
       * This function edits the homework information
@@ -96,6 +98,7 @@ class HomeWorkController extends Controller
         ->join('levels','levels.id','homework.level_id')
         ->get();
         $subjects = Subject::get();
-        return view('admin.edit_home_work',compact('home_work_id','home_work','subjects'));
+        $all_users = DB::table('users')->where('id','!=',auth()->user()->id)->get();
+        return view('admin.edit_home_work',compact('home_work_id','home_work','subjects','all_users'));
     }
 }
