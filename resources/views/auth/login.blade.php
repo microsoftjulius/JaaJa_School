@@ -1,73 +1,85 @@
-@extends('layouts.app')
+<!DOCTYPE html>
+<html lang="en">
 
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}">
-                        @csrf
+<!-- Mirrored from themicon.co/theme/angle/v4.7.5/static-html/app/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 19 Oct 2020 09:47:10 GMT -->
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="Bootstrap Admin App">
+<meta name="keywords" content="app, responsive, jquery, bootstrap, dashboard, admin">
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<title>JITS - Education System</title><!-- =============== VENDOR STYLES ===============-->
+<!-- FONT AWESOME-->
+<link rel="stylesheet" href="{{ asset('design/vendor/%40fortawesome/fontawesome-free/css/brands.css')}}">
+<link rel="stylesheet" href="{{ asset('design/vendor/%40fortawesome/fontawesome-free/css/regular.css')}}">
+<link rel="stylesheet" href="{{ asset('design/vendor/%40fortawesome/fontawesome-free/css/solid.css')}}">
+<link rel="stylesheet" href="{{ asset('design/vendor/%40fortawesome/fontawesome-free/css/fontawesome.css')}}"><!-- SIMPLE LINE ICONS-->
+<link rel="stylesheet" href="{{ asset('design/vendor/simple-line-icons/css/simple-line-icons.css')}}"><!-- =============== BOOTSTRAP STYLES ===============-->
+<link rel="stylesheet" href="{{ asset('design/css/bootstrap.css')}}" id="bscss"><!-- =============== APP STYLES ===============-->
+<link rel="stylesheet" href="{{ asset('design/css/app.css')}}" id="maincss">
+</head>
 
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
+<body>
+<div class="wrapper"><br><br><br>
+    <div class="block-center mt-4 wd-xl">
+        <!-- START card-->
+        <div class="card card-flat">
+        <div class="card-header text-center bg-dark"><a href="http://jaajaltd.com/" target="_blank">JITS - EDUCATION</a></div>
+        <div class="card-body">
+            <p class="text-center py-2">SIGN IN TO CONTINUE.</p>
+            <form class="mb-3" id="loginForm" method="post" action="{{ route('login') }}" novalidate >
+                @csrf
+                <div class="form-group">
+                    <div class="input-group with-focus">
+                        <input id="email" type="text" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                        <div class="input-group-append">
+                            <span class="input-group-text text-muted bg-transparent border-left-0"><em class="fa fa-envelope"></em></span>
                         </div>
-
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <div class="col-md-6 offset-md-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-
-                                    <label class="form-check-label" for="remember">
-                                        {{ __('Remember Me') }}
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Login') }}
-                                </button>
-
-                                @if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        {{ __('Forgot Your Password?') }}
-                                    </a>
-                                @endif
-                            </div>
-                        </div>
-                    </form>
+                            @error('email')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                    </div>
                 </div>
-            </div>
+                <div class="form-group">
+                    <div class="input-group with-focus">
+                        <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+
+                        <div class="input-group-append">
+                            <span class="input-group-text text-muted bg-transparent border-left-0"><em class="fa fa-lock"></em></span>
+                        </div>
+                        @error('password')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                </div>
+                <div class="clearfix">
+                    <div class="float-right"><a class="text-muted" href="{{ route('password.request') }}">Forgot your password?</a></div>
+                </div><button class="btn btn-block btn-primary mt-3" type="submit">Login</button>
+            </form>
+            {{-- <p class="pt-3 text-center">Need to Signup?</p><a class="btn btn-block btn-secondary" href="{{ route('register') }}">Register Now</a> --}}
+        </div>
+        </div><!-- END card-->
+        <div class="p-3 text-center"><span class="mr-2">&copy;</span><span>{{ date('Y') }}</span><span class="mr-2">-</span><span>JITS</span><br>
+            <span><a href="https://jaajaltd.com" target="_blank">JAAJA Information Technology Solutions</a></span>
         </div>
     </div>
-</div>
-@endsection
+<!-- MODERNIZR-->
+<script src="{{ asset('design/vendor/modernizr/modernizr.custom.js')}}"></script><!-- STORAGE API-->
+<script src="{{ asset('design/vendor/js-storage/js.storage.js')}}"></script><!-- i18next-->
+<script src="{{ asset('design/vendor/i18next/i18next.js')}}"></script>
+<script src="{{ asset('design/vendor/i18next-xhr-backend/i18nextXHRBackend.js')}}"></script><!-- JQUERY-->
+<script src="{{ asset('design/vendor/jquery/dist/jquery.js')}}"></script><!-- BOOTSTRAP-->
+<script src="{{ asset('design/vendor/popper.js/dist/umd/popper.js')}}"></script>
+<script src="{{ asset('design/vendor/bootstrap/dist/js/bootstrap.js')}}"></script><!-- PARSLEY-->
+<script src="{{ asset('design/vendor/parsleyjs/dist/parsley.js')}}"></script><!-- =============== APP SCRIPTS ===============-->
+<script src="{{ asset('design/js/app.js')}}"></script>
+</body>
+
+
+<!-- Mirrored from themicon.co/theme/angle/v4.7.5/static-html/app/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 19 Oct 2020 09:47:10 GMT -->
+</html>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Role;
+use DB;
 
 class RoleController extends Controller
 {
@@ -20,7 +21,8 @@ class RoleController extends Controller
     */
     protected function getRoles(){
         $get_roles =Role::get();
-        return view('admin.role', compact('get_roles'));
+        $all_users = DB::table('users')->where('id','!=',auth()->user()->id)->get();
+        return view('admin.role', compact('get_roles','all_users'));
     }
     /** 
      * This function validate role

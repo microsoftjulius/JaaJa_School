@@ -5,6 +5,8 @@
 <link rel="stylesheet" href="{{ asset('design/vendor/datatables.net-bs4/css/dataTables.bootstrap4.css')}}">
 <link rel="stylesheet" href="{{ asset('design/vendor/datatables.net-keytable-bs/css/keyTable.bootstrap.css')}}">
 <link rel="stylesheet" href="{{ asset('design/vendor/datatables.net-responsive-bs/css/responsive.bootstrap.css')}}"><!-- =============== BOOTSTRAP STYLES ===============-->
+<link rel="stylesheet" href="{{ asset('design/vendor/dropzone/dist/basic.css')}}">
+<link rel="stylesheet" href="{{ asset('design/vendor/dropzone/dist/dropzone.css')}}"><!-- =============== BOOTSTRAP STYLES ===============-->
 <body>
     <div class="wrapper">
         <!-- top navbar-->
@@ -18,49 +20,66 @@
         <div class="content-wrapper">
             <div class="content-heading">
             <div>{{ request()->route()->getName() }}<small data-localize="dashboard.WELCOME"></small></div><!-- START Language list-->
-            <div class="ml-auto">
-                <div class="btn-group"><button class="btn btn-secondary dropdown-toggle dropdown-toggle-nocaret" type="button" data-toggle="dropdown">English</button>
-                    <div class="dropdown-menu dropdown-menu-right-forced animated fadeInUpShort" role="menu"><a class="dropdown-item" href="#" data-set-lang="en">English</a><a class="dropdown-item" href="#" data-set-lang="es">Spanish</a></div>
-                </div>
-            </div><!-- END Language list-->
+            
             </div><!-- START cards box-->
             <div class="row">
                 <div class="col-lg-12">
+                    @include('layouts.messages')
                     <div class="card">
                         <div class="card-header">
-                            <div class="card-title">A table showing all parents</div>
+                            <div class="card-title">A table showing all students</div>
                             </div>
                             <div class="card-body">
                             <table class="table table-striped my-4 w-100" id="datatable2">
                                 <thead>
                                     <tr>
-                                        <th data-priority="1">Engine</th>
-                                        <th>Browser</th>
-                                        <th>Platform</th>
-                                        <th class="sort-numeric">Engine version</th>
-                                        <th class="sort-alpha" data-priority="2">CSS grade</th>
+                                        <th data-priority="1">No.</th>
+                                        <th>School</th>
+                                        <th>Class</th>
+                                        <th class="sort-numeric">Parent</th>
+                                        <th class="sort-alpha" data-priority="2">Student names</th>
+                                        <th>Age</th>
+                                        <th>Status</th>
+                                        <th>Photo</th>
+                                        @if(auth()->user()->category == 'teacher')
+                                        <th>Option</th>
+                                        @endif
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @foreach ($get_all_students as $id => $students)
                                     <tr class="gradeX">
-                                        <td>Trident</td>
-                                        <td>Internet Explorer 4.0</td>
-                                        <td>Win 95+</td>
-                                        <td>4</td>
-                                        <td>X</td>
+                                        <td>{{ $id + 1}}</td>
+                                        <td>{{ $students->name }}</td>
+                                        <td>{{ $students->class }}</td>
+                                        <td>{{ $students->parent_name }}</td>
+                                        <td>{{ $students->student_name }}</td>
+                                        <td>{{ $students->age }}</td>
+                                        <td>{{ $students->status }}</td>
+                                        <td><img src="{{ asset('student_photo/'. $students->photo) }}" style="width:100px; height:70px"/></td>
+                                        @if(auth()->user()->category == 'teacher')
+                                        <td>
+                                            <a href='/delete-student/{{ $students->id }}'><button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button></a>
+                                            {{-- <a href="/edit-student/{{ $students->id }}">
+                                                <button class="btn btn-sm btn-info"><i class="fa fa-edit"></i></button>
+                                            </a> --}}
+                                        </td>
+                                        @endif
                                     </tr>
-                                    
-                                    <tr class="gradeC">
-                                        <td>Tasman</td>
-                                        <td>Internet Explorer 5.1</td>
-                                        <td>Mac OS 7.6-9</td>
-                                        <td>1</td>
-                                        <td>C</td>
-                                    </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                             </div>
                         </div>
+                        @if(auth()->user()->category == 'teacher')
+                        <div class="row">
+                            <div class="col-lg-4"></div>
+                            <div class="col-lg-4"></div>
+                            <div class="col-lg-4 text-right">
+                                <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModal" type="button"><i class="fa fa-plus"></i> New Student</button>
+                            </div>
+                        </div>
+                        @endif
                 </div>
             </div>
         </div>
@@ -83,5 +102,64 @@
     <script src="{{ asset('design/vendor/datatables.net-responsive-bs/js/responsive.bootstrap.js')}}"></script>
     <script src="{{ asset('design/vendor/jszip/dist/jszip.js')}}"></script>
     <script src="{{ asset('design/vendor/pdfmake/build/pdfmake.js')}}"></script>
+    <script src="{{ asset('design/vendor/dropzone/dist/dropzone.js')}}"></script>
 </body>
 </html>
+<!-- Modal -->
+<form action="/create-student" method="POST" enctype="multipart/form-data">
+    @csrf
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">To add homework, Fill this form</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <label for="First Name">First Name</label>
+                            <input type="text" name="first_name" id="" class="form-control" autocomplete="off">
+                        </div>
+                        <div class="col-lg-6">
+                            <label for="Last Name">Last Name</label>
+                            <input type="text" name="last_name" id="" class="form-control" autocomplete="off">
+                        </div>
+                        <div class="col-lg-6">
+                            <label for="browser">Select a Parent:</label>
+                            <input list="parent" name="parent_name" id="parents" class="form-control" autocomplete="off">
+                            <datalist id="parent">
+                                @foreach ($parents as $parent)
+                                    <option value="{{ $parent->parent_name }}">
+                                @endforeach
+                            </datalist>
+                        </div>
+                        <div class="col-lg-6">
+                            <label for="class">Choose the Class:</label>
+                            <input list="class" name="class_name" id="classes" class="form-control" autocomplete="off">
+                            <datalist id="class">
+                                @foreach ($classes as $class)
+                                    <option value="{{ $class->class }}">
+                                @endforeach
+                            </datalist>
+                        </div>
+                        <div class="col-lg-12">
+                            <label for="Age">Age:</label>
+                            <input name="age" id="age" class="form-control" autocomplete="off" type="number">
+                        </div>
+                        <div class="col-lg-12"><br>
+                            <input type="file" class="form-control dropzone mb-3 card d-flex flex-row justify-content-center flex-wrap"
+                            id="dropzone-area" accept="image/*" name="photo">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
