@@ -18,45 +18,35 @@
         <div class="content-wrapper">
             <div class="content-heading">
             <div>{{ request()->route()->getName() }}<small data-localize="dashboard.WELCOME"></small></div><!-- START Language list-->
-            <div class="ml-auto">
-                <div class="btn-group"><button class="btn btn-secondary dropdown-toggle dropdown-toggle-nocaret" type="button" data-toggle="dropdown">English</button>
-                    <div class="dropdown-menu dropdown-menu-right-forced animated fadeInUpShort" role="menu"><a class="dropdown-item" href="#" data-set-lang="en">English</a><a class="dropdown-item" href="#" data-set-lang="es">Spanish</a></div>
-                </div>
-            </div><!-- END Language list-->
+            
             </div><!-- START cards box-->
             <div class="row">
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-header">
-                            <div class="card-title">A table showing home work per class</div>
+                            <div class="card-title">A table showing users</div>
                             </div>
                             <div class="card-body">
                             <table class="table table-striped my-4 w-100" id="datatable2">
                                 <thead>
                                     <tr>
-                                        <th data-priority="1">Engine</th>
-                                        <th>Browser</th>
-                                        <th>Platform</th>
-                                        <th class="sort-numeric">Engine version</th>
-                                        <th class="sort-alpha" data-priority="2">CSS grade</th>
+                                        <th data-priority="1">No.</th>
+                                        <th>Name</th>
+                                        <th>Category</th>
+                                        <th class="sort-numeric">Status</th>
+                                        <th>Created at</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @foreach ($get_all_users as $id => $user)
                                     <tr class="gradeX">
-                                        <td>Trident</td>
-                                        <td>Internet Explorer 4.0</td>
-                                        <td>Win 95+</td>
-                                        <td>4</td>
-                                        <td>X</td>
+                                        <td>{{ $id + 1 }}</td>
+                                        <td>{{ $user->name }}</td>
+                                        <td style="text-transform: capitalize">{{ $user->category }}</td>
+                                        <td>{{ $user->status }}</td>
+                                        <td>{{ $user->created_at }}</td>
                                     </tr>
-                                    
-                                    <tr class="gradeC">
-                                        <td>Tasman</td>
-                                        <td>Internet Explorer 5.1</td>
-                                        <td>Mac OS 7.6-9</td>
-                                        <td>1</td>
-                                        <td>C</td>
-                                    </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                             </div>

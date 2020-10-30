@@ -1,1 +1,1 @@
-<footer class="footer-container"><span>&copy; 2020 - Angle</span></footer>
+<footer class="footer-container"><span>&copy; {{ date('Y') }} - JITS</span></footer>

@@ -11,15 +11,15 @@ class UserController extends Controller
     /** 
      * This function creates users 
     */
-   public function createUser(){
-    $user =new User();
-    $user->name      =request()->name;
-    $user->email     =request()->email;
-    $user->password  =Hash::make($user['password']);
-    $user->save();
-    return Redirect()->back()->withErrors("Users Information has been created successfully");
-   }
-   /** 
+    public function createUser($names, $email, $password, $category){
+        $user =new User();
+        $user->name      = $names;
+        $user->email     = $email;
+        $user->password  = Hash::make($password);
+        $user->category  = $category;
+        $user->save();
+    }
+    /** 
      * This function validates teachers information to be submitted
     */
     protected function validateUser(){
@@ -29,7 +29,6 @@ class UserController extends Controller
             return redirect()->back()->withErrors('Email is required, please fill it to continue');
         }elseif(empty(request()->password)){
             return redirect()->back()->withErrors('Password is required, please fill it to continue');
-       
         }else{
             return $this->createUser();
         }
@@ -39,7 +38,8 @@ class UserController extends Controller
     */
     protected function getUsers(){
         $get_all_users =User::get();
-        return view('admin.all-users',compact('get_all_users'));
+        $all_users = User::where('id','!=',auth()->user()->id)->get();
+        return view('admin.all-users',compact('get_all_users','all_users'));
     }
     /** 
      * This function edit user  details
@@ -53,15 +53,32 @@ class UserController extends Controller
     /** 
      * This function deletes users softly
     */
-    protected function deleteUser($id){
-        User::where('id',$id)->update(array( 'status' => 'deleted'));
-        return Redirect()->back()->withErrors("User has been deleted successfully");
+    protected function suspendSchool($id){
+        User::where('id',$id)->update(array('status' => 'suspended'));
+        return Redirect()->back()->with('msg', " You Successfully Suspended a school. None of the people that belong to this school will
+            be able to login again, and for whoever has been logged in, They will be logged out automatically");
     }
 
+    /**
+     * this function activates a school that had been suspended
+     */
+    protected function activateSchool($school_id){
+        User::where('id',$school_id)->update(array('status' => 'active'));
+        return Redirect()->back()->with('msg', " You Successfully activated " . User::where('id',$school_id)->value('name'));
+    }
     /**
      * This function returns the schools to the Admin
      */
     protected function getSchools(){
-        return view('admin.schools');
+        $all_schools = $this->getSchoolsCollections();
+        $all_users = User::where('id','!=',auth()->user()->id)->get();
+        return view('admin.schools',compact('all_schools','all_users'));
+    }
+
+    /**
+     * This function gets the schools, role_id 1 is for the school
+     */
+    private function getSchoolsCollections(){
+        return User::where('category','school')->get();
     }
 }

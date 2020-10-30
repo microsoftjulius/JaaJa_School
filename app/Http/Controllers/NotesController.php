@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Note;
+use App\level as Classes;
+use App\Subject;
+use DB;
 
 class NotesController extends Controller
 {
@@ -12,38 +15,48 @@ class NotesController extends Controller
       */
     public function __construct(){
         $this->authenticated_user = new AuthenticationController;
+        $this->classes_instance   = new LevelController;
+        $this->subjects_instance  = new SubjectController;
     }
     /** 
  * This function creates notes for school for a particular class
 */
-    private function createNotes(){
+    private function createNotes($class_id, $subject_id, $notes_work_path){
         $notes =new Note;
-        //$notes ->school_id = $this->authenticated_user->getLoggedInUserID();
-        $notes->subject_id =request()->subject_id;
-        $notes->level_id =request()->level_id;
-        $notes->teacher_id =request()->teacher_id;
-        $notes->notes =request()->notes;
+        $notes->subject_id = $subject_id;
+        $notes->level_id   = $class_id;
+        $notes->teacher_id = $this->authenticated_user->getLoggedinTeachersId();
+        $notes->notes      = $notes_work_path;
         $notes->save();
-        return Redirect()->back()->withErrors("You have successfully uploaded Botes");
+        return Redirect()->back()->with('msg',"You have successfully added notes for ". request()->class_name);
     }
     /** 
      * This function fetches all the notes documents from the table
     */
     protected function getNotes(){
+        $subjects = $this->subjects_instance->getSubjectsCollection();
+        $classes  = $this->classes_instance->getClassesCollection();
+        $all_users = DB::table('users')->where('id','!=',auth()->user()->id)->get();
         $notes = Note::join('levels','notes.level_id','levels.id')
         ->join('subjects','notes.subject_id','subjects.id')
         ->join('teachers','notes.teacher_id','teachers.id')
+        ->join('users','users.id','teachers.teachers_login_id')
+        ->select('notes.*','subjects.subject','levels.class','users.name')
         ->get();
-        return view('admin.notes', compact('notes'));
+        return view('admin.notes', compact('notes','subjects','classes','all_users'));
     }
     /** 
      * This function edits the notes information
     */
     protected function editNotes($id){
+        $class_id = Classes::where('class',request()->class_name)->value('id');
+        if(empty($class_id)){
+            return redirect()->back()->withErrors(" Please select the class from the list");
+        }
         Note::where('id',$id)->update(array(
-            'notes' =>'English.pdf'
+            'level_id' => $class_id
         ));
-        return Redirect()->back()->withErrors("Notes has been updated successfully");
+        return redirect()->back()->with('msg'," You have changed the class for these notes to ". request()->class_name);
     }
     /** 
      * This function deletes notes softly
@@ -59,7 +72,26 @@ class NotesController extends Controller
         if(empty(request()->notes)){
             return redirect()->back()->withErrors('Notes is required, please fill it to continue');
         }else{
-            return $this->createNotes();
+
+            $class_id   = Classes::where('class',request()->class_name)->value('id');
+            $subject_id = Subject::where('subject',request()->subject_name)->value('id');
+
+            $notes_pdf = request()->notes;
+            $notes_work_path = $notes_pdf->getClientOriginalName();
+            $notes_pdf->move('notes/',$notes_work_path);
+
+            return $this->createNotes($class_id, $subject_id, $notes_work_path);
         }
+    }
+
+    /**
+     * This function gets the edit notes form
+     */
+    protected function editNotesForm($notes_id){
+        $class_id   = Note::where('id',$notes_id)->value('level_id');
+        $class_name = Classes::where('id',$class_id)->value('class');
+        $classes    = Classes::get();
+        $all_users = DB::table('users')->where('id','!=',auth()->user()->id)->get();
+        return view('admin.edit_notes',compact('classes','class_name','notes_id','all_users'));
     }
 }

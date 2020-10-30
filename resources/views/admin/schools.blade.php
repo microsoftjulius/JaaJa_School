@@ -18,47 +18,52 @@
         <div class="content-wrapper">
             <div class="content-heading">
             <div>{{ request()->route()->getName() }}<small data-localize="dashboard.WELCOME"></small></div><!-- START Language list-->
-            <div class="ml-auto">
-                <div class="btn-group"><button class="btn btn-secondary dropdown-toggle dropdown-toggle-nocaret" type="button" data-toggle="dropdown">English</button>
-                    <div class="dropdown-menu dropdown-menu-right-forced animated fadeInUpShort" role="menu"><a class="dropdown-item" href="#" data-set-lang="en">English</a><a class="dropdown-item" href="#" data-set-lang="es">Spanish</a></div>
-                </div>
-            </div><!-- END Language list-->
+
             </div><!-- START cards box-->
             <div class="row">
                 <div class="col-lg-12">
+                    @include('layouts.messages')
                     <div class="card">
                         <div class="card-header">
-                            <div class="card-title">A table showing home work per class</div>
+                            <div class="card-title">A table showing all schools</div>
                             </div>
                             <div class="card-body">
                             <table class="table table-striped my-4 w-100" id="datatable2">
                                 <thead>
                                     <tr>
-                                        <th data-priority="1">Engine</th>
-                                        <th>Browser</th>
-                                        <th>Platform</th>
-                                        <th class="sort-numeric">Engine version</th>
-                                        <th class="sort-alpha" data-priority="2">CSS grade</th>
+                                        <th data-priority="1">No.</th>
+                                        <th>School Name</th>
+                                        <th>Status</th>
+                                        <th class="sort-numeric">Options</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @foreach ($all_schools as $id => $school)
                                     <tr class="gradeX">
-                                        <td>Trident</td>
-                                        <td>Internet Explorer 4.0</td>
-                                        <td>Win 95+</td>
-                                        <td>4</td>
-                                        <td>X</td>
+                                        <td>{{ $id + 1 }}</td>
+                                        <td>{{ $school->name }}</td>
+                                        <td>{{ $school->status }}</td>
+                                        <td>
+                                            @if($school->status == "active")
+                                                <a href='/suspend-school/{{ $school->id }}'><button class="btn btn-sm btn-warning" title="Suspend School"><i class="fa fa-times"></i></button></a>
+                                            @else
+                                                <a href='/activate-school/{{ $school->id }}'><button class="btn btn-sm btn-success" title="Activate School"><i class="fa fa-check"></i></button></a>
+                                            @endif
+                                            {{-- <a href="/edit-school/{{ $school->id }}">
+                                                <button class="btn btn-sm btn-info"><i class="fa fa-edit"></i></button>
+                                            </a> --}}
+                                        </td>
                                     </tr>
-                                    
-                                    <tr class="gradeC">
-                                        <td>Tasman</td>
-                                        <td>Internet Explorer 5.1</td>
-                                        <td>Mac OS 7.6-9</td>
-                                        <td>1</td>
-                                        <td>C</td>
-                                    </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4"></div>
+                            <div class="col-lg-4"></div>
+                            <div class="col-lg-4 text-right">
+                                <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModal" type="button"><i class="fa fa-plus"></i> Add School</button>
                             </div>
                         </div>
                 </div>

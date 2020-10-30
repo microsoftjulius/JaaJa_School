@@ -18,14 +18,11 @@
         <div class="content-wrapper">
             <div class="content-heading">
             <div>{{ request()->route()->getName() }}<small data-localize="dashboard.WELCOME"></small></div><!-- START Language list-->
-            <div class="ml-auto">
-                <div class="btn-group"><button class="btn btn-secondary dropdown-toggle dropdown-toggle-nocaret" type="button" data-toggle="dropdown">English</button>
-                    <div class="dropdown-menu dropdown-menu-right-forced animated fadeInUpShort" role="menu"><a class="dropdown-item" href="#" data-set-lang="en">English</a><a class="dropdown-item" href="#" data-set-lang="es">Spanish</a></div>
-                </div>
-            </div><!-- END Language list-->
+
             </div><!-- START cards box-->
             <div class="row">
                 <div class="col-lg-12">
+                    @include('layouts.messages')
                     <div class="card">
                         <div class="card-header">
                             <div class="card-title">A table showing home work per class</div>
@@ -34,33 +31,45 @@
                             <table class="table table-striped my-4 w-100" id="datatable2">
                                 <thead>
                                     <tr>
-                                        <th data-priority="1">Engine</th>
-                                        <th>Browser</th>
-                                        <th>Platform</th>
-                                        <th class="sort-numeric">Engine version</th>
-                                        <th class="sort-alpha" data-priority="2">CSS grade</th>
+                                        <th data-priority="1">No.</th>
+                                        <th>Class</th>
+                                        <th>Status</th>
+                                        <th class="sort-numeric">Date</th>
+                                        @if(auth()->user()->category == 'school')
+                                        <th class="sort-alpha" data-priority="2">Options</th>
+                                        @endif
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @foreach ($class as $id => $classes)
                                     <tr class="gradeX">
-                                        <td>Trident</td>
-                                        <td>Internet Explorer 4.0</td>
-                                        <td>Win 95+</td>
-                                        <td>4</td>
-                                        <td>X</td>
+                                        <td>{{ $id + 1 }}</td>
+                                        <td>{{ $classes->class }}</td>
+                                        <td>{{ $classes->status }}</td>
+                                        <td>{{ $classes->created_at }}</td>
+                                        @if(auth()->user()->category == 'school')
+                                        <td>
+                                            <a href="/delete-class/{{ $classes->id }}"><button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button></a>
+                                            <a href="/edit-class-form/{{ $classes->id }}">
+                                                <button class="btn btn-sm btn-info"><i class="fa fa-edit"></i></button>
+                                            </a>
+                                        </td>
+                                        @endif
                                     </tr>
-                                    
-                                    <tr class="gradeC">
-                                        <td>Tasman</td>
-                                        <td>Internet Explorer 5.1</td>
-                                        <td>Mac OS 7.6-9</td>
-                                        <td>1</td>
-                                        <td>C</td>
-                                    </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                             </div>
                         </div>
+                        @if(auth()->user()->category == 'school')
+                        <div class="row">
+                            <div class="col-lg-4"></div>
+                            <div class="col-lg-4"></div>
+                            <div class="col-lg-4 text-right">
+                                <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModal" type="button"><i class="fa fa-plus"></i> Add Class</button>
+                            </div>
+                        </div>
+                        @endif
                 </div>
             </div>
         </div>
@@ -85,3 +94,30 @@
     <script src="{{ asset('design/vendor/pdfmake/build/pdfmake.js')}}"></script>
 </body>
 </html>
+
+<!-- Modal -->
+<form action="/create-class" method="GET">
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">To Add a class, Fill this form</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <input type="text" name="class" id="" class="form-control" value="{{ old('class') }}" autocomplete="off" min-length="11">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
