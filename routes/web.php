@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/get-dashboard','HomeController@getDashboardBlade');
     Route::get('/logout','HomeController@logout');
-    Route::get('/', function () {  return view('welcome');});
+    Route::get('/', function () {  return redirect('/home');});
     Route::post('/create-role','RoleController@validateRole');
     Route::get('/get-role','RoleController@getRoles')->name('Roles');
     Route::delete('/delete-role/{id}','RoleController@deleteRole');
@@ -80,6 +80,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/get-answers-to-question/{question_id}','AnswersController@getAnswersToQuestion');
     Route::patch('/update-answers-to-question/{question_id}','AnswersController@updateAnswersToAQuestion');
     Route::delete('/delete-answers-to-question/{question_id}','AnswersController@deleteAnswer');
+    Route::get('/add-answers-form/{question_id}','AnswersController@addAnswersForm');
 
     Route::patch('/create-new-tutorial-for-answer/{answer_id}','TutorialsController@validateTutorial');
     Route::patch('/update-video-tutorial/{answer_id}','TutorialsController@updateVideoTutorial');

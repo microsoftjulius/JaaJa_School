@@ -40,7 +40,9 @@
                                         <th>Home Work</th>
                                         <th>Status</th>
                                         <th>Date</th>
+                                        @if(auth()->user()->category == 'teacher')
                                         <th>Options</th>
+                                        @endif
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -53,18 +55,21 @@
                                             <td><a href="{{ asset('home_work/'.$work->home_work) }}" target="_blank"><i class="fa fa-download"></i> download</a></td>
                                             <td style="text-transform: capitalize">{{ $work->status }}</td>
                                             <td>{{ $work->created_at }}</td>
+                                            @if(auth()->user()->category == 'teacher')
                                             <td>
                                                 <a href="/delete-home-work/{{ $work->id }}"><button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button></a>
                                                 <a href="/edit-home-work-form/{{ $work->id }}">
                                                     <button class="btn btn-sm btn-info"><i class="fa fa-edit"></i></button>
                                                 </a>
                                             </td>
+                                            @endif
                                         </tr>
                                     @endforeach
                                 </tbody>
                             </table>
                             </div>
                         </div>
+                        @if(auth()->user()->category == 'teacher')
                         <div class="row">
                             <div class="col-lg-4"></div>
                             <div class="col-lg-4"></div>
@@ -72,6 +77,7 @@
                                 <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModal" type="button"><i class="fa fa-plus"></i> Add Home Work</button>
                             </div>
                         </div>
+                        @endif
                 </div>
             </div>
         </div>

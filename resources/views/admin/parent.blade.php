@@ -34,6 +34,7 @@
                                     <tr>
                                         <th data-priority="1">No.</th>
                                         <th>Names</th>
+                                        <th>Photo</th>
                                         <th>Contact</th>
                                         <th class="sort-numeric">Location</th>
                                         <th class="sort-alpha" data-priority="2">Status</th>
@@ -46,22 +47,26 @@
                                     <tr class="gradeX">
                                         <td>{{ $id + 1 }}</td>
                                         <td>{{ $parents->parent_name }}</td>
+                                        <td><img src="{{ asset('parent_photo/'. $parents->photo) }}" style="width:100px; height:70px"/></td>
                                         <td>{{ $parents->contact }}</td>
                                         <td>{{ $parents->location }}</td>
                                         <td>{{ $parents->status }}</td>
                                         <td>{{ $parents->created_at }}</td>
+                                        @if(auth()->user()->category == 'school')
                                         <td>
                                             <a href="/delete-parent/{{ $parents->id }}"><button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button></a>
                                             {{-- <a href="/edit-parents-form/{{ $parents->id }}">
                                                 <button class="btn btn-sm btn-info"><i class="fa fa-edit"></i></button>
                                             </a> --}}
                                         </td>
+                                        @endif
                                     </tr>
                                     @endforeach
                                 </tbody>
                             </table>
                             </div>
                         </div>
+                        @if(auth()->user()->category == 'school')
                         <div class="row">
                             <div class="col-lg-4"></div>
                             <div class="col-lg-4"></div>
@@ -69,6 +74,7 @@
                                 <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModal" type="button"><i class="fa fa-plus"></i> Add Parent</button>
                             </div>
                         </div>
+                        @endif
                 </div>
             </div>
         </div>

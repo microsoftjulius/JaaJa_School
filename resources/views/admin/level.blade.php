@@ -35,7 +35,9 @@
                                         <th>Class</th>
                                         <th>Status</th>
                                         <th class="sort-numeric">Date</th>
+                                        @if(auth()->user()->category == 'school')
                                         <th class="sort-alpha" data-priority="2">Options</th>
+                                        @endif
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -45,18 +47,21 @@
                                         <td>{{ $classes->class }}</td>
                                         <td>{{ $classes->status }}</td>
                                         <td>{{ $classes->created_at }}</td>
+                                        @if(auth()->user()->category == 'school')
                                         <td>
                                             <a href="/delete-class/{{ $classes->id }}"><button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button></a>
                                             <a href="/edit-class-form/{{ $classes->id }}">
                                                 <button class="btn btn-sm btn-info"><i class="fa fa-edit"></i></button>
                                             </a>
                                         </td>
+                                        @endif
                                     </tr>
                                     @endforeach
                                 </tbody>
                             </table>
                             </div>
                         </div>
+                        @if(auth()->user()->category == 'school')
                         <div class="row">
                             <div class="col-lg-4"></div>
                             <div class="col-lg-4"></div>
@@ -64,6 +69,7 @@
                                 <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModal" type="button"><i class="fa fa-plus"></i> Add Class</button>
                             </div>
                         </div>
+                        @endif
                 </div>
             </div>
         </div>

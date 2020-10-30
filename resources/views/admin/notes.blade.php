@@ -39,7 +39,9 @@
                                         <th class="sort-numeric">Added By</th>
                                         <th class="sort-alpha" data-priority="2">Notes</th>
                                         <th class="sort-numeric">Date</th>
+                                        @if(auth()->user()->category == 'teacher')
                                         <th class="sort-alpha" data-priority="2">Options</th>
+                                        @endif
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -51,6 +53,7 @@
                                         <td>{{ $note->name }}</td>
                                         <td><a href="{{ asset('notes/'.$note->notes) }}" target="_blank"><i class="fa fa-download"></i> download</a></td>
                                         <td>{{ $note->created_at }}</td>
+                                        @if(auth()->user()->category == 'teacher')
                                         <td> 
                                             <a href="/delete-notes/{{ $note->id }}">
                                                 <button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button>
@@ -59,12 +62,14 @@
                                                 <button class="btn btn-sm btn-info"><i class="fa fa-edit"></i></button>
                                             </a>
                                         </td>
+                                        @endif
                                     </tr>
                                     @endforeach
                                 </tbody>
                             </table>
                             </div>
                         </div>
+                        @if(auth()->user()->category == 'teacher')
                         <div class="row">
                             <div class="col-lg-4"></div>
                             <div class="col-lg-4"></div>
@@ -72,6 +77,7 @@
                                 <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModal" type="button"><i class="fa fa-plus"></i> Add Notes</button>
                             </div>
                         </div>
+                        @endif
                 </div>
             </div>
         </div>

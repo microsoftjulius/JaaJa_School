@@ -41,7 +41,9 @@
                                         <th>Age</th>
                                         <th>Status</th>
                                         <th>Photo</th>
+                                        @if(auth()->user()->category == 'teacher')
                                         <th>Option</th>
+                                        @endif
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -54,19 +56,22 @@
                                         <td>{{ $students->student_name }}</td>
                                         <td>{{ $students->age }}</td>
                                         <td>{{ $students->status }}</td>
-                                        <td>{{ $students->photo }}</td>
+                                        <td><img src="{{ asset('student_photo/'. $students->photo) }}" style="width:100px; height:70px"/></td>
+                                        @if(auth()->user()->category == 'teacher')
                                         <td>
                                             <a href='/delete-student/{{ $students->id }}'><button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button></a>
                                             {{-- <a href="/edit-student/{{ $students->id }}">
                                                 <button class="btn btn-sm btn-info"><i class="fa fa-edit"></i></button>
                                             </a> --}}
                                         </td>
+                                        @endif
                                     </tr>
                                     @endforeach
                                 </tbody>
                             </table>
                             </div>
                         </div>
+                        @if(auth()->user()->category == 'teacher')
                         <div class="row">
                             <div class="col-lg-4"></div>
                             <div class="col-lg-4"></div>
@@ -74,6 +79,7 @@
                                 <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModal" type="button"><i class="fa fa-plus"></i> New Student</button>
                             </div>
                         </div>
+                        @endif
                 </div>
             </div>
         </div>

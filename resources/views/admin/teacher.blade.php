@@ -47,7 +47,7 @@
                                         <td>{{ $id + 1 }}</td>
                                         <td>{{ $teachers->name }}</td>
                                         <td>{{ $teachers->teachers_name }}</td>
-                                        <td>{{ $teachers->photo }}</td>
+                                        <td><img src="{{ asset('teachers-photos/'. $teachers->photo) }}" style="width:100px; height:70px"/></td>
                                         <td>{{ $teachers->status }}</td>
                                         <td>
                                             @if($teachers->status == "active")

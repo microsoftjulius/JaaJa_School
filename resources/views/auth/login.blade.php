@@ -21,11 +21,11 @@
 </head>
 
 <body>
-<div class="wrapper">
+<div class="wrapper"><br><br><br>
     <div class="block-center mt-4 wd-xl">
         <!-- START card-->
         <div class="card card-flat">
-        <div class="card-header text-center bg-dark"><a href="#"><img class="block-center rounded" src="{{ asset('design/img/logo.png')}}" alt="Image"></a></div>
+        <div class="card-header text-center bg-dark"><a href="http://jaajaltd.com/" target="_blank">JITS - EDUCATION</a></div>
         <div class="card-body">
             <p class="text-center py-2">SIGN IN TO CONTINUE.</p>
             <form class="mb-3" id="loginForm" method="post" action="{{ route('login') }}" novalidate >
@@ -58,18 +58,10 @@
                     </div>
                 </div>
                 <div class="clearfix">
-                    <div class="checkbox c-checkbox float-left mt-0">
-                        <label>
-                            <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-                        </span> Remember Me</label>
-                    </div>
-                    <label class="form-check-label" for="remember">
-                        {{ __('Remember Me') }}
-                    </label>
                     <div class="float-right"><a class="text-muted" href="{{ route('password.request') }}">Forgot your password?</a></div>
                 </div><button class="btn btn-block btn-primary mt-3" type="submit">Login</button>
             </form>
-            <p class="pt-3 text-center">Need to Signup?</p><a class="btn btn-block btn-secondary" href="{{ route('register') }}">Register Now</a>
+            {{-- <p class="pt-3 text-center">Need to Signup?</p><a class="btn btn-block btn-secondary" href="{{ route('register') }}">Register Now</a> --}}
         </div>
         </div><!-- END card-->
         <div class="p-3 text-center"><span class="mr-2">&copy;</span><span>{{ date('Y') }}</span><span class="mr-2">-</span><span>JITS</span><br>

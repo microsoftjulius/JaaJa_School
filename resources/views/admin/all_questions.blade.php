@@ -37,7 +37,12 @@
                                         <th>Class</th>
                                         <th>Added By</th>
                                         <th class="sort-numeric">Questions</th>
+                                        @if(auth()->user()->category == 'student')
+                                        <th>Answers</th>
+                                        @endif
+                                        @if(auth()->user()->category == 'teacher')
                                         <th class="sort-alpha" data-priority="2">Options</th>
+                                        @endif
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -49,13 +54,27 @@
                                             <td>
                                                 <a href="{{ asset('questions/'.$questions->questions_pdf) }}" target="_blank"><i class="fa fa-download"></i> download</a>                                                
                                             </td>
+                                            
                                             <td>
+                                                @if(auth()->user()->category == 'teacher')
+                                                <a href="/add-answers-form/{{ $questions->id }}">
+                                                    <button class="btn btn-sm btn-success"><i class="fa fa-plus"></i></button>
+                                                </a>
                                                 <a href="/delete-question/{{ $questions->id }}">
                                                     <button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button>
                                                 </a>
                                                 <a href="/edit-question-form/{{ $questions->id }}">
                                                     <button class="btn btn-sm btn-info"><i class="fa fa-edit"></i></button>
                                                 </a>
+                                                <a href="/get-answers-to-question/{{ $questions->id }}">
+                                                    <button class="btn btn-sm btn-secondary"><i class="fa fa-eye"></i></button>
+                                                </a>
+                                                @endif
+                                                @if(auth()->user()->category == 'student')
+                                                <a href="/get-answers-to-question/{{ $questions->id }}">
+                                                    <button class="btn btn-sm btn-secondary"><i class="fa fa-eye"></i></button>
+                                                </a>
+                                                @endif
                                             </td>
                                         </tr>
                                     @endforeach
@@ -63,6 +82,7 @@
                             </table>
                             </div>
                         </div>
+                        @if(auth()->user()->category == 'teacher')
                         <div class="row">
                             <div class="col-lg-4"></div>
                             <div class="col-lg-4"></div>
@@ -70,6 +90,7 @@
                                 <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModal" type="button"><i class="fa fa-plus"></i> Add Questions</button>
                             </div>
                         </div>
+                        @endif
                 </div>
             </div>
         </div>
