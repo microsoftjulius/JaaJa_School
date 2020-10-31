@@ -9,6 +9,7 @@ class AuthenticationController extends Controller
 {
     /**
      * This function gets the user id of the loggedin User, for tests, we user 1
+     * this is the school ID
      */
     public function getLoggedInUserID(){
         return 4; //Auth::user()->id

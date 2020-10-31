@@ -84,5 +84,10 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::patch('/create-new-tutorial-for-answer/{answer_id}','TutorialsController@validateTutorial');
     Route::patch('/update-video-tutorial/{answer_id}','TutorialsController@updateVideoTutorial');
+
+    Route::post('/add-new-past-paper','PastPapersController@validatePastPaper');
+    Route::get('/get-past-papers','PastPapersController@getPastPapers');
+    Route::patch('/update-past-paper/{id}','PastPapersController@updatePastPaper');
+    Route::delete('/delete-past-paper/{id}','PastPapersController@deletePastPaper');
 });
 Auth::routes();
