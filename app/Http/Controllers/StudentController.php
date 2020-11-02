@@ -49,11 +49,8 @@ class StudentController extends Controller
      * It saves both to users table and students Table
     */
     private function submitStudent($photo_path, $parent_contact, $first_name, $parent_id, $class_id){
-        if(User::where('email',$parent_contact)->exists()){
-            return redirect()->back()->withErrors("An Account having this contact already exists, Please consider using a new contact");
-        }
-        //creating a student with username as last name and password as parents contact
-        $this->user_instance->createUser(request()->first_name . ' '. $first_name, 
+        //creating a student with username as first name and password as parents contact
+        $this->user_instance->createUser(request()->last_name . ' '. $first_name, 
                                         $first_name, $parent_contact, 'student');
         //getting the parents Id from the users table
         $student_login_id = User::where('email',$first_name)->value('id');

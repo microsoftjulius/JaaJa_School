@@ -20,46 +20,47 @@
         <div class="content-wrapper">
             <div class="content-heading">
             <div>{{ request()->route()->getName() }}<small data-localize="dashboard.WELCOME"></small></div><!-- START Language list-->
+
             </div><!-- START cards box-->
             <div class="row">
                 <div class="col-lg-12">
                     @include('layouts.messages')
                     <div class="card">
                         <div class="card-header">
-                            <div class="card-title">A table showing Parents</div>
+                            <div class="card-title">A table showing past papers per class</div>
                             </div>
                             <div class="card-body">
                             <table class="table table-striped my-4 w-100" id="datatable2">
                                 <thead>
                                     <tr>
                                         <th data-priority="1">No.</th>
-                                        <th>Names</th>
-                                        <th>Photo</th>
-                                        <th>Contact</th>
-                                        <th class="sort-numeric">Location</th>
-                                        <th class="sort-alpha" data-priority="2">Status</th>
-                                        <th>Date</th>
-                                        @if(auth()->user()->category == 'school')
-                                        <th>Options</th>
+                                        <th>Subject</th>
+                                        <th>Class</th>
+                                        <th class="sort-numeric">Added By</th>
+                                        <th class="sort-alpha" data-priority="2">Paper</th>
+                                        <th class="sort-numeric">Year</th>
+                                        @if(auth()->user()->category == 'teacher')
+                                        <th class="sort-alpha" data-priority="2">Options</th>
                                         @endif
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($parent_information as $id => $parents)
+                                    @foreach ($past_papers as $id => $past_paper)
                                     <tr class="gradeX">
                                         <td>{{ $id + 1 }}</td>
-                                        <td>{{ $parents->parent_name }}</td>
-                                        <td><img src="{{ asset('parent_photo/'. $parents->photo) }}" style="width:100px; height:70px"/></td>
-                                        <td>{{ $parents->contact }}</td>
-                                        <td>{{ $parents->location }}</td>
-                                        <td>{{ $parents->status }}</td>
-                                        <td>{{ $parents->created_at }}</td>
-                                        @if(auth()->user()->category == 'school')
-                                        <td>
-                                            <a href="/delete-parent/{{ $parents->id }}"><button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button></a>
-                                            {{-- <a href="/edit-parents-form/{{ $parents->id }}">
+                                        <td style="text-transform: capitalize">{{ $past_paper->subject }}</td>
+                                        <td>{{ $past_paper->class }}</td>
+                                        <td>{{ $past_paper->name }}</td>
+                                        <td><a href="{{ asset('past_papers/'.$past_paper->past_paper_pdf) }}" target="_blank"><i class="fa fa-download"></i> download</a></td>
+                                        <td>{{ $past_paper->year }}</td>
+                                        @if(auth()->user()->category == 'teacher')
+                                        <td> 
+                                            <a href="/delete-past-paper/{{ $past_paper->id }}">
+                                                <button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button>
+                                            </a>
+                                            <a href="/edit-past_paper-form/{{ $past_paper->id }}">
                                                 <button class="btn btn-sm btn-info"><i class="fa fa-edit"></i></button>
-                                            </a> --}}
+                                            </a>
                                         </td>
                                         @endif
                                     </tr>
@@ -68,12 +69,12 @@
                             </table>
                             </div>
                         </div>
-                        @if(auth()->user()->category == 'school')
+                        @if(auth()->user()->category == 'teacher')
                         <div class="row">
                             <div class="col-lg-4"></div>
                             <div class="col-lg-4"></div>
                             <div class="col-lg-4 text-right">
-                                <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModal" type="button"><i class="fa fa-plus"></i> Add Parent</button>
+                                <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModal" type="button"><i class="fa fa-plus"></i> Add Past Paper</button>
                             </div>
                         </div>
                         @endif
@@ -103,41 +104,53 @@
 </body>
 </html>
 <!-- Modal -->
-<form action="/create-parent" method="POST" enctype="multipart/form-data">
+<form action="/add-new-past-paper" method="POST" enctype="multipart/form-data">
     @csrf
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">To Add a Parent, Fill this form</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">To add a past paper, Fill this form</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-lg-6">
-                            <label for="Names">Names</label>
-                            <input type="text" name="parent_name" id="" class="form-control" value="{{ old('parent_name') }}" autocomplete="off" />
-                        </div>
-                        <div class="col-lg-6">
-                            <label for="Contact">Contact</label>
-                            <input type="text" name="contact" id="" class="form-control" value="{{ old('contact') }}" autocomplete="off" />
+                        <div class="col-lg-12">
+                            <label for="browser">Choose the Subject:</label>
+                            <input list="subjects" name="subject_name" id="subject" class="form-control" autocomplete="off">
+                            <datalist id="subjects">
+                                @foreach ($subjects as $subject)
+                                    <option value="{{ $subject->subject }}">
+                                @endforeach
+                            </datalist>
                         </div>
                         <div class="col-lg-12">
-                            <label for="Location">Location</label>
-                            <input type="text" name="location" id="" class="form-control" value="{{ old('location') }}" autocomplete="off" />
+                            <label for="class">Choose the Class:</label>
+                            <input list="class" name="class_name" id="classes" class="form-control" autocomplete="off">
+                            <datalist id="class">
+                                @foreach ($classes as $class)
+                                    <option value="{{ $class->class }}">
+                                @endforeach
+                            </datalist>
+                        </div>
+                        <div class="col-lg-12">
+                            <label for="class">Year:</label>
+                            <input name="year" id="year" class="form-control" autocomplete="off">
                         </div>
                         <div class="col-lg-12"><br>
-                            <label for="Photo">Parents Photo</label>
                             <input type="file" class="form-control dropzone mb-3 card d-flex flex-row justify-content-center flex-wrap"
-                            id="dropzone-area" accept="image/*" name="photo">
+                            id="dropzone-area" accept=".pdf" name="past_paper_pdf">
+                        </div>
+                        <div class="col-lg-12">
+
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save changes</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
                 </div>
             </div>
         </div>
