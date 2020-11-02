@@ -14,7 +14,7 @@
                         <div class="circle bg-success circle-lg"></div>
                         </div>
                     </div><!-- Name and Job-->
-                    <div class="user-block-info"><span class="user-block-name">Hello, {{ auth()->user()->name }}</span><span class="user-block-role">{{ auth()->user()->email }}</span></div>
+                    <div class="user-block-info"><span class="user-block-name">Hello, {{ auth()->user()->name }}</span><span class="user-block-role">{{ auth()->user()->category }}</span></div>
                 </div>
             </div>
             </li><!-- END user info-->
@@ -57,6 +57,11 @@
                     <em class="fa fa-book"></em><span data-localize="sidebar.nav.WIDGETS">Notes</span>
                 </a>
             </li>
+            <li @if(request()->route()->getName() == "Past Papers")class=" active" @else class=" " @endif>
+                <a href="/get-past-papers" title="Notes">
+                    <em class="fa fa-book"></em><span data-localize="sidebar.nav.WIDGETS">Past Papers</span>
+                </a>
+            </li>
             <li @if(request()->route()->getName() == "Parents")class=" active" @else class=" " @endif>
                 <a href="/get-parents" title="Parents">
                     <em class="fa fa-users"></em><span data-localize="sidebar.nav.WIDGETS">Parents</span>
@@ -80,6 +85,11 @@
             <li @if(request()->route()->getName() == "Users")class=" active" @else class=" " @endif>
                 <a href="/get-users" title="All Users">
                     <em class="fa fa-users"></em><span data-localize="sidebar.nav.WIDGETS">All Users</span>
+                </a>
+            </li>
+            <li @if(request()->route()->getName() == "Change Password")class=" active" @else class=" " @endif>
+                <a href="/change-password" title="Change Password">
+                    <em class="fa fa-key"></em><span data-localize="sidebar.nav.WIDGETS">Change Password</span>
                 </a>
             </li>
             {{-- <li class=" ">

@@ -80,7 +80,8 @@ class HomeWorkController extends Controller
         }else{
             $class_id   = Classes::where('class',request()->class_name)->value('id');
             $subject_id = Subject::where('subject',request()->subject_name)->value('id');
-
+            if(empty($class_id)){ return redirect()->back()->withErrors("Please select a class from the list, consider adding the class provided its missing");}
+            if(empty($subject_id)){ return redirect()->back()->withErrors("Please select a subject from the list, consider adding the subject provided its missing");}
             $home_work_pdf = request()->home_work;
             $home_work_path = $home_work_pdf->getClientOriginalName();
             $home_work_pdf->move('home_work/',$home_work_path);
