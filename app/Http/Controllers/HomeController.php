@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
+use App\User;
 use Auth;
 use DB;
-use App\User;
 
 class HomeController extends Controller
 {
@@ -112,5 +113,53 @@ class HomeController extends Controller
      */
     private function countOnlineMembers(){
         return User::where('user_online','true')->count();
+    }
+
+    /**
+     * This function gets the change password form
+     */
+    protected function getChangePasswordForm(){
+        $all_users = User::where('id','!=',auth()->user()->id)->get();
+        return view('admin.change_password_form',compact('all_users'));
+    }
+
+    /**
+     * This function validates the user password being changed
+     */
+    protected function validateUserPassword(){
+        if(empty(request()->current_password)){
+            return redirect()->back()->withErrors("Please enter your current password to proceed");
+        }elseif(empty(request()->new_password)){
+            return redirect()->back()->withErrors("Please enter the new password to proceed");
+        }elseif(empty(request()->confirm_password)){
+            return redirect()->back()->withErrors("Please confirm your password to proceed");
+        }elseif(request()->new_password != request()->confirm_password){
+            return redirect()->back()->withErrors("Please make sure the two passwords match");
+        }elseif(Hash::check(request()->new_password, User::find(Auth::user()->id)->password)){
+            return Redirect()->back()->withErrors("You can't reuse this password, kindly choose a password you haven't used before");
+        }elseif(Hash::check(request()->current_password, User::find(Auth::user()->id)->password)){
+            return $this->updateUserPassword();
+        }else{
+            return redirect()->back()->withErrors("The password you entered is wrong, enter a correct password to proceed")->withInput();
+        }
+    }
+
+    /**
+     * This function does the actual password update
+     */
+    private function updateUserPassword(){
+        $new_password = request()->new_password;
+        $this->realPasswordUpdate($new_password);
+        Auth::logout();
+        return redirect('/login')->with('msg', 'Password was Updated successfully, kindly login now');
+    }
+
+    /**
+     * update the password
+     */
+    private function realPasswordUpdate($new_password){
+        User::where('id',auth()->user()->id)->update(array(
+            'password' => Hash::make($new_password)
+        ));
     }
 }

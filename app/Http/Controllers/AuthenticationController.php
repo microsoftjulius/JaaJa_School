@@ -12,14 +12,14 @@ class AuthenticationController extends Controller
      * this is the school ID
      */
     public function getLoggedInUserID(){
-        return 4; //Auth::user()->id
+        return 1; //Auth::user()->id
     }
 
     /**
      * This function gets the loggedin teachers id from the teachers table
      */
     public function getLoggedinTeachersId(){
-        return 3; //Teachers::where('teachers_login_id',$this->getLoggedInUserID())->value('id');
+        return 2; //Teachers::where('teachers_login_id',$this->getLoggedInUserID())->value('id');
     }
 
     /**

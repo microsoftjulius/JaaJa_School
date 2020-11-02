@@ -69,6 +69,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/delete-notes/{id}','NotesController@deletenotes');
 
     Route::get('/home', 'HomeController@getDashboardBlade')->name('home');
+    Route::get('/change-password','HomeController@getChangePasswordForm')->name('Change Password');
+    Route::get('/update-password','HomeController@validateUserPassword');
+
     Route::post('/create-questions','QuestionsController@validateQuestions');
     Route::get('/edit-questions/{question_id}','QuestionsController@editQuestions');
     Route::get('/get-all-questions','QuestionsController@getAllQuestions')->name("Questions");
@@ -86,8 +89,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::patch('/update-video-tutorial/{answer_id}','TutorialsController@updateVideoTutorial');
 
     Route::post('/add-new-past-paper','PastPapersController@validatePastPaper');
-    Route::get('/get-past-papers','PastPapersController@getPastPapers');
-    Route::patch('/update-past-paper/{id}','PastPapersController@updatePastPaper');
-    Route::delete('/delete-past-paper/{id}','PastPapersController@deletePastPaper');
+    Route::get('/get-past-papers','PastPapersController@getPastPapers')->name('Past Papers');
+    Route::get('/edit-past_paper-form/{id}','PastPapersController@editPastPapersForm')->name('Past Papers');
+    Route::get('/update-past-paper/{id}','PastPapersController@updatePastPaper');
+    Route::get('/delete-past-paper/{id}','PastPapersController@deletePastPaper');
 });
 Auth::routes();
