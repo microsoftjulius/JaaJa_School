@@ -40,7 +40,7 @@
                                         <th>Home Work</th>
                                         <th>Status</th>
                                         <th>Date</th>
-                                        @if(auth()->user()->category == 'teacher')
+                                        @if(auth()->user()->category == 'teacher' || auth()->user()->category == 'student')
                                         <th>Options</th>
                                         @endif
                                     </tr>
@@ -61,6 +61,15 @@
                                                 <a href="/edit-home-work-form/{{ $work->id }}">
                                                     <button class="btn btn-sm btn-info"><i class="fa fa-edit"></i></button>
                                                 </a>
+                                                <a href="/get-homework-submissions-for-subject/{{ $work->id }}">
+                                                    <button class="btn btn-sm btn-success" title="View Submissions"><i class="fa fa-eye"></i></button>
+                                                </a>
+                                            </td>
+                                            @endif
+                                            @if(auth()->user()->category == 'student')
+                                            <td>
+                                                <a href="/attach-homework-answers-page/{{ $work->id }}"><button class="btn btn-sm btn-primary">Add answers</button></a>
+                                                <a href="/edit-homework-answers-page/{{ $work->id }}"><button class="btn btn-sm btn-info">Edit answers</button></a>
                                             </td>
                                             @endif
                                         </tr>

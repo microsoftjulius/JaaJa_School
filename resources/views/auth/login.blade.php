@@ -20,7 +20,8 @@
 <link rel="stylesheet" href="{{ asset('design/css/app.css')}}" id="maincss">
 </head>
 
-<body>
+<body style="background-image: linear-gradient(to bottom, rgba(17, 18, 24, 0.226),  rgba(9, 15, 48, 0.212)), 
+    url('{{ asset('design/img/class_room.png') }}'); background-size: cover;">
 <div class="wrapper"><br><br><br>
     <div class="block-center mt-4 wd-xl">
         <!-- START card-->
@@ -58,14 +59,14 @@
                     </div>
                 </div>
                 <div class="clearfix">
-                    <div class="float-right"><a class="text-muted" href="{{ route('password.request') }}">Forgot your password?</a></div>
+                    {{-- <div class="float-right"><a class="text-muted" href="{{ route('password.request') }}">Forgot your password?</a></div> --}}
                 </div><button class="btn btn-block btn-primary mt-3" type="submit">Login</button>
             </form>
             {{-- <p class="pt-3 text-center">Need to Signup?</p><a class="btn btn-block btn-secondary" href="{{ route('register') }}">Register Now</a> --}}
         </div>
         </div><!-- END card-->
-        <div class="p-3 text-center"><span class="mr-2">&copy;</span><span>{{ date('Y') }}</span><span class="mr-2">-</span><span>JITS</span><br>
-            <span><a href="https://jaajaltd.com" target="_blank">JAAJA Information Technology Solutions</a></span>
+        <div class="p-3 text-center"><span class="mr-2" style="color: black">&copy;</span><span style="color: black">{{ date('Y') }}</span><span class="mr-2">-</span><span style="color: black">JITS</span><br>
+            <span><a href="https://jaajaltd.com" target="_blank" style="color: black">JAAJA Information Technology Solutions</a></span>
         </div>
     </div>
 <!-- MODERNIZR-->

@@ -93,5 +93,17 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/edit-past_paper-form/{id}','PastPapersController@editPastPapersForm')->name('Past Papers');
     Route::get('/update-past-paper/{id}','PastPapersController@updatePastPaper');
     Route::get('/delete-past-paper/{id}','PastPapersController@deletePastPaper');
+
+    Route::post('/answers-for-homework/{home_work_id}','HomeWorkAnswersController@validateHomeWorkAnswers');
+    Route::get('/edit-homework-answers-page/{home_work_id}','HomeWorkAnswersController@getHomeWorkEditPage')->name('Home Work');
+    Route::post('/change-submited-answers-for-homework/{home_work_id}','HomeWorkAnswersController@changeStudentsSubmission');
+    Route::get('/get-my-home-work-submissions','HomeWorkAnswersController@getStudentsHomeWorkSubmissions')->name('Home Work');
+    Route::get('/get-homework-submissions-for-subject/{home_work_id}','HomeWorkAnswersController@getAllSubmissionsForThisHomeWork')->name('Home Work');
+    Route::get('/attach-homework-answers-page/{home_work_id}','HomeWorkAnswersController@getHomeWorkAttachmentPage')->name('Home Work');
+
+    Route::get('/add-marks-to-student/{student_id}/for-home-work/{homework_id}','HomeWorkMarksController@addStudentMarksPage');
+    Route::get('/update-student-marks-for-homework/{homework_id}/for-student-/{student_id}','HomeWorkMarksController@updateStudentMarks');
+    Route::get('/get-all-students-with-their-marks/{home_work_id}','HomeWorkMarksController@getAllStudentsWithMarks');
+    Route::delete('/delete-student-marks/{home_work_id}','HomeWorkMarksController@deleteHomeworkMarksForStudent');
 });
 Auth::routes();

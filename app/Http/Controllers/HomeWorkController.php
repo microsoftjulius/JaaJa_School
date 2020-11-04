@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Homework;
+use App\HomeWorkAnswers;
 use App\level as Classes;
 use App\Subject;
 use DB;
@@ -64,8 +65,12 @@ class HomeWorkController extends Controller
       * This function deletes homework softly
      */
     protected function deleteHomeWork($id){
-        Homework::where('id',$id)->delete();
-        return Redirect()->back()->with('msg',"You Deleted a home work successfully");
+        if(HomeWorkAnswers::where('homework_id',$id)->exists()){
+            return redirect()->back()->withErrors("You can't delete this homework because it aleady has submissions");
+        }else{
+            Homework::where('id',$id)->delete();
+            return Redirect()->back()->with('msg',"You Deleted a home work successfully");
+        }
     }
     /** 
       * This function validates creating homework
