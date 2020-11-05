@@ -123,4 +123,17 @@ class QuestionsController extends Controller
         $classes = Classes::get();
         return view('admin.edit_questions',compact('class_name','class_id','classes','all_users'));
     }
+
+    /**
+     * This function gets the questions for a class
+     */
+    protected function getClassQuestions($class_id){
+        $class_questions = Questions::where('class_id',$class_id)
+        ->join('subjects','subjects.id','questions.subject_id')
+        ->join('teachers','teachers.id','questions.teacher_id')
+        ->join('levels','levels.id','questions.class_id')
+        ->get();
+        $all_users = DB::table('users')->where('id','!=',auth()->user()->id)->get();
+        return view('admin.class_questions',compact('class_questions','all_users'));
+    }
 }

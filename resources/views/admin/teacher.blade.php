@@ -51,9 +51,9 @@
                                         <td>{{ $teachers->status }}</td>
                                         <td>
                                             @if($teachers->status == "active")
-                                                <a href='/suspend-teacher/{{ $teachers->teachers_login_id }}'><button class="btn btn-sm btn-warning" title="suspend teacher"><i class="fa fa-times"></i></button></a>
+                                                <a href='/suspend-teacher/{{ $teachers->teachers_login_id }}'><button class="btn btn-sm btn-warning" title="suspend teacher">Suspend teacher</button></a>
                                             @else
-                                                <a href='/activate-teacher/{{ $teachers->teachers_login_id }}'><button class="btn btn-sm btn-success" title="Activate teacher"><i class="fa fa-check"></i></button></a>
+                                                <a href='/activate-teacher/{{ $teachers->teachers_login_id }}'><button class="btn btn-sm btn-success" title="Activate teacher">Activate teacher</button></a>
                                             @endif
                                             {{-- <a href="/edit-teacher/{{ $teachers->id }}">
                                                 <button class="btn btn-sm btn-info"><i class="fa fa-edit"></i></button>

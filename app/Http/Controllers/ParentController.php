@@ -68,11 +68,13 @@ class ParentController extends Controller
     /** 
      * This function deletes parents information softly
     */
-    protected function deleteParent($id){
+    protected function suspendParent($id){
+        $parent_login_id = ParentInformation::where('id',$id)->value('parents_login_id');
+        User::where('id',$parent_login_id)->update(array('status'=>'suspended'));
         ParentInformation::where('id',$id)->update(array(
-            'status' => 'deleted'
+            'status' => 'inactive'
         ));
-        return Redirect()->back()->with('msg',"Parent has been deleted successfully");
+        return Redirect()->back()->with('msg',"Parent has been suspended successfully");
     }
     /** 
      * This function validates the parents information created
@@ -98,5 +100,17 @@ class ParentController extends Controller
     protected function editParentForm($parent_id){
         $all_users = User::where('id','!=',auth()->user()->id)->get();
         return view('admin.edit_parent_form',compact('parent_id','all_users'));
+    }
+
+    /**
+     * This function activates the parent
+     */
+    protected function activateParent($id){
+        $parent_login_id = ParentInformation::where('id',$id)->value('parents_login_id');
+        User::where('id',$parent_login_id)->update(array('status'=>'active'));
+        ParentInformation::where('id',$id)->update(array(
+            'status' => 'active'
+        ));
+        return Redirect()->back()->with('msg',"A parent has been activated successfully");
     }
 }
