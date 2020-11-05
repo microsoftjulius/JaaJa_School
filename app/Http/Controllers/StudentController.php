@@ -106,8 +106,24 @@ class StudentController extends Controller
     /** 
      * This function deletes users softly
     */
-    protected function deleteStudent($id){
-        Student::where('id',$id)->delete();
-        return Redirect()->back()->with('msg',"You Successfully performed a delete operation on a student");
+    protected function suspendStudent($id){
+        $student_login_id = Student::where('id',$id)->value('student_login_id');
+        User::where('id',$student_login_id)->update(array('status'=>'suspended'));
+        Student::where('id',$id)->update(array(
+            'status' => 'suspended'
+        ));
+        return Redirect()->back()->with('msg',"Your request to suspend a student was successful");
+    }
+
+    /**
+     * This function activates the student
+     */
+    protected function activateStudent($id){
+        $student_login_id = Student::where('id',$id)->value('student_login_id');
+        User::where('id',$student_login_id)->update(array('status'=>'active'));
+        Student::where('id',$id)->update(array(
+            'status' => 'active'
+        ));
+        return Redirect()->back()->with('msg',"Your request to activate a student was successful");
     }
 }

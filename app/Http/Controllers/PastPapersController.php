@@ -137,4 +137,17 @@ class PastPapersController extends Controller
         $class_name = PastPaper::join('levels','levels.id','past_papers.class_id')->where('past_papers.id',$past_paper_id)->value('class');
         return view('admin.edit_past_papers_form',compact('past_paper_id','all_users','subjects','classes','year','subject','class_name'));
     }
+
+    /**
+     * This function gets the past papers of a selected class
+     */
+    protected function getClassPastPapers($class_id){
+        $class_past_papers = PastPaper::where('class_id',$class_id)
+        ->join('subjects','subjects.id','past_papers.subject_id')
+        ->join('teachers','teachers.id','past_papers.teacher_id')
+        ->join('levels','levels.id','past_papers.class_id')
+        ->get();
+        $all_users = DB::table('users')->where('id','!=',auth()->user()->id)->get();
+        return view('admin.class_past_papers',compact('class_past_papers','all_users'));
+    }
 }

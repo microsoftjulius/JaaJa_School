@@ -28,6 +28,7 @@ class AnswersController extends Controller
             $answer_path = $answer_pdf->getClientOriginalName();
             $answer_pdf->move('answer/',$answer_path);
             $this->createAnswer($question_id,$answer_path);
+            return redirect()->back()->with('msg',' You successfully uploaded answers for a homework');
         }
     }
 
@@ -42,7 +43,6 @@ class AnswersController extends Controller
         $new_answer->question_id = $question_id;
         $new_answer->youtube_video_url = request()->youtube_video_url;
         $new_answer->save();
-        return redirect()->back()->with('msg',' You successfully uploaded answers for a homework');
     }
 
     /**

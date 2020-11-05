@@ -39,9 +39,7 @@
                                         <th class="sort-numeric">Location</th>
                                         <th class="sort-alpha" data-priority="2">Status</th>
                                         <th>Date</th>
-                                        @if(auth()->user()->category == 'school')
                                         <th>Options</th>
-                                        @endif
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -54,14 +52,13 @@
                                         <td>{{ $parents->location }}</td>
                                         <td>{{ $parents->status }}</td>
                                         <td>{{ $parents->created_at }}</td>
-                                        @if(auth()->user()->category == 'school')
                                         <td>
-                                            <a href="/delete-parent/{{ $parents->id }}"><button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button></a>
-                                            {{-- <a href="/edit-parents-form/{{ $parents->id }}">
-                                                <button class="btn btn-sm btn-info"><i class="fa fa-edit"></i></button>
-                                            </a> --}}
+                                            @if($parents->status == 'inactive')
+                                                <a href="/activate-parent/{{ $parents->id }}"><button class="btn btn-sm btn-success">Activate parent</button></a>
+                                            @else
+                                                <a href='/suspend-parent/{{ $parents->id }}'><button class="btn btn-sm btn-warning">Suspend parent</button></a>
+                                            @endif
                                         </td>
-                                        @endif
                                     </tr>
                                     @endforeach
                                 </tbody>

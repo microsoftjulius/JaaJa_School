@@ -94,4 +94,17 @@ class NotesController extends Controller
         $all_users = DB::table('users')->where('id','!=',auth()->user()->id)->get();
         return view('admin.edit_notes',compact('classes','class_name','notes_id','all_users'));
     }
+
+    /**
+     * This function gets the class notes
+     */
+    protected function getClassNotes($class_id){
+        $class_notes = Note::where('level_id',$class_id)
+        ->join('subjects','subjects.id','notes.subject_id')
+        ->join('teachers','teachers.id','notes.teacher_id')
+        ->join('levels','levels.id','notes.level_id')
+        ->get();
+        $all_users = DB::table('users')->where('id','!=',auth()->user()->id)->get();
+        return view('admin.class_notes',compact('class_notes','all_users'));
+    }
 }

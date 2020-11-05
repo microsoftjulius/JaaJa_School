@@ -23,6 +23,13 @@
 <body style="background-image: linear-gradient(to bottom, rgba(17, 18, 24, 0.226),  rgba(9, 15, 48, 0.212)), 
     url('{{ asset('design/img/class_room.png') }}'); background-size: cover;">
 <div class="wrapper"><br><br><br>
+    <div class="row">
+        <div class="col-lg-3"></div>
+        <div class="col-lg-6">
+            @include('layouts.messages')
+        </div>
+        <div class="col-lg-3"></div>
+    </div>
     <div class="block-center mt-4 wd-xl">
         <!-- START card-->
         <div class="card card-flat">
