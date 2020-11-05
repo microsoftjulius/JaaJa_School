@@ -75,4 +75,17 @@ class LevelController extends Controller
         $all_users = DB::table('users')->where('id','!=',auth()->user()->id)->get();
         return view('admin.edit_class',compact('class_name','class_id','all_users'));
     }
+    
+    /**
+     * this function gets the class home works
+     */
+    protected function getClassHomeworks($class_id){
+        $homeworks = DB::table('homework')->where('level_id',$class_id)
+        ->join('subjects','subjects.id','homework.subject_id')
+        ->join('teachers','teachers.id','homework.teacher_id')
+        ->join('levels','levels.id','homework.level_id')
+        ->get();
+        $all_users = DB::table('users')->where('id','!=',auth()->user()->id)->get();
+        return view('admin.class_homeworks',compact('homeworks','all_users'));
+    }
 }

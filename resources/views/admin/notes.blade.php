@@ -56,10 +56,10 @@
                                         @if(auth()->user()->category == 'teacher')
                                         <td> 
                                             <a href="/delete-notes/{{ $note->id }}">
-                                                <button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button>
+                                                <button class="btn btn-sm btn-danger">Delete notes</button>
                                             </a>
                                             <a href="/edit-notes-form/{{ $note->id }}">
-                                                <button class="btn btn-sm btn-info"><i class="fa fa-edit"></i></button>
+                                                <button class="btn btn-sm btn-info">Edit notes</button>
                                             </a>
                                         </td>
                                         @endif

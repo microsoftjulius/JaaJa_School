@@ -59,10 +59,11 @@
                                         <td><img src="{{ asset('student_photo/'. $students->photo) }}" style="width:100px; height:70px"/></td>
                                         @if(auth()->user()->category == 'teacher')
                                         <td>
-                                            <a href='/delete-student/{{ $students->id }}'><button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button></a>
-                                            {{-- <a href="/edit-student/{{ $students->id }}">
-                                                <button class="btn btn-sm btn-info"><i class="fa fa-edit"></i></button>
-                                            </a> --}}
+                                            @if($students->status == 'suspended')
+                                                <a href='/activate-student/{{ $students->id }}'><button class="btn btn-sm btn-success">Activate student</button></a>
+                                            @else
+                                                <a href='/suspend-student/{{ $students->id }}'><button class="btn btn-sm btn-warning">Suspend student</button></a>
+                                            @endif
                                         </td>
                                         @endif
                                     </tr>

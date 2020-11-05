@@ -35,9 +35,7 @@
                                         <th>Class</th>
                                         <th>Status</th>
                                         <th class="sort-numeric">Date</th>
-                                        @if(auth()->user()->category == 'school')
                                         <th class="sort-alpha" data-priority="2">Options</th>
-                                        @endif
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -47,14 +45,16 @@
                                         <td>{{ $classes->class }}</td>
                                         <td>{{ $classes->status }}</td>
                                         <td>{{ $classes->created_at }}</td>
-                                        @if(auth()->user()->category == 'school')
                                         <td>
-                                            <a href="/delete-class/{{ $classes->id }}"><button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button></a>
+                                            <a href="/delete-class/{{ $classes->id }}"><button class="btn btn-sm btn-danger">Delete class</button></a>
                                             <a href="/edit-class-form/{{ $classes->id }}">
-                                                <button class="btn btn-sm btn-info"><i class="fa fa-edit"></i></button>
+                                                <button class="btn btn-sm btn-info">Edit Class</button>
                                             </a>
+                                            <a href="/get-class-homeworks/{{ $classes->id }}"><button class="btn btn-sm btn-success">Homeworks</button></a>
+                                            <a href="/get-class-notes/{{ $classes->id }}"><button class="btn btn-sm btn-primary">Notes</button></a>
+                                            <a href="/get-class-questions/{{ $classes->id }}"><button class="btn btn-sm btn-secondary">Questions</button></a>
+                                            <a href="/get-class-past-papers/{{ $classes->id }}"><button class="btn btn-sm btn-warning">Past Papers</button></a>
                                         </td>
-                                        @endif
                                     </tr>
                                     @endforeach
                                 </tbody>
