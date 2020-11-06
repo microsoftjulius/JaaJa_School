@@ -107,4 +107,30 @@ class HomeWorkController extends Controller
         $all_users = DB::table('users')->where('id','!=',auth()->user()->id)->get();
         return view('admin.edit_home_work',compact('home_work_id','home_work','subjects','all_users'));
     }
+
+    /**
+     * This function gets the homework reports page
+     */
+    protected function getHomeWorkReportsPage(){
+        $counts_uploaded_per_month = json_encode($this->getUploadedHomeWorkPerMonth());
+        $all_users = DB::table('users')->where('id','!=',auth()->user()->id)->get();
+        return view('admin.homework_reports',compact('counts_uploaded_per_month','all_users'));
+    }
+
+    /**
+     * This function gets the notes that have been uploaded per month
+     */
+    private function getUploadedHomeWorkPerMonth(){
+        $months = [1,2,3,4,5,6,7,8,9,10,11,12];
+        $homework_count_array = [];
+        $notes_collection = Homework::get();
+        foreach($notes_collection as $notes){
+            //go to notes and get the notes where month is in the array, save the number of notes the month has
+            for($i=0; $i<count($months); $i++){
+                $homework_count_in_a_month = Homework::WhereMonth('created_at',$months[$i])->count();
+                array_push($homework_count_array, $homework_count_in_a_month);
+            }
+        }
+        return $homework_count_array;
+    }
 }

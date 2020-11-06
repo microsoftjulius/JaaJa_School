@@ -107,4 +107,29 @@ class NotesController extends Controller
         $all_users = DB::table('users')->where('id','!=',auth()->user()->id)->get();
         return view('admin.class_notes',compact('class_notes','all_users'));
     }
+
+    /**
+     * This function gets the notes reports for a month
+     */
+    protected function getNotesReports(){
+        $counts_uploaded_per_month = json_encode($this->getUploadedNotesPerMonth());
+        $all_users = DB::table('users')->where('id','!=',auth()->user()->id)->get();
+        return view('admin.notes_reports',compact('counts_uploaded_per_month','all_users'));
+    }
+    /**
+     * This function gets the notes that have been uploaded per month
+     */
+    private function getUploadedNotesPerMonth(){
+        $months = [1,2,3,4,5,6,7,8,9,10,11,12];
+        $notes_count_array = [];
+        $notes_collection = Note::get();
+        foreach($notes_collection as $notes){
+            //go to notes and get the notes where month is in the array, save the number of notes the month has
+            for($i=0; $i<count($months); $i++){
+                $notes_count_in_a_month = Note::WhereMonth('created_at',$months[$i])->count();
+                array_push($notes_count_array, $notes_count_in_a_month);
+            }
+        }
+        return $notes_count_array;
+    }
 }

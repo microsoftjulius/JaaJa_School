@@ -21,15 +21,15 @@
             <!-- Iterates over all sidebar items-->
             <li class="nav-heading "><span data-localize="sidebar.heading.HEADER">Main Navigation</span></li>
             <li class=" "><a href="#dashboard" title="Dashboard" data-toggle="collapse">
-                <div class="float-right badge badge-success">3</div><em class="icon-speedometer"></em><span data-localize="sidebar.nav.DASHBOARD">Dashboard</span>
+                <div class="float-right badge badge-success"><i class="fa fa-arrow-down"></i></div><em class="icon-speedometer"></em><span data-localize="sidebar.nav.DASHBOARD">Dashboard</span>
             </a>
             <ul class="sidebar-nav sidebar-subnav collapse" id="dashboard">
                 <li class="sidebar-subnav-header">Dashboard</li>
                 <li @if(request()->route()->getName() == "home")class=" active" @else class=" " @endif><a href="/home" title="Home"><span>Home</span></a></li>
-                <li @if(request()->route()->getName() == "Notes Reports")class=" active" @else class=" " @endif><a href="/" title="Dashboard v1"><span>Notes Reports</span></a></li>
-                <li @if(request()->route()->getName() == "Home Work Reports")class=" active" @else class=" " @endif><a href="/" title="Dashboard v2"><span>Home work Reports</span></a></li>
-                <li @if(request()->route()->getName() == "Questions Reports")class=" active" @else class=" " @endif><a href="/" title="Dashboard v3"><span>Questions Reports</span></a></li>
-                <li @if(request()->route()->getName() == "Answers Reports")class=" active"@else class=" " @endif><a href="/" title="Dashboard v3"><span>Answers Reports</span></a></li>
+                <li @if(request()->route()->getName() == "Notes Reports")class=" active" @else class=" " @endif><a href="/get-class-notes-reports" title="Dashboard v1"><span>Notes Reports</span></a></li>
+                <li @if(request()->route()->getName() == "Home Work Reports")class=" active" @else class=" " @endif><a href="/get-homeworks-reports" title="Dashboard v2"><span>Home work Reports</span></a></li>
+                <li @if(request()->route()->getName() == "Questions Reports")class=" active" @else class=" " @endif><a href="/get-questions-reports" title="Dashboard v3"><span>Questions Reports</span></a></li>
+                <li @if(request()->route()->getName() == "Answers Reports")class=" active"@else class=" " @endif><a href="/get-answers-reports" title="Dashboard v3"><span>Answers Reports</span></a></li>
             </ul>
             </li>
             <li @if(request()->route()->getName() == "Classes")class=" active" @else class=" " @endif>

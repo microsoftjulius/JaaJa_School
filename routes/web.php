@@ -64,6 +64,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/edit-home-work/{id}','HomeWorkController@editHomeWork');
     Route::get('/delete-home-work/{id}','HomeWorkController@deleteHomeWork');
     Route::get('/edit-home-work-form/{id}','HomeWorkController@editHomeWorkForm')->name('Home Work');
+    Route::get('/get-homeworks-reports','HomeWorkController@getHomeWorkReportsPage')->name('Home Work Reports');
 
     Route::post('/create-notes','NotesController@validateCreateNotes');
     Route::get('/display-notes','NotesController@getNotes')->name('Notes');
@@ -71,6 +72,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/edit-notes-form/{notes_id}','NotesController@editNotesForm')->name('Notes');
     Route::get('/delete-notes/{id}','NotesController@deletenotes');
     Route::get('/get-class-notes/{class_id}','NotesController@getClassNotes');
+    Route::get('/get-class-notes-reports','NotesController@getNotesReports')->name('Notes Reports');
 
     Route::get('/home', 'HomeController@getDashboardBlade')->name('home');
     Route::get('/change-password','HomeController@getChangePasswordForm')->name('Change Password');
@@ -83,12 +85,14 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/get-school-questions','QuestionsController@getSchoolQuestions');
     Route::get('/edit-question-form/{question_id}','QuestionsController@editQuestionsForm')->name("Questions");
     Route::get('/get-class-questions/{class_id}','QuestionsController@getClassQuestions');
+    Route::get('/get-questions-reports','QuestionsController@getUploadedQuestionsPerMonthReports')->name("Questions Reports");
 
     Route::post('/create-answers/{question_id}','AnswersController@validateAnswers');
     Route::get('/get-answers-to-question/{question_id}','AnswersController@getAnswersToQuestion')->name("Questions");
     Route::patch('/update-answers-to-question/{question_id}','AnswersController@updateAnswersToAQuestion');
     Route::delete('/delete-answers-to-question/{question_id}','AnswersController@deleteAnswer')->name("Questions");
     Route::get('/add-answers-form/{question_id}','AnswersController@addAnswersForm')->name("Questions");
+    Route::get('/get-answers-reports','AnswersController@getAnswersReportsPage')->name('Answers Reports');
 
     Route::patch('/create-new-tutorial-for-answer/{answer_id}','TutorialsController@validateTutorial');
     Route::patch('/update-video-tutorial/{answer_id}','TutorialsController@updateVideoTutorial');

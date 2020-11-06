@@ -136,4 +136,30 @@ class QuestionsController extends Controller
         $all_users = DB::table('users')->where('id','!=',auth()->user()->id)->get();
         return view('admin.class_questions',compact('class_questions','all_users'));
     }
+
+    /**
+     * This function gets the blade of the questions reports
+     */
+    protected function getUploadedQuestionsPerMonthReports(){
+        $counts_uploaded_per_month = json_encode($this->getUploadedQuestionsPerMonth());
+        $all_users = DB::table('users')->where('id','!=',auth()->user()->id)->get();
+        return view('admin.questions_reports',compact('counts_uploaded_per_month','all_users'));
+    }
+
+    /**
+     * This function gets the notes that have been uploaded per month
+     */
+    private function getUploadedQuestionsPerMonth(){
+        $months = [1,2,3,4,5,6,7,8,9,10,11,12];
+        $questions_count_array = [];
+        $questions_collection = Questions::get();
+        foreach($questions_collection as $notes){
+            //go to notes and get the notes where month is in the array, save the number of notes the month has
+            for($i=0; $i<count($months); $i++){
+                $questions_count_in_a_month = Questions::WhereMonth('created_at',$months[$i])->count();
+                array_push($questions_count_array, $questions_count_in_a_month);
+            }
+        }
+        return $questions_count_array;
+    }
 }

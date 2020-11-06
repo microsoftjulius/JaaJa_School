@@ -84,4 +84,37 @@ class AnswersController extends Controller
         $all_users = DB::table('users')->where('id','!=',auth()->user()->id)->get();
         return view('admin.add_answers',compact('all_users','question_id'));
     }
+
+    /**
+     * This function gets the answers reports page
+     */
+    protected function getAnswersReportsPage(){
+        $counts_uploaded_per_month = json_encode($this->getUploadedAnswersPerMonth());
+        $all_users = DB::table('users')->where('id','!=',auth()->user()->id)->get();
+        return view('admin.answers_reports',compact('counts_uploaded_per_month','all_users'));
+    }
+
+    /**
+     * This function gets the notes that have been uploaded per month
+     */
+    private function getUploadedAnswersPerMonth(){
+        $months = [1,2,3,4,5,6,7,8,9,10,11,12];
+        $answers_count_array = [];
+        $answers_collection = AnswersModel::get();
+        foreach($answers_collection as $notes){
+            //go to notes and get the answers where month is in the array, save the number of notes the month has
+            for($i=0; $i<count($months); $i++){
+                $answers_count_in_a_month = AnswersModel::WhereMonth('created_at',$months[$i])->count();
+                array_push($answers_count_array, $answers_count_in_a_month);
+            }
+        }
+        return $answers_count_array;
+    }
+
+    /**
+     * This function gets the teacher with most notes
+     */
+    private function getMostNotesSupplyingTeacher(){
+        
+    }
 }
