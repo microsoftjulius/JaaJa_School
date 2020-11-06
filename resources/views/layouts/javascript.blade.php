@@ -19,3 +19,8 @@
 <script src="{{ asset('design/vendor/easy-pie-chart/dist/jquery.easypiechart.js')}}"></script><!-- MOMENT JS-->
 <script src="{{ asset('design/vendor/moment/min/moment-with-locales.js')}}"></script><!-- =============== APP SCRIPTS ===============-->
 <script src="{{ asset('design/js/app.js')}}"></script>
+<!-- Bootstrap tooltips -->
+<script type="text/javascript" src="{{ asset('design/bootstrap/js/popper.min.js')}}"></script>
+<!-- MDB core JavaScript -->
+<script type="text/javascript" src="{{ asset('design/bootstrap/js/mdb.min.js')}}"></script>
+<script type="text/javascript" src="{{ asset('design/bootstrap/js/jquery.min.js')}}"></script>

@@ -17,4 +17,5 @@
     <link rel="stylesheet" href="{{ asset('design/vendor/weather-icons/css/weather-icons.css')}}">
     <link rel="stylesheet" href="{{ asset('design/css/bootstrap.css')}}" id="bscss">
     <link rel="stylesheet" href="{{ asset('design/css/app.css')}}" id="maincss">
+    <link rel="stylesheet" href="{{ asset('design/bootstrap/css/mdb.min.css')}}">
 </head>
