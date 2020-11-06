@@ -85,7 +85,7 @@
                 <div class="list-group-item border-0"><small class="text-muted">ONLINE</small></div><!-- END list title-->
                 @foreach ($all_users as $users)
                 <div class="list-group-item list-group-item-action border-0">
-                    <div class="media"><img class="align-self-center mr-3 rounded-circle thumb48" src="{{ asset('/design/img/user/05.jpg')}}" alt="Image">
+                    <div class="media"><img class="align-self-center mr-3 rounded-circle thumb48" src="{{ asset('design/img/Logo.png')}}" alt="Image">
                         @if($users->user_online == 'true')
                         <div class="media-body text-truncate"><a href="#"><strong>{{ $users->name }}</strong></a><br><small class="text-muted">{{ $users->category }}</small></div>
                         <div class="ml-auto"><span class="circle bg-success circle-lg"></span></div>
