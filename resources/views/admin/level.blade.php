@@ -61,7 +61,6 @@
                             </table>
                             </div>
                         </div>
-                        @if(auth()->user()->category == 'school')
                         <div class="row">
                             <div class="col-lg-4"></div>
                             <div class="col-lg-4"></div>
@@ -69,7 +68,6 @@
                                 <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModal" type="button"><i class="fa fa-plus"></i> Add Class</button>
                             </div>
                         </div>
-                        @endif
                 </div>
             </div>
         </div>

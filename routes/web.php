@@ -16,9 +16,12 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/get-dashboard','HomeController@getDashboardBlade');
     Route::get('/logout','HomeController@logout');
     Route::get('/', function () {  return redirect('/home');});
-    Route::post('/create-role','RoleController@validateRole');
+    Route::get('/create-role','RoleController@validateRole');
     Route::get('/get-role','RoleController@getRoles')->name('Roles');
+    Route::get('/assign-permissions-to-role','RoleController@assignPermissionsToRole');
     Route::delete('/delete-role/{id}','RoleController@deleteRole');
+    Route::get('/get-assign-roles-page','RoleController@getAssignRolesPage')->name("Assign Roles");
+    Route::get('/assign-role-to-a-user','RoleController@AssignRoleToUser');
 
     Route::get('/get-schools','UserController@getSchools')->name('Schools');
     Route::get('/get-users','UserController@getUsers')->name('Users');
@@ -115,5 +118,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/update-student-marks-for-homework/{homework_id}/for-student-/{student_id}','HomeWorkMarksController@updateStudentMarks');
     Route::get('/get-all-students-with-their-marks/{home_work_id}','HomeWorkMarksController@getAllStudentsWithMarks');
     Route::delete('/delete-student-marks/{home_work_id}','HomeWorkMarksController@deleteHomeworkMarksForStudent');
+
+    Route::get('/get-settings-page','SettingsController@getSettingsPage')->name("Settings");
 });
 Auth::routes();
