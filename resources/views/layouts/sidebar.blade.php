@@ -87,16 +87,29 @@
                     <em class="fa fa-users"></em><span data-localize="sidebar.nav.WIDGETS">All Users</span>
                 </a>
             </li>
-            <li @if(request()->route()->getName() == "Change Password")class=" active" @else class=" " @endif>
-                <a href="/change-password" title="Change Password">
-                    <em class="fa fa-key"></em><span data-localize="sidebar.nav.WIDGETS">Change Password</span>
+            <li class=" ">
+                <a href="#settings" title="Dashboard" data-toggle="collapse">
+                    <div class="float-right badge badge-success"><i class="fa fa-arrow-down"></i></div><em class="fa fa-cogs"></em><span data-localize="sidebar.nav.DASHBOARD">Settings</span>
                 </a>
+            <ul class="sidebar-nav sidebar-subnav collapse" id="settings">
+                <li class="sidebar-subnav-header">Settings</li>
+                <li @if(request()->route()->getName() == "Settings")class=" active" @else class=" " @endif>
+                    <a href="/get-settings-page" title="Settings">
+                        <span data-localize="sidebar.nav.WIDGETS">Roles And Permissions</span>
+                    </a>
+                </li>
+                <li @if(request()->route()->getName() == "Assign Roles")class=" active" @else class=" " @endif>
+                    <a href="/get-assign-roles-page" title="Settings">
+                        <span data-localize="sidebar.nav.WIDGETS">Assign Roles</span>
+                    </a>
+                </li>
+                <li @if(request()->route()->getName() == "Change Password")class=" active" @else class=" " @endif>
+                    <a href="/change-password" title="Change Password">
+                        <span data-localize="sidebar.nav.WIDGETS">Change Password</span>
+                    </a>
+                </li>
+            </ul>
             </li>
-            {{-- <li class=" ">
-                <a href="#" title="Settings">
-                    <em class="fa fa-cog"></em><span data-localize="sidebar.nav.WIDGETS">Settings</span>
-                </a>
-            </li> --}}
             <li class=" ">
                 <a href="/logout" title="Lock">
                     <em class="fa fa-lock"></em><span data-localize="sidebar.nav.WIDGETS">Logout</span>
