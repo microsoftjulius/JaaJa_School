@@ -52,7 +52,7 @@ class HomeController extends Controller
      * This function gets the collection of uploaded homework
      */
     private function getHomeWorkLogs(){
-        return DB::table('homework')->join('teachers','teachers.id','homework.teacher_id')
+        return DB::table('homework')->join('teachers','teachers.teachers_login_id','homework.teacher_id')
         ->join('subjects','subjects.id','homework.subject_id')
         ->join('levels','levels.id','homework.level_id')
         ->get();
@@ -62,7 +62,7 @@ class HomeController extends Controller
      * This function gets the questions logs
      */
     private function getQuestionsLogs(){
-        return DB::table('questions')->join('teachers','teachers.id','questions.teacher_id')
+        return DB::table('questions')->join('teachers','teachers.teachers_login_id','questions.teacher_id')
         ->join('subjects','subjects.id','questions.subject_id')
         ->join('levels','levels.id','questions.class_id')
         ->get();
@@ -72,7 +72,7 @@ class HomeController extends Controller
      * This function gets the notes logs
      */
     private function getNotesLogs(){
-        return DB::table('notes')->join('teachers','teachers.id','notes.teacher_id')
+        return DB::table('notes')->join('teachers','teachers.teachers_login_id','notes.teacher_id')
         ->join('subjects','subjects.id','notes.subject_id')
         ->join('levels','levels.id','notes.level_id')
         ->get();
