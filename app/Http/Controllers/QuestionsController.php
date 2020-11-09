@@ -81,7 +81,7 @@ class QuestionsController extends Controller
      */
     private function getQuestions(){
         $all_questions = Questions::join('levels','levels.id','questions.class_id')
-        ->join('teachers','teachers.id','questions.teacher_id')
+        ->join('teachers','teachers.teachers_login_id','questions.teacher_id')
         ->join('users','users.id','teachers.teachers_login_id')
         ->select('questions.*','users.name','levels.class')
         ->get();
