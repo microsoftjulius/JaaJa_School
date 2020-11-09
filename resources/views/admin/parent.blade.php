@@ -37,6 +37,7 @@
                                         <th>Photo</th>
                                         <th>Contact</th>
                                         <th class="sort-numeric">Location</th>
+                                        <th>Role</th>
                                         <th class="sort-alpha" data-priority="2">Status</th>
                                         <th>Date</th>
                                         @if(in_array("Can activate parents", auth()->user()->getUserPermisions()) || in_array("Can suspend parents", auth()->user()->getUserPermisions()))
@@ -52,6 +53,7 @@
                                         <td><img src="{{ asset('parent_photo/'. $parents->photo) }}" style="width:100px; height:70px"/></td>
                                         <td>{{ $parents->contact }}</td>
                                         <td>{{ $parents->location }}</td>
+                                        <td style="text-transform: capitalize">{{ $parents->role }}</td>
                                         <td>{{ $parents->status }}</td>
                                         <td>{{ $parents->created_at }}</td>
                                         @if(in_array("Can activate parents", auth()->user()->getUserPermisions()) || in_array("Can suspend parents", auth()->user()->getUserPermisions()))
@@ -129,9 +131,18 @@
                             <label for="Contact">Contact</label>
                             <input type="text" name="contact" id="" class="form-control" value="{{ old('contact') }}" autocomplete="off" />
                         </div>
-                        <div class="col-lg-12">
+                        <div class="col-lg-6">
                             <label for="Location">Location</label>
                             <input type="text" name="location" id="" class="form-control" value="{{ old('location') }}" autocomplete="off" />
+                        </div>
+                        <div class="col-lg-6">
+                            <label for="Role">Role</label>
+                            <input list="roles" name="role" id="role" class="form-control" autocomplete="off" value="{{ old('role') }}" required>
+                            <datalist id="roles">
+                                @foreach ($roles as $role)
+                                    <option value="{{ $role->role }}">
+                                @endforeach
+                            </datalist>
                         </div>
                         <div class="col-lg-12"><br>
                             <label for="Photo">Parents Photo</label>
