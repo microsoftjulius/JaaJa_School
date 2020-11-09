@@ -39,7 +39,7 @@ class NotesController extends Controller
         $all_users = DB::table('users')->where('id','!=',auth()->user()->id)->get();
         $notes = Note::join('levels','notes.level_id','levels.id')
         ->join('subjects','notes.subject_id','subjects.id')
-        ->join('teachers','notes.teacher_id','teachers.id')
+        ->join('teachers','notes.teacher_id','teachers.teachers_login_id')
         ->join('users','users.id','teachers.teachers_login_id')
         ->select('notes.*','subjects.subject','levels.class','users.name')
         ->get();

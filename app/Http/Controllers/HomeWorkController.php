@@ -41,7 +41,7 @@ class HomeWorkController extends Controller
         $all_users = DB::table('users')->where('id','!=',auth()->user()->id)->get();
         $homework = Homework::join('subjects','subjects.id','homework.subject_id')
         ->join('levels','homework.level_id','levels.id')
-        ->join('teachers','homework.teacher_id','teachers.id')
+        ->join('teachers','homework.teacher_id','teachers.teachers_login_id')
         ->join('users','users.id','teachers.teachers_login_id')
         ->select('homework.*','users.name','subjects.subject','levels.class')
         ->get();
