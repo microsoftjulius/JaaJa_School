@@ -122,5 +122,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::delete('/delete-student-marks/{home_work_id}','HomeWorkMarksController@deleteHomeworkMarksForStudent');
 
     Route::get('/get-settings-page','SettingsController@getSettingsPage')->name("Settings");
+
+    Route::get('/private-chat-with-user/{user_id}','ChatController@chatWithSpecificUser');
+    Route::get('/send-private-message/{user_id}','ChatController@validateChat');
 });
 Auth::routes();

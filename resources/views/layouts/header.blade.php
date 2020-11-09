@@ -18,7 +18,8 @@
         <!-- START Right Navbar-->
         <ul class="navbar-nav flex-row">
             <!-- Search icon-->
-            <li class="nav-item dropdown dropdown-list"><a class="nav-link dropdown-toggle dropdown-toggle-nocaret" href="#" data-toggle="dropdown"><em class="icon-bell"></em><span class="badge badge-danger">11</span></a><!-- START Dropdown menu-->
+            <li class="nav-item dropdown dropdown-list">
+                {{-- <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" href="#" data-toggle="dropdown"><em class="icon-bell"></em><span class="badge badge-danger">11</span></a><!-- START Dropdown menu--> --}}
                 <div class="dropdown-menu dropdown-menu-right animated flipInX">
                 <div class="dropdown-item">
                     <!-- START list group-->

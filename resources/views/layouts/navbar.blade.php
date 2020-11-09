@@ -91,7 +91,7 @@
                         <div class="ml-auto"><span class="circle bg-success circle-lg"></span></div>
                         @else
                         <div class="media-body text-truncate">
-                            <a href="#">
+                            <a href="/private-chat-with-user/{{ $users->id }}">
                                 <strong>{{ $users->name }}</strong>
                             </a><br>
                             <small class="text-muted">{{ $users->last_login_at }}</small>
