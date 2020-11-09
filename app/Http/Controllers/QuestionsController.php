@@ -108,7 +108,7 @@ class QuestionsController extends Controller
      * This function returns the collection of a particular school
      */
     private function getSchoolQuestionsCollection(){
-        return Questions::where('school_id',$this->loggedin_user_instance->getLoggedInUserID())->get();
+        return Questions::where('teacher_id',$this->loggedin_user_instance->getLoggedInUserID())->get();
     }
 
     /**
