@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\teacher;
+use App\User;
 
 class AuthenticationController extends Controller
 {
@@ -12,20 +13,20 @@ class AuthenticationController extends Controller
      * this is the school ID
      */
     public function getLoggedInUserID(){
-        return 1; //Auth::user()->id
+        return auth()->user()->id; //Auth::user()->id
     }
 
     /**
      * This function gets the loggedin teachers id from the teachers table
      */
     public function getLoggedinTeachersId(){
-        return 2; //Teachers::where('teachers_login_id',$this->getLoggedInUserID())->value('id');
+        return auth()->user()->id;
     }
 
     /**
      * This function gets the LoggedInStidents ID
      */
     public function getLoggedInStudentsId(){
-        return 3; //Students::where('students_login_id',$this->getLoggedInUserID())->value('id);
+        return auth()->user()->id; //Students::where('students_login_id',$this->getLoggedInUserID())->value('id);
     }
 }

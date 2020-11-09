@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\teacher;
 use App\User;
+use DB;
 
 class TeachersController extends Controller
 {
@@ -21,21 +22,24 @@ class TeachersController extends Controller
     */
     protected function getTeachers(){
         $all_users = User::where('id','!=',auth()->user()->id)->get();
-        $get_all_teachers = teacher::join('users','teachers.school_id','users.id')
-        ->select('teachers.photo','teachers.teachers_login_id','teachers.teachers_name','teachers.contact','teachers.status','users.name')
+        $get_all_teachers = teacher::join('users','teachers.teachers_login_id','users.id')
+        ->join('roles','roles.id','users.role_id')
+        ->select('teachers.photo','teachers.teachers_login_id','teachers.teachers_name',
+            'teachers.contact','teachers.status','users.name','roles.role')
         ->get();
-        return view('admin.teacher', compact('get_all_teachers','all_users'));
+        $roles = DB::table('roles')->get();
+        return view('admin.teacher', compact('get_all_teachers','all_users','roles'));
     }
     /** 
      * This function creates teacher details 
      * It saves both to users table and teachers Table
     */
-    private function submitTeacher($teachers_photo){
+    private function submitTeacher($teachers_photo, $role_id){
         if(User::where('email',request()->contact)->exists()){
             return redirect()->back()->withErrors("An Account having this contact already exists, Please consider using a new contact");
         }
         $this->user_instance->createUser(request()->teachers_name, 
-                        request()->contact, request()->contact, 'teacher');
+                        request()->contact, request()->contact, 'teacher', $role_id);
         //getting the teachers Id from the users table
         $teachers_login_id = User::where('email',request()->contact)->value('id');
 
@@ -67,12 +71,17 @@ class TeachersController extends Controller
             return redirect()->back()->withErrors('teachers is required, please fill it to continue');
         }elseif(empty(request()->contact)){
             return redirect()->back()->withErrors('Contact is required, please fill it to continue');
-        }else{
+        }elseif(empty(request()->role)){
+            return redirect()->back()->withErrors("Please select a role to assign to this teacher")->withInput();
+        }elseif(DB::table('roles')->where('role',request()->role)->exists()){
             $save_teachers_image = request()->photo;
             $teachers_photo = $save_teachers_image->getClientOriginalName();
             $save_teachers_image->move('teachers-photos/',$teachers_photo);
+            $role_id = DB::table('roles')->where('role',request()->role)->value('id');
 
-            return $this->submitTeacher($teachers_photo);
+            return $this->submitTeacher($teachers_photo, $role_id);
+        }else{
+            return redirect()->back()->withErrors("Please select a role from the list, In order to create a new role, go to settings")->withInput();
         }
     }
     /** 

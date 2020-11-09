@@ -34,10 +34,10 @@
                                 <thead>
                                     <tr>
                                         <th data-priority="1">No.</th>
-                                        <th>School</th>
                                         <th>Class</th>
                                         <th class="sort-numeric">Parent</th>
                                         <th class="sort-alpha" data-priority="2">Student names</th>
+                                        <th>Role</th>
                                         <th>Age</th>
                                         <th>Status</th>
                                         <th>Photo</th>
@@ -50,10 +50,10 @@
                                     @foreach ($get_all_students as $id => $students)
                                     <tr class="gradeX">
                                         <td>{{ $id + 1}}</td>
-                                        <td>{{ $students->name }}</td>
                                         <td>{{ $students->class }}</td>
                                         <td>{{ $students->parent_name }}</td>
                                         <td>{{ $students->student_name }}</td>
+                                        <td style="text-transform: capitalize">{{ $students->role }}</td>
                                         <td>{{ $students->age }}</td>
                                         <td>{{ $students->status }}</td>
                                         <td><img src="{{ asset('student_photo/'. $students->photo) }}" style="width:100px; height:70px"/></td>
@@ -126,15 +126,15 @@
                     <div class="row">
                         <div class="col-lg-6">
                             <label for="First Name">First Name</label>
-                            <input type="text" name="first_name" id="" class="form-control" autocomplete="off">
+                            <input type="text" name="first_name" id="" class="form-control" autocomplete="off" value="{{ old('first_name') }}">
                         </div>
                         <div class="col-lg-6">
                             <label for="Last Name">Last Name</label>
-                            <input type="text" name="last_name" id="" class="form-control" autocomplete="off">
+                            <input type="text" name="last_name" id="" class="form-control" autocomplete="off" value="{{ old('last_name') }}">
                         </div>
                         <div class="col-lg-6">
                             <label for="browser">Select a Parent:</label>
-                            <input list="parent" name="parent_name" id="parents" class="form-control" autocomplete="off">
+                            <input list="parent" name="parent_name" id="parents" class="form-control" autocomplete="off" value="{{ old('parent_name') }}">
                             <datalist id="parent">
                                 @foreach ($parents as $parent)
                                     <option value="{{ $parent->parent_name }}">
@@ -143,16 +143,25 @@
                         </div>
                         <div class="col-lg-6">
                             <label for="class">Choose the Class:</label>
-                            <input list="class" name="class_name" id="classes" class="form-control" autocomplete="off">
+                            <input list="class" name="class_name" id="classes" class="form-control" autocomplete="off" value="{{ old('class_name') }}">
                             <datalist id="class">
                                 @foreach ($classes as $class)
                                     <option value="{{ $class->class }}">
                                 @endforeach
                             </datalist>
                         </div>
-                        <div class="col-lg-12">
+                        <div class="col-lg-6">
                             <label for="Age">Age:</label>
-                            <input name="age" id="age" class="form-control" autocomplete="off" type="number">
+                            <input name="age" id="age" class="form-control" autocomplete="off" type="number" value="{{ old('role') }}">
+                        </div>
+                        <div class="col-lg-6">
+                            <label for="Role">Role</label>
+                            <input list="roles" name="role" id="role" class="form-control" autocomplete="off" value="{{ old('role') }}" required>
+                            <datalist id="roles">
+                                @foreach ($roles as $role)
+                                    <option value="{{ $role->role }}">
+                                @endforeach
+                            </datalist>
                         </div>
                         <div class="col-lg-12"><br>
                             <input type="file" class="form-control dropzone mb-3 card d-flex flex-row justify-content-center flex-wrap"

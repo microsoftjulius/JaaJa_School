@@ -8,6 +8,7 @@ use App\User;
 use App\ParentInformation as Parents;
 use App\level;
 use Illuminate\Support\Facades\Hash;
+use DB;
 
 class StudentController extends Controller
 {
@@ -27,12 +28,14 @@ class StudentController extends Controller
         $parents = $this->parents_instance->getParentsCollection();
         $classes = $this->classes_instance->getClassesCollection();
         $all_users = User::where('id','!=',auth()->user()->id)->get();
-        $get_all_students = Student::join('users','students.school_id','users.id')
+        $roles = DB::table('roles')->get();
+        $get_all_students = Student::join('users','students.student_login_id','users.id')
+        ->join('roles','roles.id','users.role_id')
         ->join('levels','students.level_id','levels.id')
         ->join('parent_information','students.parent_id','parent_information.id')
-        ->select('parent_information.parent_name','users.name','students.*','levels.class')
+        ->select('parent_information.parent_name','users.name','students.*','levels.class','roles.role')
         ->get();
-        return view('admin.student', compact('get_all_students','parents','classes','all_users'));
+        return view('admin.student', compact('get_all_students','parents','classes','all_users','roles'));
     }
     /** 
      * This function edits the student information
@@ -48,10 +51,10 @@ class StudentController extends Controller
      * This function creates student details 
      * It saves both to users table and students Table
     */
-    private function submitStudent($photo_path, $parent_contact, $first_name, $parent_id, $class_id){
+    private function submitStudent($photo_path, $parent_contact, $first_name, $parent_id, $class_id, $role_id){
         //creating a student with username as first name and password as parents contact
         $this->user_instance->createUser(request()->last_name . ' '. $first_name, 
-                                        $first_name, $parent_contact, 'student');
+                                        $first_name, $parent_contact, 'student', $role_id);
         //getting the parents Id from the users table
         $student_login_id = User::where('email',$first_name)->value('id');
         //creating a parent
@@ -78,7 +81,9 @@ class StudentController extends Controller
             return redirect()->back()->withErrors('Age is required, please fill it to continue')->withInput();
         }elseif(empty(request()->photo)){
             return redirect()->back()->withErrors('Photo is required, please attach it to continue')->withInput();
-        }else{
+        }elseif(empty(request()->role)){
+            return redirect()->back()->withErrors("Please select a role to assign to this student")->withInput();
+        }elseif(DB::table('roles')->where('role',request()->role)->exists()){
             //getting the last name of the student
             $first_name = request()->first_name;
             //check if it exists, if so, add a figure to it. the figure is a maximum id
@@ -94,13 +99,16 @@ class StudentController extends Controller
                     $student_photo = request()->photo;
                     $photo_path = $student_photo->getClientOriginalName();
                     $student_photo->move('student_photo/',$photo_path);
-                    return $this->submitStudent($photo_path, $parent_contact, $first_name, $parent_id, $class_id);
+                    $role_id = DB::table('roles')->where('role',request()->role)->value('id');
+                    return $this->submitStudent($photo_path, $parent_contact, $first_name, $parent_id, $class_id, $role_id);
                 }else{
                     return redirect()->back()->withErrors("You need to create a class called " . request()->class_name . " and then add the Student to it")->withInput();
                 }
             }else{
                 return redirect()->back()->withErrors("You need to create this parent in order to add a student for him or her");
             }
+        }else{
+            return redirect()->back()->withErrors("Please select a role from the list, In order to create a new role, go to settings")->withInput();
         }
     }
     /** 
