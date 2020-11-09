@@ -144,7 +144,7 @@ class PastPapersController extends Controller
     protected function getClassPastPapers($class_id){
         $class_past_papers = PastPaper::where('class_id',$class_id)
         ->join('subjects','subjects.id','past_papers.subject_id')
-        ->join('teachers','teachers.id','past_papers.teacher_id')
+        ->join('teachers','teachers.teachers_login_id','past_papers.teacher_id')
         ->join('levels','levels.id','past_papers.class_id')
         ->get();
         $all_users = DB::table('users')->where('id','!=',auth()->user()->id)->get();
