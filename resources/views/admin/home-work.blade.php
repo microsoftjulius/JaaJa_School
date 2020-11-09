@@ -57,13 +57,15 @@
                                             <td>{{ $work->created_at }}</td>
                                             @if(auth()->user()->category == 'teacher')
                                             <td>
-                                                <a href="/delete-home-work/{{ $work->id }}"><button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button></a>
-                                                <a href="/edit-home-work-form/{{ $work->id }}">
-                                                    <button class="btn btn-sm btn-info"><i class="fa fa-edit"></i></button>
-                                                </a>
-                                                <a href="/get-homework-submissions-for-subject/{{ $work->id }}">
-                                                    <button class="btn btn-sm btn-success" title="View Submissions"><i class="fa fa-eye"></i></button>
-                                                </a>
+                                                @if(in_array("Can delete a homework", auth()->user()->getUserPermisions()))
+                                                    <a href="/delete-home-work/{{ $work->id }}"><button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button></a>
+                                                @endif
+                                                @if(in_array("Can edit homework", auth()->user()->getUserPermisions()))
+                                                <a href="/edit-home-work-form/{{ $work->id }}"><button class="btn btn-sm btn-info"><i class="fa fa-edit"></i></button></a>
+                                                @endif
+                                                @if(in_array("Can view homework", auth()->user()->getUserPermisions()))
+                                                <a href="/get-homework-submissions-for-subject/{{ $work->id }}"><button class="btn btn-sm btn-success" title="View Submissions"><i class="fa fa-eye"></i></button></a>
+                                                @endif
                                             </td>
                                             @endif
                                             @if(auth()->user()->category == 'student')
@@ -78,7 +80,7 @@
                             </table>
                             </div>
                         </div>
-                        @if(auth()->user()->category == 'teacher')
+                        @if(in_array("Can add homework", auth()->user()->getUserPermisions()))
                         <div class="row">
                             <div class="col-lg-4"></div>
                             <div class="col-lg-4"></div>

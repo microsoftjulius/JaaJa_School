@@ -38,7 +38,9 @@
                                         <th>Teacher Name</th>
                                         <th>Photo</th>
                                         <th>Status</th>
+                                        @if(in_array("Can suspend a teacher", auth()->user()->getUserPermisions()) || in_array("Can activate a teacher", auth()->user()->getUserPermisions()))
                                         <th>options</th>
+                                        @endif
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -49,22 +51,29 @@
                                         <td>{{ $teachers->teachers_name }}</td>
                                         <td><img src="{{ asset('teachers-photos/'. $teachers->photo) }}" style="width:100px; height:70px"/></td>
                                         <td>{{ $teachers->status }}</td>
+                                        @if(in_array("Can suspend a teacher", auth()->user()->getUserPermisions()) || in_array("Can activate a teacher", auth()->user()->getUserPermisions()))
                                         <td>
                                             @if($teachers->status == "active")
-                                                <a href='/suspend-teacher/{{ $teachers->teachers_login_id }}'><button class="btn btn-sm btn-warning" title="suspend teacher">Suspend teacher</button></a>
+                                                @if(in_array("Can suspend a teacher", auth()->user()->getUserPermisions()))
+                                                    <a href='/suspend-teacher/{{ $teachers->teachers_login_id }}'><button class="btn btn-sm btn-warning" title="suspend teacher">Suspend teacher</button></a>
+                                                @endif
                                             @else
-                                                <a href='/activate-teacher/{{ $teachers->teachers_login_id }}'><button class="btn btn-sm btn-success" title="Activate teacher">Activate teacher</button></a>
+                                                @if(in_array("Can activate a teacher", auth()->user()->getUserPermisions()))
+                                                    <a href='/activate-teacher/{{ $teachers->teachers_login_id }}'><button class="btn btn-sm btn-success" title="Activate teacher">Activate teacher</button></a>
+                                                @endif
                                             @endif
                                             {{-- <a href="/edit-teacher/{{ $teachers->id }}">
                                                 <button class="btn btn-sm btn-info"><i class="fa fa-edit"></i></button>
                                             </a> --}}
                                         </td>
+                                        @endif
                                     </tr>
                                     @endforeach
                                 </tbody>
                             </table>
                             </div>
                         </div>
+                        @if(in_array("Can add a teacher", auth()->user()->getUserPermisions()))
                         <div class="row">
                             <div class="col-lg-4"></div>
                             <div class="col-lg-4"></div>
@@ -72,6 +81,7 @@
                                 <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModal" type="button"><i class="fa fa-plus"></i> Add Teacher</button>
                             </div>
                         </div>
+                        @endif
                 </div>
             </div>
         </div>

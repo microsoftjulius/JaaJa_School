@@ -39,7 +39,9 @@
                                         <th class="sort-numeric">Location</th>
                                         <th class="sort-alpha" data-priority="2">Status</th>
                                         <th>Date</th>
+                                        @if(in_array("Can activate parents", auth()->user()->getUserPermisions()) || in_array("Can suspend parents", auth()->user()->getUserPermisions()))
                                         <th>Options</th>
+                                        @endif
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -52,19 +54,26 @@
                                         <td>{{ $parents->location }}</td>
                                         <td>{{ $parents->status }}</td>
                                         <td>{{ $parents->created_at }}</td>
+                                        @if(in_array("Can activate parents", auth()->user()->getUserPermisions()) || in_array("Can suspend parents", auth()->user()->getUserPermisions()))
                                         <td>
                                             @if($parents->status == 'inactive')
-                                                <a href="/activate-parent/{{ $parents->id }}"><button class="btn btn-sm btn-success">Activate parent</button></a>
+                                                @if(in_array("Can activate parents", auth()->user()->getUserPermisions()))
+                                                    <a href="/activate-parent/{{ $parents->id }}"><button class="btn btn-sm btn-success">Activate parent</button></a>
+                                                @endif
                                             @else
-                                                <a href='/suspend-parent/{{ $parents->id }}'><button class="btn btn-sm btn-warning">Suspend parent</button></a>
+                                                @if(in_array("Can suspend parents", auth()->user()->getUserPermisions()))
+                                                    <a href='/suspend-parent/{{ $parents->id }}'><button class="btn btn-sm btn-warning">Suspend parent</button></a>
+                                                @endif
                                             @endif
                                         </td>
+                                        @endif
                                     </tr>
                                     @endforeach
                                 </tbody>
                             </table>
                             </div>
                         </div>
+                        @if(in_array("Can add parents", auth()->user()->getUserPermisions()))
                         <div class="row">
                             <div class="col-lg-4"></div>
                             <div class="col-lg-4"></div>
@@ -72,6 +81,7 @@
                                 <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModal" type="button"><i class="fa fa-plus"></i> Add Parent</button>
                             </div>
                         </div>
+                        @endif
                 </div>
             </div>
         </div>
