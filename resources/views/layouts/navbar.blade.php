@@ -87,7 +87,7 @@
                 <div class="list-group-item list-group-item-action border-0">
                     <div class="media"><img class="align-self-center mr-3 rounded-circle thumb48" src="{{ asset('design/img/Logo.png')}}" alt="Image">
                         @if($users->user_online == 'true')
-                        <div class="media-body text-truncate"><a href="#"><strong>{{ $users->name }}</strong></a><br><small class="text-muted">{{ $users->category }}</small></div>
+                        <div class="media-body text-truncate"><a href="/private-chat-with-user/{{ $users->id }}"><strong>{{ $users->name }}</strong></a><br><small class="text-muted">{{ $users->category }}</small></div>
                         <div class="ml-auto"><span class="circle bg-success circle-lg"></span></div>
                         @else
                         <div class="media-body text-truncate">
