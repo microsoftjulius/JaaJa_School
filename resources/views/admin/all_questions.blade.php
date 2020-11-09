@@ -40,7 +40,10 @@
                                         @if(auth()->user()->category == 'student')
                                         <th>Answers</th>
                                         @endif
-                                        @if(auth()->user()->category == 'teacher')
+                                        @if(in_array("Can add answers to question for he or she added", auth()->user()->getUserPermisions()) || 
+                                        in_array("Can delete questions", auth()->user()->getUserPermisions()) || 
+                                        in_array("Can edit questions", auth()->user()->getUserPermisions()) || 
+                                        in_array("Can view answers to questions", auth()->user()->getUserPermisions()))
                                         <th class="sort-alpha" data-priority="2">Options</th>
                                         @endif
                                     </tr>
@@ -54,18 +57,27 @@
                                             <td>
                                                 <a href="{{ asset('questions/'.$questions->questions_pdf) }}" target="_blank"><i class="fa fa-download"></i> download</a>                                                
                                             </td>
-                                            
+                                            @if(in_array("Can add answers to question for he or she added", auth()->user()->getUserPermisions()) || 
+                                            in_array("Can delete questions", auth()->user()->getUserPermisions()) || 
+                                            in_array("Can edit questions", auth()->user()->getUserPermisions()) || 
+                                            in_array("Can view answers to questions", auth()->user()->getUserPermisions()))
                                             <td>
-                                                @if(auth()->user()->category == 'teacher')
+                                                @if(in_array("Can add answers to question for he or she added", auth()->user()->getUserPermisions()))
                                                 <a href="/add-answers-form/{{ $questions->id }}">
                                                     <button class="btn btn-sm btn-success"><i class="fa fa-plus"></i></button>
                                                 </a>
+                                                @endif
+                                                @if(in_array("Can delete questions", auth()->user()->getUserPermisions()))
                                                 <a href="/delete-question/{{ $questions->id }}">
                                                     <button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button>
                                                 </a>
+                                                @endif
+                                                @if(in_array("Can edit questions", auth()->user()->getUserPermisions()))
                                                 <a href="/edit-question-form/{{ $questions->id }}">
                                                     <button class="btn btn-sm btn-info"><i class="fa fa-edit"></i></button>
                                                 </a>
+                                                @endif
+                                                @if(in_array("Can view answers to questions", auth()->user()->getUserPermisions()))
                                                 <a href="/get-answers-to-question/{{ $questions->id }}">
                                                     <button class="btn btn-sm btn-secondary"><i class="fa fa-eye"></i></button>
                                                 </a>
@@ -76,21 +88,21 @@
                                                 </a>
                                                 @endif
                                             </td>
+                                            @endif
                                         </tr>
                                     @endforeach
                                 </tbody>
                             </table>
                             </div>
-                        </div>
-                        @if(auth()->user()->category == 'teacher')
-                        <div class="row">
-                            <div class="col-lg-4"></div>
-                            <div class="col-lg-4"></div>
-                            <div class="col-lg-4 text-right">
-                                <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModal" type="button"><i class="fa fa-plus"></i> Add Questions</button>
+                            @if(in_array("Can add questions", auth()->user()->getUserPermisions()))
+                            <div class="row">
+                                <div class="col-lg-4"></div>
+                                <div class="col-lg-4"></div>
+                                <div class="col-lg-4 text-right">
+                                    <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModal" type="button"><i class="fa fa-plus"></i> Add Questions</button>
+                                </div>
                             </div>
-                        </div>
-                        @endif
+                            @endif
                 </div>
             </div>
         </div>

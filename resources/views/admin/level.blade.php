@@ -35,7 +35,14 @@
                                         <th>Class</th>
                                         <th>Status</th>
                                         <th class="sort-numeric">Date</th>
+                                        @if(in_array("Can delete a class", auth()->user()->getUserPermisions()) || 
+                                        in_array("Can edit a class", auth()->user()->getUserPermisions()) || 
+                                        in_array("Can view homeworks for a class", auth()->user()->getUserPermisions()) || 
+                                        in_array("Can view notes for a class", auth()->user()->getUserPermisions()) || 
+                                        in_array("Can view questions for a class", auth()->user()->getUserPermisions()) || 
+                                        in_array("Can view past papers for a class", auth()->user()->getUserPermisions()))
                                         <th class="sort-alpha" data-priority="2">Options</th>
+                                        @endif
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -45,22 +52,40 @@
                                         <td>{{ $classes->class }}</td>
                                         <td>{{ $classes->status }}</td>
                                         <td>{{ $classes->created_at }}</td>
+                                        @if(in_array("Can delete a class", auth()->user()->getUserPermisions()) || 
+                                        in_array("Can edit a class", auth()->user()->getUserPermisions()) || 
+                                        in_array("Can view homeworks for a class", auth()->user()->getUserPermisions()) || 
+                                        in_array("Can view notes for a class", auth()->user()->getUserPermisions()) || 
+                                        in_array("Can view questions for a class", auth()->user()->getUserPermisions()) || 
+                                        in_array("Can view past papers for a class", auth()->user()->getUserPermisions()))
                                         <td>
-                                            <a href="/delete-class/{{ $classes->id }}"><button class="btn btn-sm btn-danger">Delete class</button></a>
-                                            <a href="/edit-class-form/{{ $classes->id }}">
-                                                <button class="btn btn-sm btn-info">Edit Class</button>
-                                            </a>
-                                            <a href="/get-class-homeworks/{{ $classes->id }}"><button class="btn btn-sm btn-success">Homeworks</button></a>
-                                            <a href="/get-class-notes/{{ $classes->id }}"><button class="btn btn-sm btn-primary">Notes</button></a>
-                                            <a href="/get-class-questions/{{ $classes->id }}"><button class="btn btn-sm btn-secondary">Questions</button></a>
-                                            <a href="/get-class-past-papers/{{ $classes->id }}"><button class="btn btn-sm btn-warning">Past Papers</button></a>
+                                            @if(in_array("Can delete a class", auth()->user()->getUserPermisions()))
+                                                <a href="/delete-class/{{ $classes->id }}"><button class="btn btn-sm btn-danger">Delete class</button></a>
+                                            @endif
+                                            @if(in_array("Can edit a class", auth()->user()->getUserPermisions()))
+                                                <a href="/edit-class-form/{{ $classes->id }}"><button class="btn btn-sm btn-info">Edit Class</button></a>
+                                            @endif
+                                            @if(in_array("Can view homeworks for a class", auth()->user()->getUserPermisions()))
+                                                <a href="/get-class-homeworks/{{ $classes->id }}"><button class="btn btn-sm btn-success">Homeworks</button></a>
+                                            @endif
+                                            @if(in_array("Can view notes for a class", auth()->user()->getUserPermisions()))
+                                                <a href="/get-class-notes/{{ $classes->id }}"><button class="btn btn-sm btn-primary">Notes</button></a>
+                                            @endif
+                                            @if(in_array("Can view questions for a class", auth()->user()->getUserPermisions()))
+                                                <a href="/get-class-questions/{{ $classes->id }}"><button class="btn btn-sm btn-secondary">Questions</button></a>
+                                            @endif
+                                            @if(in_array("Can view past papers for a class", auth()->user()->getUserPermisions()))
+                                                <a href="/get-class-past-papers/{{ $classes->id }}"><button class="btn btn-sm btn-warning">Past Papers</button></a>
+                                            @endif
                                         </td>
+                                        @endif
                                     </tr>
                                     @endforeach
                                 </tbody>
                             </table>
                             </div>
                         </div>
+                        @if(in_array("Can add a class", auth()->user()->getUserPermisions()))
                         <div class="row">
                             <div class="col-lg-4"></div>
                             <div class="col-lg-4"></div>
@@ -68,6 +93,7 @@
                                 <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModal" type="button"><i class="fa fa-plus"></i> Add Class</button>
                             </div>
                         </div>
+                        @endif
                 </div>
             </div>
         </div>

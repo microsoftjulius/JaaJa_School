@@ -39,7 +39,7 @@
                                         <th class="sort-numeric">Added By</th>
                                         <th class="sort-alpha" data-priority="2">Notes</th>
                                         <th class="sort-numeric">Date</th>
-                                        @if(auth()->user()->category == 'teacher')
+                                        @if(in_array("Can delete notes", auth()->user()->getUserPermisions()) || in_array("Can edit notes", auth()->user()->getUserPermisions()))
                                         <th class="sort-alpha" data-priority="2">Options</th>
                                         @endif
                                     </tr>
@@ -53,14 +53,14 @@
                                         <td>{{ $note->name }}</td>
                                         <td><a href="{{ asset('notes/'.$note->notes) }}" target="_blank"><i class="fa fa-download"></i> download</a></td>
                                         <td>{{ $note->created_at }}</td>
-                                        @if(auth()->user()->category == 'teacher')
+                                        @if(in_array("Can delete notes", auth()->user()->getUserPermisions()) || in_array("Can edit notes", auth()->user()->getUserPermisions()))
                                         <td> 
-                                            <a href="/delete-notes/{{ $note->id }}">
-                                                <button class="btn btn-sm btn-danger">Delete notes</button>
-                                            </a>
-                                            <a href="/edit-notes-form/{{ $note->id }}">
-                                                <button class="btn btn-sm btn-info">Edit notes</button>
-                                            </a>
+                                            @if(in_array("Can delete notes", auth()->user()->getUserPermisions()))
+                                            <a href="/delete-notes/{{ $note->id }}"><button class="btn btn-sm btn-danger">Delete notes</button></a>
+                                            @endif
+                                            @if(in_array("Can edit notes", auth()->user()->getUserPermisions()))
+                                            <a href="/edit-notes-form/{{ $note->id }}"><button class="btn btn-sm btn-info">Edit notes</button></a>
+                                            @endif
                                         </td>
                                         @endif
                                     </tr>
@@ -69,7 +69,7 @@
                             </table>
                             </div>
                         </div>
-                        @if(auth()->user()->category == 'teacher')
+                        @if(in_array("Can add notes", auth()->user()->getUserPermisions()))
                         <div class="row">
                             <div class="col-lg-4"></div>
                             <div class="col-lg-4"></div>

@@ -19,9 +19,11 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/create-role','RoleController@validateRole');
     Route::get('/get-role','RoleController@getRoles')->name('Roles');
     Route::get('/assign-permissions-to-role','RoleController@assignPermissionsToRole');
-    Route::delete('/delete-role/{id}','RoleController@deleteRole');
+    Route::get('/delete-role/{id}','RoleController@deleteRole');
     Route::get('/get-assign-roles-page','RoleController@getAssignRolesPage')->name("Assign Roles");
     Route::get('/assign-role-to-a-user','RoleController@AssignRoleToUser');
+    Route::get('/view-permissions-to-role/{role_id}','RoleController@viewPermissionsForSelectedRole');
+    Route::get('/revoke-permissions-from-role/{id}','RoleController@revokePermissionFromRole');
 
     Route::get('/get-schools','UserController@getSchools')->name('Schools');
     Route::get('/get-users','UserController@getUsers')->name('Users');

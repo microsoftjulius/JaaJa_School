@@ -38,7 +38,11 @@ class RoleController extends Controller
      * This function calls the soft deletes when deleting a role
      */
     protected function deleteRole($role_id){
+        if(PermissionRoles::where('role_id',$role_id)->exists()){
+            return redirect()->back()->withErrors('This role already has members assigned to it, kindly remove the members to perform the deletion of this role');
+        }
         Role::where('id',$role_id)->delete();
+        return redirect()->back()->with('msg','Your operation was successful');
     }
 
     /**
@@ -92,5 +96,25 @@ class RoleController extends Controller
         }
 
         return redirect()->back()->with('msg',"Your request of assigning the roles to the selected users was successful");
+    }
+    /**
+     * This function views the permissions for the selected role
+     */
+    protected function viewPermissionsForSelectedRole($role_id){
+        $permissions = PermissionRoles::join('roles','roles.id','permission_roles.role_id')
+        ->join('permissions','permissions.id','permission_roles.permission_id')
+        ->where('permission_roles.role_id',$role_id)
+        ->select('roles.role','permissions.Permissions','permission_roles.*')
+        ->get();
+        $all_users = DB::table('users')->where('id','!=',auth()->user()->id)->get();
+        return view('admin.permissions_for_selected_role',compact('permissions','all_users'));
+    }
+
+    /**
+     * This function revokes permissions from the role
+     */
+    protected function revokePermissionFromRole($id){
+        PermissionRoles::where('id',$id)->delete();
+        return redirect()->back()->with('msg',"Operation was successful");
     }
 }

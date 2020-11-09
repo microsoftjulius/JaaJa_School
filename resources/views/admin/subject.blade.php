@@ -34,7 +34,9 @@
                                         <th data-priority="1">No.</th>
                                         <th>Subject</th>
                                         <th>Date</th>
+                                        @if(in_array("Can delete a subject", auth()->user()->getUserPermisions()) || in_array("Can edit a subject", auth()->user()->getUserPermisions()))
                                         <th>Options</th>
+                                        @endif
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -43,18 +45,23 @@
                                             <td>{{ $id + 1 }}</td>
                                             <td style="text-transform: capitalize">{{ $subjects->subject }}</td>
                                             <td>{{ $subjects->created_at }}</td>
+                                            @if(in_array("Can delete a subject", auth()->user()->getUserPermisions()) || in_array("Can edit a subject", auth()->user()->getUserPermisions()))
                                             <td>
+                                                @if(in_array("Can delete a subject", auth()->user()->getUserPermisions()))
                                                 <a href="/delete-subject/{{ $subjects->id }}"><button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button></a>
-                                                <a href="/edit-subject-form/{{ $subjects->id }}">
-                                                    <button class="btn btn-sm btn-info"><i class="fa fa-edit"></i></button>
-                                                </a>
+                                                @endif
+                                                @if(in_array("Can edit a subject", auth()->user()->getUserPermisions()))
+                                                <a href="/edit-subject-form/{{ $subjects->id }}"><button class="btn btn-sm btn-info"><i class="fa fa-edit"></i></button></a>
+                                                @endif
                                             </td>
+                                            @endif
                                         </tr>
                                     @endforeach
                                 </tbody>
                             </table>
                             </div>
                         </div>
+                        @if(in_array("Can add a subject", auth()->user()->getUserPermisions()))
                         <div class="row">
                             <div class="col-lg-4"></div>
                             <div class="col-lg-4"></div>
@@ -62,6 +69,7 @@
                                 <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModal" type="button"><i class="fa fa-plus"></i> Add Subject</button>
                             </div>
                         </div>
+                        @endif
                 </div>
             </div>
         </div>
