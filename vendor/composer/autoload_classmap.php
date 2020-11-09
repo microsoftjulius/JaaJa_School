@@ -7,6 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'App\\AnswersModel' => $baseDir . '/app/AnswersModel.php',
+    'App\\Chating' => $baseDir . '/app/Chating.php',
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
     'App\\HomeWorkAnswers' => $baseDir . '/app/HomeWorkAnswers.php',
@@ -20,6 +21,7 @@ return array(
     'App\\Http\\Controllers\\Auth\\ResetPasswordController' => $baseDir . '/app/Http/Controllers/Auth/ResetPasswordController.php',
     'App\\Http\\Controllers\\Auth\\VerificationController' => $baseDir . '/app/Http/Controllers/Auth/VerificationController.php',
     'App\\Http\\Controllers\\AuthenticationController' => $baseDir . '/app/Http/Controllers/AuthenticationController.php',
+    'App\\Http\\Controllers\\ChatController' => $baseDir . '/app/Http/Controllers/ChatController.php',
     'App\\Http\\Controllers\\Controller' => $baseDir . '/app/Http/Controllers/Controller.php',
     'App\\Http\\Controllers\\HomeController' => $baseDir . '/app/Http/Controllers/HomeController.php',
     'App\\Http\\Controllers\\HomeWorkAnswersController' => $baseDir . '/app/Http/Controllers/HomeWorkAnswersController.php',
@@ -51,7 +53,7 @@ return array(
     'App\\Note' => $baseDir . '/app/Note.php',
     'App\\ParentInformation' => $baseDir . '/app/ParentInformation.php',
     'App\\PastPapersModel' => $baseDir . '/app/PastPapersModel.php',
-    'App\\PermissioRoles' => $baseDir . '/app/PermissioRoles.php',
+    'App\\PermissionRoles' => $baseDir . '/app/PermissionRoles.php',
     'App\\Permissions' => $baseDir . '/app/Permissions.php',
     'App\\Providers\\AppServiceProvider' => $baseDir . '/app/Providers/AppServiceProvider.php',
     'App\\Providers\\AuthServiceProvider' => $baseDir . '/app/Providers/AuthServiceProvider.php',

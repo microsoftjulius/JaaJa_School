@@ -502,6 +502,7 @@ class ComposerStaticInit9d893d83270535fc4db14487f509659c
 
     public static $classMap = array (
         'App\\AnswersModel' => __DIR__ . '/../..' . '/app/AnswersModel.php',
+        'App\\Chating' => __DIR__ . '/../..' . '/app/Chating.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\HomeWorkAnswers' => __DIR__ . '/../..' . '/app/HomeWorkAnswers.php',
@@ -515,6 +516,7 @@ class ComposerStaticInit9d893d83270535fc4db14487f509659c
         'App\\Http\\Controllers\\Auth\\ResetPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ResetPasswordController.php',
         'App\\Http\\Controllers\\Auth\\VerificationController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/VerificationController.php',
         'App\\Http\\Controllers\\AuthenticationController' => __DIR__ . '/../..' . '/app/Http/Controllers/AuthenticationController.php',
+        'App\\Http\\Controllers\\ChatController' => __DIR__ . '/../..' . '/app/Http/Controllers/ChatController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
         'App\\Http\\Controllers\\HomeWorkAnswersController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeWorkAnswersController.php',
@@ -546,7 +548,7 @@ class ComposerStaticInit9d893d83270535fc4db14487f509659c
         'App\\Note' => __DIR__ . '/../..' . '/app/Note.php',
         'App\\ParentInformation' => __DIR__ . '/../..' . '/app/ParentInformation.php',
         'App\\PastPapersModel' => __DIR__ . '/../..' . '/app/PastPapersModel.php',
-        'App\\PermissioRoles' => __DIR__ . '/../..' . '/app/PermissioRoles.php',
+        'App\\PermissionRoles' => __DIR__ . '/../..' . '/app/PermissionRoles.php',
         'App\\Permissions' => __DIR__ . '/../..' . '/app/Permissions.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'App\\Providers\\AuthServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AuthServiceProvider.php',
