@@ -20,12 +20,12 @@ class ParentController extends Controller
     /** 
      * This function creates parents information
     */
-    private function createParent($photo_path){
+    private function createParent($photo_path, $role_id){
         if(User::where('email',request()->contact)->exists()){
             return redirect()->back()->withErrors("An Account having this contact already exists, Please consider using a new contact");
         }
         //creating a parent with user name and password as contact
-        $this->user_instance->createUser(request()->parent_name, request()->contact, request()->contact, 'parent');
+        $this->user_instance->createUser(request()->parent_name, request()->contact, request()->contact, 'parent', $role_id);
         //getting the parents Id from the users table
         $parent_login_id = User::where('email',request()->contact)->value('id');
         //creating a parent
@@ -45,14 +45,17 @@ class ParentController extends Controller
     protected function getParents(){
         $parent_information = $this->getParentsCollection();
         $all_users = DB::table('users')->where('id','!=',auth()->user()->id)->get();
-        return view('admin.parent', compact('parent_information','all_users'));
+        $roles = DB::table('roles')->get();
+        return view('admin.parent', compact('parent_information','all_users','roles'));
     }
 
     /**
      * This function gets the parents collection
      */
     public function getParentsCollection(){
-        return ParentInformation::get();
+        return ParentInformation::join('users','users.id','parent_information.parents_login_id')
+        ->join('roles','roles.id','users.role_id')
+        ->get();
     }
     /** 
      * This function edits the student information
@@ -81,17 +84,21 @@ class ParentController extends Controller
     */
     protected function validateCreateParent(){
         if(empty(request()->parent_name)){
-            return redirect()->back()->withErrors('Parent Name is required, please fill it to continue');
+            return redirect()->back()->withErrors('Parent Name is required, please fill it to continue')->withInput();
         }elseif(empty(request()->contact)){
-            return redirect()->back()->withErrors('Contact is required, please fill it to continue');
+            return redirect()->back()->withErrors('Contact is required, please fill it to continue')->withInput();
         }elseif(empty(request()->location)){
-            return redirect()->back()->withErrors('Location is required, please fill it to continue');
-        }else{
+            return redirect()->back()->withErrors('Location is required, please fill it to continue')->withInput();
+        }elseif(empty(request()->role)){
+            return redirect()->back()->withErrors("Please select a role to assign to this parent")->withInput();
+        }elseif(DB::table('roles')->where('role',request()->role)->exists()){
+            $role_id = DB::table('roles')->where('role',request()->role)->value('id');
             $parent_photo = request()->photo;
             $photo_path = $parent_photo->getClientOriginalName();
             $parent_photo->move('parent_photo/',$photo_path);
-
-            return $this->createParent($photo_path);
+            return $this->createParent($photo_path, $role_id);
+        }else{
+            return redirect()->back()->withErrors("Please select a role from the list, In order to create a new role, go to settings")->withInput();
         }
     }
     /**

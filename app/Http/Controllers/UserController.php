@@ -11,12 +11,13 @@ class UserController extends Controller
     /** 
      * This function creates users 
     */
-    public function createUser($names, $email, $password, $category){
+    public function createUser($names, $email, $password, $category, $role_id){
         $user =new User();
         $user->name      = $names;
         $user->email     = $email;
         $user->password  = Hash::make($password);
         $user->category  = $category;
+        $user->role_id   = $role_id;
         $user->save();
     }
     /** 

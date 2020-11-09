@@ -37,6 +37,7 @@
                                         <th>School</th>
                                         <th>Teacher Name</th>
                                         <th>Photo</th>
+                                        <th>Role</th>
                                         <th>Status</th>
                                         @if(in_array("Can suspend a teacher", auth()->user()->getUserPermisions()) || in_array("Can activate a teacher", auth()->user()->getUserPermisions()))
                                         <th>options</th>
@@ -50,6 +51,7 @@
                                         <td>{{ $teachers->name }}</td>
                                         <td>{{ $teachers->teachers_name }}</td>
                                         <td><img src="{{ asset('teachers-photos/'. $teachers->photo) }}" style="width:100px; height:70px"/></td>
+                                        <td>{{ $teachers->role }}</td>
                                         <td>{{ $teachers->status }}</td>
                                         @if(in_array("Can suspend a teacher", auth()->user()->getUserPermisions()) || in_array("Can activate a teacher", auth()->user()->getUserPermisions()))
                                         <td>
@@ -125,9 +127,18 @@
                             <label for="Teachers Name">Teachers Name</label>
                             <input type="text" name="teachers_name" id="" class="form-control" autocomplete="off">
                         </div>
-                        <div class="col-lg-12">
+                        <div class="col-lg-6">
                             <label for="Contact">Contact:</label>
                             <input name="contact" id="contact" class="form-control" autocomplete="off" type="text">
+                        </div>
+                        <div class="col-lg-6">
+                            <label for="Role">Role</label>
+                            <input list="roles" name="role" id="role" class="form-control" autocomplete="off" value="{{ old('role') }}" required>
+                            <datalist id="roles">
+                                @foreach ($roles as $role)
+                                    <option value="{{ $role->role }}">
+                                @endforeach
+                            </datalist>
                         </div>
                         <div class="col-lg-12"><br>
                             <input type="file" class="form-control dropzone mb-3 card d-flex flex-row justify-content-center flex-wrap"
