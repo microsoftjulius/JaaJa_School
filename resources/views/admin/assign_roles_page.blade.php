@@ -81,10 +81,11 @@
                                 </div>
                                 
                             </div>
-
+                            @if(in_array("Can assign roles to users", auth()->user()->getUserPermisions()))
                             <div class="text-left">
                                 <button class="btn btn-sm btn-primary" type="submit"> Assign Role To User(s)</button>
                             </div>
+                            @endif
                     </div>
                 </div>
             </form>

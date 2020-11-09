@@ -41,7 +41,7 @@
                                         <th>Age</th>
                                         <th>Status</th>
                                         <th>Photo</th>
-                                        @if(auth()->user()->category == 'teacher')
+                                        @if(in_array("Can activate a student", auth()->user()->getUserPermisions()) || in_array("Can suspend students", auth()->user()->getUserPermisions()))
                                         <th>Option</th>
                                         @endif
                                     </tr>
@@ -57,12 +57,16 @@
                                         <td>{{ $students->age }}</td>
                                         <td>{{ $students->status }}</td>
                                         <td><img src="{{ asset('student_photo/'. $students->photo) }}" style="width:100px; height:70px"/></td>
-                                        @if(auth()->user()->category == 'teacher')
+                                        @if(in_array("Can activate a student", auth()->user()->getUserPermisions()) || in_array("Can suspend students", auth()->user()->getUserPermisions()))
                                         <td>
                                             @if($students->status == 'suspended')
-                                                <a href='/activate-student/{{ $students->id }}'><button class="btn btn-sm btn-success">Activate student</button></a>
+                                                @if(in_array("Can activate a student", auth()->user()->getUserPermisions()))
+                                                    <a href='/activate-student/{{ $students->id }}'><button class="btn btn-sm btn-success">Activate student</button></a>
+                                                @endif
                                             @else
-                                                <a href='/suspend-student/{{ $students->id }}'><button class="btn btn-sm btn-warning">Suspend student</button></a>
+                                                @if(in_array("Can suspend students", auth()->user()->getUserPermisions()))
+                                                    <a href='/suspend-student/{{ $students->id }}'><button class="btn btn-sm btn-warning">Suspend student</button></a>
+                                                @endif
                                             @endif
                                         </td>
                                         @endif
@@ -72,7 +76,7 @@
                             </table>
                             </div>
                         </div>
-                        @if(auth()->user()->category == 'teacher')
+                        @if(in_array("Can add students", auth()->user()->getUserPermisions()))
                         <div class="row">
                             <div class="col-lg-4"></div>
                             <div class="col-lg-4"></div>

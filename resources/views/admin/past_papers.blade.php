@@ -39,7 +39,7 @@
                                         <th class="sort-numeric">Added By</th>
                                         <th class="sort-alpha" data-priority="2">Paper</th>
                                         <th class="sort-numeric">Year</th>
-                                        @if(auth()->user()->category == 'teacher')
+                                        @if(in_array("Can edit past papers", auth()->user()->getUserPermisions()) || in_array("Can delete past papers", auth()->user()->getUserPermisions()))
                                         <th class="sort-alpha" data-priority="2">Options</th>
                                         @endif
                                     </tr>
@@ -53,14 +53,14 @@
                                         <td>{{ $past_paper->name }}</td>
                                         <td><a href="{{ asset('past_papers/'.$past_paper->past_paper_pdf) }}" target="_blank"><i class="fa fa-download"></i> download</a></td>
                                         <td>{{ $past_paper->year }}</td>
-                                        @if(auth()->user()->category == 'teacher')
+                                        @if(in_array("Can edit past papers", auth()->user()->getUserPermisions()) || in_array("Can delete past papers", auth()->user()->getUserPermisions()))
                                         <td> 
-                                            <a href="/delete-past-paper/{{ $past_paper->id }}">
-                                                <button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button>
-                                            </a>
-                                            <a href="/edit-past_paper-form/{{ $past_paper->id }}">
-                                                <button class="btn btn-sm btn-info"><i class="fa fa-edit"></i></button>
-                                            </a>
+                                            @if(in_array("Can delete past papers", auth()->user()->getUserPermisions()))
+                                            <a href="/delete-past-paper/{{ $past_paper->id }}"><button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button></a>
+                                            @endif
+                                            @if(in_array("Can edit past papers", auth()->user()->getUserPermisions()))
+                                            <a href="/edit-past_paper-form/{{ $past_paper->id }}"><button class="btn btn-sm btn-info"><i class="fa fa-edit"></i></button></a>
+                                            @endif
                                         </td>
                                         @endif
                                     </tr>
@@ -69,7 +69,7 @@
                             </table>
                             </div>
                         </div>
-                        @if(auth()->user()->category == 'teacher')
+                        @if(in_array("Can add past papers", auth()->user()->getUserPermisions()))
                         <div class="row">
                             <div class="col-lg-4"></div>
                             <div class="col-lg-4"></div>

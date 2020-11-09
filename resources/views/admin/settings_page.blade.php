@@ -27,7 +27,7 @@
                     <div class="col-lg-12">
                     @include('layouts.messages')
                     </div>
-                    <div class="col-lg-4">
+                    <div class="col-lg-5">
                         <div class="card">
                             <div class="card-header">
                                 <div class="card-title text-center" style="text-transform: capitalize">A table showing Roles</div>
@@ -39,6 +39,9 @@
                                             <th data-priority="1">No.</th>
                                             <th>Select A Role</th>
                                             <th>Role</th>
+                                            @if(in_array("Can delete a role", auth()->user()->getUserPermisions()))
+                                            <th>Options</th>
+                                            @endif
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -47,18 +50,26 @@
                                             <td>{{ $id + 1 }}</td>
                                             <td><input type="radio" name="role_id" value="{{ $role->id }}"></td>
                                             <td style="text-transform: capitalize">{{ $role->role }}</td>
+                                            @if(in_array("Can delete a role", auth()->user()->getUserPermisions()))
+                                            <td> 
+                                                <a href="/delete-role/{{ $role->id }}"><i class="fa fa-trash" style="color:red"></i></a>
+                                                <a href="/view-permissions-to-role/{{ $role->id }}"><i class="fa fa-eye" style="color:green"></i></a>
+                                            </td>
+                                            @endif
                                         </tr>
                                         @endforeach
                                     </tbody>
                                 </table>
+                                @if(in_array("Can create roles", auth()->user()->getUserPermisions()))
                                 <div class="text-right">
                                     <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModal" type="button"> Add Role</button>
                                 </div>
+                                @endif
                                 </div>
                             </div>
                     </div>
 
-                    <div class="col-lg-8">
+                    <div class="col-lg-7">
                         <div class="card">
                             <div class="card-header">
                                 <div class="card-title text-center" style="text-transform: capitalize">A table showing Permissions</div>
@@ -80,9 +91,11 @@
                                         @endforeach
                                     </tbody>
                                 </table>
+                                {{-- @if(in_array("Can assign permissions to a role", auth()->user()->getUserPermisions())) --}}
                                 <div class="text-right">
                                     <button class="btn btn-sm btn-primary" type="submit"> Assign Permissions to selected role </button>
                                 </div>
+                                {{-- @endif --}}
                                 </div>
                             </div>
                     </div>
