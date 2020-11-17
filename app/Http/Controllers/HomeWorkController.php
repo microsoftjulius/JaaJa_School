@@ -24,7 +24,6 @@ class HomeWorkController extends Controller
         $home_work->teacher_id =request()->teacher_id;
         $home_work->home_work =request()->home_work;
         $home_work->save();
-<<<<<<< HEAD
      }
      /** 
       * This function fetches all the home work documents from the table
@@ -38,27 +37,10 @@ class HomeWorkController extends Controller
          return response()->json([$home,200]);
      }
      /** 
-=======
-        return Redirect()->back()->withErrors("You have successfully uploaded a Home work");
-    }
-    /** 
-      * This function fetches all the home work documents from the table
-     */
-    protected function getHomeWork(){
-        $home =Homework::join('users','homework.school_id','users.id')
-        ->join('levels','homework.level_id','levels.id')
-        ->join('subjects','homework.subject_id','subjects.id')
-        ->join('teachers','homework.teacher_id','teachers.id')
-        ->get();
-        return view('admin.home-work', compact('home'));
-    }
-    /** 
->>>>>>> 81f91c198e1946e28732c94918b29466c5c916f2
       * This function edits the homework information
      */
     protected function editHomeWork($id){
         Homework::where('id',$id)->update(array(
-<<<<<<< HEAD
              'home_work' =>'English.pdf'
          ));
         
@@ -70,20 +52,6 @@ class HomeWorkController extends Controller
         Homework::where('id',$id)->delete();
      }
      /** 
-=======
-            'home_work' =>'English.pdf'
-        ));
-        return Redirect()->back()->withErrors("Homework has been updated successfully");
-    }
-    /** 
-      * This function deletes homework softly
-     */
-    protected function deleteHomeWork($id){
-    Homework::where('id',$id)->update(array( 'status' => 'deleted'));
-        return Redirect()->back()->withErrors("Homework has been deleted successfully");
-    }
-    /** 
->>>>>>> 81f91c198e1946e28732c94918b29466c5c916f2
       * This function validates creating homework
      */
     protected function validateCreateHomeWork(){

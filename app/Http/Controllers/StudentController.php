@@ -23,11 +23,7 @@ class StudentController extends Controller
         $get_all_students =Student::join('users','students.school_id','users.id')
         ->join('levels','students.level_id','levels.id')
         ->join('parent_information','students.parent_id','parent_information.id')
-<<<<<<< HEAD
-        ->where('students.school_id',$this->authenticated_student->getLoggedInStudentsId())
-=======
         ->where('students.id',$this->authenticated_user->getLoggedInUserID())
->>>>>>> 81f91c198e1946e28732c94918b29466c5c916f2
         ->get();
         return response()->json([$get_all_students,200]);
     }
