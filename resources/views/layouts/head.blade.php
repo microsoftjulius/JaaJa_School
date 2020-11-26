@@ -3,7 +3,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta name="description" content="Bootstrap Admin App">
     <meta name="keywords" content="app, responsive, jquery, bootstrap, dashboard, admin">
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="icon" type="image/x-icon" href="{{ asset('design/primary.jpg') }}">
     <title>JITS - JAAJA INFORMATION TECHNOLOGY SOLUTIONS</title>
     <!-- FONT AWESOME-->
     <link rel="stylesheet" href="{{ asset('design/vendor/%40fortawesome/fontawesome-free/css/brands.css')}}">

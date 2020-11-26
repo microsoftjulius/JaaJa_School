@@ -124,12 +124,10 @@ class HomeWorkController extends Controller
         $months = [1,2,3,4,5,6,7,8,9,10,11,12];
         $homework_count_array = [];
         $notes_collection = Homework::get();
-        foreach($notes_collection as $notes){
-            //go to notes and get the notes where month is in the array, save the number of notes the month has
-            for($i=0; $i<count($months); $i++){
-                $homework_count_in_a_month = Homework::WhereMonth('created_at',$months[$i])->count();
-                array_push($homework_count_array, $homework_count_in_a_month);
-            }
+        //go to notes and get the notes where month is in the array, save the number of notes the month has
+        for($i=0; $i<count($months); $i++){
+            $homework_count_in_a_month = Homework::WhereMonth('created_at',$months[$i])->count();
+            array_push($homework_count_array, $homework_count_in_a_month);
         }
         return $homework_count_array;
     }
