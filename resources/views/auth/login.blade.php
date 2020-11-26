@@ -8,7 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="Bootstrap Admin App">
 <meta name="keywords" content="app, responsive, jquery, bootstrap, dashboard, admin">
-<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="icon" type="image/x-icon" href="{{ asset('design/primary.jpg') }}">
 <title>JITS - Education System</title><!-- =============== VENDOR STYLES ===============-->
 <!-- FONT AWESOME-->
 <link rel="stylesheet" href="{{ asset('design/vendor/%40fortawesome/fontawesome-free/css/brands.css')}}">
@@ -21,7 +21,7 @@
 </head>
 
 <body style="background-image: linear-gradient(to bottom, rgba(17, 18, 24, 0.226),  rgba(9, 15, 48, 0.212)), 
-    url('{{ asset('design/img/class_room.png') }}'); background-size: cover;">
+    url('{{ asset('design/primary.jpg') }}'); ">
 <div class="wrapper"><br><br><br>
     <div class="row">
         <div class="col-lg-3"></div>
@@ -33,7 +33,8 @@
     <div class="block-center mt-4 wd-xl">
         <!-- START card-->
         <div class="card card-flat">
-        <div class="card-header text-center bg-dark"><a href="http://jaajaltd.com/" target="_blank">JITS - EDUCATION</a></div>
+            {{-- <img src="{{ asset('design/primary.jpg') }}" alt=""> --}}
+        <div class="card-header text-center bg-dark"><a href="http://jaajaltd.com/" target="_blank" style="color:red">JITS - EDUCATION</a></div>
         <div class="card-body">
             <p class="text-center py-2">SIGN IN TO CONTINUE.</p>
             <form class="mb-3" id="loginForm" method="post" action="{{ route('login') }}" novalidate >
@@ -67,7 +68,7 @@
                 </div>
                 <div class="clearfix">
                     {{-- <div class="float-right"><a class="text-muted" href="{{ route('password.request') }}">Forgot your password?</a></div> --}}
-                </div><button class="btn btn-block btn-primary mt-3" type="submit">Login</button>
+                </div><button class="btn btn-block btn-danger mt-3" type="submit">Login</button>
             </form>
             {{-- <p class="pt-3 text-center">Need to Signup?</p><a class="btn btn-block btn-secondary" href="{{ route('register') }}">Register Now</a> --}}
         </div>

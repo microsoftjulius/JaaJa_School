@@ -2,16 +2,20 @@
     <!-- START Top Navbar-->
     <nav class="navbar topnavbar">
         <!-- START navbar header-->
-        <div class="navbar-header"><a class="navbar-brand" href="#/">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#/">
                 <div class="brand-logo"><span style="color:white">JITS - EDUCATION</span></div>
                 <div class="brand-logo-collapsed"><img class="img-fluid" src="{{ asset('design/img/Logo.png')}}" alt="App Logo"></div>
-            </a></div><!-- END navbar header-->
+            </a>
+        </div><!-- END navbar header-->
         <!-- START Left navbar-->
         <ul class="navbar-nav mr-auto flex-row">
             <li class="nav-item">
-                <!-- Button used to collapse the left sidebar. Only visible on tablet and desktops--><a class="nav-link d-none d-md-block d-lg-block d-xl-block" href="#" data-trigger-resize="" data-toggle-state="aside-collapsed"><em class="fas fa-bars"></em></a><!-- Button to show/hide the sidebar on mobile. Visible on mobile only.--><a class="nav-link sidebar-toggle d-md-none" href="#" data-toggle-state="aside-toggled" data-no-persist="true"><em class="fas fa-bars"></em></a></li><!-- START User avatar toggle-->
+                <!-- Button used to collapse the left sidebar. Only visible on tablet and desktops-->
+                <a class="nav-link d-none d-md-block d-lg-block d-xl-block" href="#" data-trigger-resize="" data-toggle-state="aside-collapsed"><em class="fas fa-bars"></em></a><!-- Button to show/hide the sidebar on mobile. Visible on mobile only.--><a class="nav-link sidebar-toggle d-md-none" href="#" data-toggle-state="aside-toggled" data-no-persist="true"><em class="fas fa-bars"></em></a></li><!-- START User avatar toggle-->
             <li class="nav-item d-none d-md-block">
-                <!-- Button used to collapse the left sidebar. Only visible on tablet and desktops--><a class="nav-link" id="user-block-toggle" href="#user-block" data-toggle="collapse"><em class="icon-user"></em></a></li><!-- END User avatar toggle-->
+                <!-- Button used to collapse the left sidebar. Only visible on tablet and desktops-->
+                <a class="nav-link" id="user-block-toggle" href="#user-block" data-toggle="collapse"><em class="icon-user"></em></a></li><!-- END User avatar toggle-->
                 <!-- START lock screen-->
             <li class="nav-item d-none d-md-block"><a class="nav-link" href="/logout" title="Lock screen"><em class="icon-lock"></em></a></li><!-- END lock screen-->
         </ul><!-- END Left navbar-->
