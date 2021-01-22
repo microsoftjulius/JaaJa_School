@@ -31,9 +31,6 @@ class RoleController extends Controller
             return $this->createRole();
         }
     }
-    /** 
-     * This function edits role 
-    */
     /**
      * This function calls the soft deletes when deleting a role
      */
